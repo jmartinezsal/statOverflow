@@ -1,5 +1,5 @@
 <p align="center">
-  ![image](https://user-images.githubusercontent.com/68219912/162333328-476844d5-00a3-4340-a651-bb41058166ef.png)
+  <img src="https://user-images.githubusercontent.com/68219912/162333328-476844d5-00a3-4340-a651-bb41058166ef.png">
 </p>
 
 
