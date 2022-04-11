@@ -2,12 +2,13 @@ extends layout.pug
 include utils.pug
 
 block content
+  +errorSummaryList(errors)
   form(class='signup' method='post' action='/signup')
     input(type="hidden" name="_csrf" value=csrfToken)
     +field('User Name:', 'userName', user.username)
-    +field('Email:', 'email', user.email, email, 'eldenMaster@gmail.com')
+    +field('Email:', 'email', user.email, 'email', 'eldenMaster@gmail.com')
     +field('Password:', 'password', user.password, 'password')
-    +field('Confirmed Password', 'confirmedPassword',confirmedPassword)
+    +field('Confirmed Password', 'confirmedPassword',confirmedPassword, 'password')
     +field('Avatar Image Link:', 'avatarImage', user.avatarImage)
     Button Submit
     Button: a(href="/") Cancel
