@@ -3,6 +3,22 @@ html
   head
       block head
         title="Express Starter App"
-        link(rel='stylesheet' href='/stylesheets/reset.css')
+        link(rel='stylesheet' href='/stylesheets/index.css')
   body
+    nav(class="nav")
+      if locals.authenticated
+        div(class="nav__topQ") Top Questions
+        div(class="nav__user")
+          div(class="nav__user-info")
+            span #{user.username}
+            span Logout
+          div(class="nav__user-avatar")
+      else
+        div(class="nav__brand")
+          img(src="")
+        div(class="nav__cpanel")
+          a(href="/signup")
+            span Sign Up
+          a(href="/login")
+            span Login
     block content
