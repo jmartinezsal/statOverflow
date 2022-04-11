@@ -1,0 +1,7 @@
+mixin field(labelText, fieldName, fieldValue, fieldType="text", placeholder = null)
+  div(class='signup__group')
+    label(for=fieldName) #{labelText}
+    if fieldType === 'textarea'
+      textarea(id=fieldName name=fieldName rows='10') #{fieldValue}
+    else
+      input(type=fieldType id=fieldName value=fieldValue placeholder=placeholder)
