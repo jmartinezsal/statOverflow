@@ -1,3 +1,54 @@
-h1 {
-    color: #555555;
+body {
+    font-family: 'Garamond Premier Pro';
+    margin: 0;
+    background: #C2C7CB;
+    color: #011826;
+}
+
+.nav {
+    height: 8vh;
+    font-size: 24pt;
+    color: #C2C7CB;
+    background-color: #364F59;
+}
+
+.nav__cpanel {
+    float: right;
+    margin-top: -10px;
+}
+
+.nav__cpanel span {
+    padding: 20px;
+    margin-top: -20px;
+    text-decoration: none;
+}
+
+.nav__cpanel a {
+    color: #C2C7CB;
+    text-decoration: none;
+}
+
+.nav__cpanel span:hover {
+    color: #859b7b;
+}
+
+.signup {
+    margin: 20vh 35vw;
+    font-size: 16pt;
+    text-align: center;
+}
+
+.signup input {
+    width: 100%;
+}
+
+ button {
+    color: #C2C7CB;
+    width: 50%;
+    background-color: #364F59;
+}
+
+a {
+    color: #C2C7CB;
+    text-decoration: none;
 }
