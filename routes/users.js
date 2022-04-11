@@ -12,27 +12,29 @@ const signupValidators = [
   .exists({checkFalsy: true})
   .withMessage("Please provide a value for the User Name")
   .isLength({max:20})
-  .withMessage("User name must not be longer than 20 characters"),
+  .withMessage("User name must not be longer than 20 characters")
+  .matches(/^\S*$/)
+  .withMessage("User name must not contain any whitespace"),
   check('email')
   .exists({checkFalsy: true})
   .withMessage("Please provide a value for the Email")
   .isLength({max:30})
   .withMessage("Email must not be longer than 30 characters"),
-  check('psasword')
+  check('password')
   .exists({checkFalsy: true})
   .withMessage("Please provide a value for the Password")
   .isLength({max:50})
-  .withMessage("Email must not be longer than 50 characters")
+  .withMessage("Password must not be longer than 50 characters")
   .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/)
   .withMessage("Password must contain at least 1 lowercase letter, uppercase letter, number, and special character (i.e. '!@#$%^&*')"),
   check('confirmedPassword')
   .exists({checkFalsy: true})
   .withMessage("Please provide a value for the Confirmed Password")
   .isLength({max:50})
-  .withMessage("Email must not be longer than 50 characters")
+  .withMessage("Confirmed password must not be longer than 50 characters")
   .custom((value, {req}) =>{
     if(value !== req.body.password){
-      throw new Error("Confirm password doesn't match the password provided")
+      throw new Error("Confirmed password doesn't match the password provided")
     }
     return true
   }),
@@ -53,11 +55,14 @@ router.post('/signup', signupValidators, csrfProtection, asyncHandler(async(req,
     username,
     email,
     avatarImage
-  })
+  });
 
+  console.log(user)
   const validationErrors = validationResult(req);
+  console.log(validationErrors)
 
   if(validationErrors.isEmpty()){
+    console.log('here')
     const hashedPassword = await bcrypt.hash(password, 10);
     user.password = hashedPassword;
 
@@ -72,8 +77,6 @@ router.post('/signup', signupValidators, csrfProtection, asyncHandler(async(req,
   title:"Sign up",
   csrfToken: req.csrfToken()
 })
-
-
 }))
 
 module.exports = router;
