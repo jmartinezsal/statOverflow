@@ -3,6 +3,7 @@ const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 
 const { User } = require('../db/models');
+const { loginUser } = require('../auth');
 const { asyncHandler, csrfProtection } = require('./utils');
 
 const router = express.Router();
@@ -78,7 +79,43 @@ router.post('/signup', signupValidators, csrfProtection, asyncHandler(async(req,
 
 }));
 
-router.get('/login', csrfProtection, asyncHandler(async(req, res, next)=> {
+const loginValidators = [
+  check('username')
+  .exists({checkFalsy:true})
+  .withMessage("Please provide a username for the username"),
+  check('password')
+  .exists({checkFalsy:true})
+  .withMessage("Please provide a password for the password"),
+
+]
+
+router.get('/^(.*)#open-model/', csrfProtection, asyncHandler(async(req, res, next)=> {
   res.render('user-login', {title: "Login", csrfToken: req.csrfToken()})
+}));
+
+router.post('/^(.*)#open-model/',loginValidators, csrfProtection, asyncHandler(async(req, res, next)=>{
+  const { username, password} = req.body;
+  let errors = [];
+  const validationErrors = validationResult(req);
+
+  if(validationErrors.isEmpty()){
+    const user = await User.findOne({
+      where: username
+    })
+
+    if(user){
+      const isVerified = await bcrypt.compare(password, user.password)
+
+      if(isVerified){
+        loginUser(req, res, user)
+        res.redirect('/');
+        return;
+      }
+      errors.push("Username and/or password are incorrect. Try again. ");
+    }
+  }
+  validationErrors.array().map(err => errors.push(err.msg));
+
+  res.render('/login',{errors, csrfToken: req.csrfToken()})
 }));
 module.exports = router;
