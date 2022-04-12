@@ -1,0 +1,37 @@
+footer {
+    display: flex;
+    padding-left: 100px;
+}
+
+.footer {
+    width: 100%;
+    height: 12vh;
+    position: fixed;
+    bottom: 0;
+    background-color: #364F59;
+}
+
+.footer__name {
+    align-items: space-between;
+    margin: 2vh 15vw 0 0;
+    font-weight: bold;
+    margin-left: -4vw;
+    color: #C2C7CB
+}
+
+.profileImg {
+    position: sticky;
+    margin: 4vh 1vw 1vh 1vw;
+    width: 80px;
+    border-radius: 20px;
+    border: 1px solid;
+}
+
+.align__bottom {
+    display: block;
+    margin-left: 40vw;
+    margin-right: auto;
+    bottom: 130px;
+    position: fixed;
+}
+
