@@ -1,48 +1,13 @@
+@import 'navbar.css';
+@import 'signup.css';
+@import 'footer.css';
+
 body {
     font-family: 'Garamond Premier Pro';
     margin: 0;
     background: #C2C7CB;
     color: #011826;
-}
-
-.nav {
-    height: 8vh;
-    position: sticky;
-    font-size: 24pt;
-    color: #C2C7CB;
-    background-color: #364F59;
-}
-
-.nav__cpanel {
-    float: right;
-    margin-top: 30px;
-}
-
-.nav__cpanel span {
-    padding: 20px;
-    margin-top: -20px;
-    text-decoration: none;
-}
-
-.nav__cpanel a {
-    color: #C2C7CB;
-    text-decoration: none;
-}
-
-.nav__cpanel span:hover {
-    color: #7ead68;
-}
-
-.signup {
-    margin: 0 55vw 5vh 5vw;
-    font-size: 16pt;
-}
-
-.signup input {
-    background-color: #7ead68;
-    width: 100%;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-    margin-bottom: 8px;
+    overflow: hidden;
 }
 
 button {
@@ -60,38 +25,15 @@ a {
     text-decoration: none;
 }
 
-.error__container {
-    list-style: none;
-    text-align: center;
-    background: rgba(255, 0, 0, 0.3);
-    border: 1px solid;
-    margin: 2vh 15vw;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-}
-
-.error__container li {
-    list-style: none;
-    text-align: left;
+a:hover {
+    color: #7ead68;
+    text-decoration: none;
 }
 
 h1 {
     text-align: center;
     text-transform: uppercase;
     color: #364F59;
-}
-
-
-.signup__splash {
-    width: 45%;
-    float: right;
-}
-
-.footer {
-    width: 100%;
-    height: 12vh;
-    position: fixed;
-    bottom: 0;
-    background-color: #364F59;
 }
 
 table img {
@@ -107,81 +49,6 @@ table tr {
     height: 75px;
 }
 
-.nav__brand img {
-    position: absolute;
-    margin-top: auto;
-    margin-bottom: auto;
-    width: 250px;
-    margin: 10px;
-}
-
-.words {
-    padding-left: 20px;
-    padding-bottom: 10px;
-}
-
-.modal-window {
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 611px;
-    bottom: 655px;
-    z-index: 999;
-    visibility: hidden;
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.3s;
-}
-
-.modal-window:target {
-    visibility: visible;
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.modal-window>div {
-    width: 400px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 0 2em 0.5em 2em;
-    background-color: #364F59;
-    border-radius: 0 0 20px 20px;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-}
-
-.modal-window header {
-    font-weight: bold;
-}
-
-.modal-window h1 {
-    color: #C2C7CB;
-    margin: 0 0 15px;
-}
-
-.modal-close {
-    color: #C2C7CB;
-    line-height: 50px;
-    font-size: 80%;
-    position: absolute;
-    right: 0;
-    text-align: center;
-    top: 0;
-    width: 70px;
-    text-decoration: none;
-}
-
-.modal:hover {
-    color: black;
-}
-
-.nav__login input {
-    background-color: #7ead68;
-    width: 100%;
-    height: 30px;
-}
-
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
@@ -191,8 +58,12 @@ textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
-  border: 1px solid green;
-  -webkit-text-fill-color: green;
-  -webkit-box-shadow: 0 0 0px 1000px #000 inset;
-  transition: background-color 5000s ease-in-out 0s;
+    border: 1px solid green;
+    -webkit-text-fill-color: green;
+    -webkit-box-shadow: 0 0 0px 1000px #000 inset;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+li {
+    list-style: none;
 }

@@ -1,0 +1,35 @@
+.signup {
+    margin: 0 55vw 5vh 5vw;
+    font-size: 16pt;
+}
+
+.signup input {
+    background-color: #7ead68;
+    width: 100%;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    margin-bottom: 8px;
+}
+
+.signup__splash {
+    width: 45%;
+    float: right;
+}
+
+.words {
+    padding-left: 20px;
+    padding-bottom: 10px;
+}
+
+.error__container {
+    list-style: none;
+    text-align: center;
+    background: rgba(255, 0, 0, 0.3);
+    border: 1px solid;
+    margin: 2vh 15vw;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.error__container li {
+    list-style: none;
+    text-align: left;
+}
