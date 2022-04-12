@@ -52,3 +52,7 @@ a {
     color: #C2C7CB;
     text-decoration: none;
 }
+
+.hidden {
+    display: none;
+}

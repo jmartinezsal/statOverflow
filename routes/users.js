@@ -38,8 +38,6 @@ const signupValidators = [
     }
     return true
   }),
-
-
 ]
 
 /* GET user form sign up. */
@@ -77,6 +75,12 @@ router.post('/signup', signupValidators, csrfProtection, asyncHandler(async(req,
   title:"Sign up",
   csrfToken: req.csrfToken()
 })
-}))
+}));
+
+router.get('/login', csrfProtection, asyncHandler(async(req, res, next)=> {
+  res.render('user-login', {title: "Login", csrfToken: req.csrfToken()})
+}));
+
+router.post('/')
 
 module.exports = router;
