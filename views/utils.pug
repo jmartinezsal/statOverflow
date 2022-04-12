@@ -1,7 +1,15 @@
+mixin errorSummaryList(errors)
+  if errors
+    div(class="error__container")
+      p The following error(s) occurred:
+      ul
+        each error in errors
+          li= error
+
 mixin field(labelText, fieldName, fieldValue, fieldType="text", placeholder = null)
   div(class='signup__group')
     label(for=fieldName) #{labelText}
     if fieldType === 'textarea'
       textarea(id=fieldName name=fieldName rows='10') #{fieldValue}
     else
-      input(type=fieldType id=fieldName value=fieldValue placeholder=placeholder)
+      input(type=fieldType id=fieldName name=fieldName value=fieldValue placeholder=placeholder)
