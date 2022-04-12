@@ -66,6 +66,7 @@ router.post('/signup', signupValidators, csrfProtection, asyncHandler(async(req,
     user.password = hashedPassword;
 
     await user.save();
+    loginUser(req, res, user)
     res.redirect('/');
   }
   let errors = validationErrors.array().map(err => err.msg);
@@ -82,40 +83,45 @@ router.post('/signup', signupValidators, csrfProtection, asyncHandler(async(req,
 const loginValidators = [
   check('username')
   .exists({checkFalsy:true})
-  .withMessage("Please provide a username for the username"),
+  .withMessage("Please provide a username"),
   check('password')
   .exists({checkFalsy:true})
-  .withMessage("Please provide a password for the password"),
+  .withMessage("Please provide a password"),
 
 ]
 
-router.get('/^(.*)#open-model/', csrfProtection, asyncHandler(async(req, res, next)=> {
+router.get('/login', csrfProtection, asyncHandler(async(req, res, next)=> {
   res.render('user-login', {title: "Login", csrfToken: req.csrfToken()})
 }));
 
-router.post('/^(.*)#open-model/',loginValidators, csrfProtection, asyncHandler(async(req, res, next)=>{
-  const { username, password} = req.body;
+router.post('/login',loginValidators, csrfProtection, asyncHandler(async(req, res, next)=>{
+  const { username, password } = req.body;
+
   let errors = [];
   const validationErrors = validationResult(req);
 
   if(validationErrors.isEmpty()){
+
     const user = await User.findOne({
-      where: username
+      where:{
+        username
+      }
     })
 
     if(user){
-      const isVerified = await bcrypt.compare(password, user.password)
+      console.log('found user')
+      const isVerified = await bcrypt.compare(password, user.password.toString())
 
       if(isVerified){
+        console.log("verified")
         loginUser(req, res, user)
         res.redirect('/');
-        return;
       }
       errors.push("Username and/or password are incorrect. Try again. ");
     }
   }
   validationErrors.array().map(err => errors.push(err.msg));
 
-  res.render('/login',{errors, csrfToken: req.csrfToken()})
+  res.render('user-login',{errors, csrfToken: req.csrfToken()})
 }));
 module.exports = router;

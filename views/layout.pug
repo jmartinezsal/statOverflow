@@ -26,11 +26,12 @@ html
                 a(href="#" title="Close" class="modal-close") Close
                 h1 Login
                 div
-                  form(method="POST" action="/login" class="nav__login")
+                  form(method="post" action="/login" class="nav__login")
+                    input(type="hidden" name="_csrf" value=csrfToken)
                     label(for="username") Username:
-                    input(type="text" name="username")
+                    input(type="text" name="username" id="username")
                     label(for="password") Password:
-                    input(type="password" name="password")
+                    input(type="password" name="password" id="password")
                     button Submit
                     button Demo User
     block content
