@@ -3,13 +3,14 @@ const { User } = require('./db/models');
 function loginUser(req, res, user){
   req.session.auth = {
     userId: user.id
-  }
-}
+  };
+  console.log(req.session)
+};
 
 async function restoreUser(req, res, next){
 
   if(req.session.auth){
-    let userId = req.session.auth.userId;
+    let { userId }= req.session.auth;
 
     try{
       let user = await User.findByPk(userId);
