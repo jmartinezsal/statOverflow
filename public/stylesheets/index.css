@@ -7,6 +7,7 @@ body {
 
 .nav {
     height: 8vh;
+    position: sticky;
     font-size: 24pt;
     color: #C2C7CB;
     background-color: #364F59;
@@ -14,7 +15,7 @@ body {
 
 .nav__cpanel {
     float: right;
-    margin-top: -10px;
+    margin-top: 30px;
 }
 
 .nav__cpanel span {
@@ -29,23 +30,29 @@ body {
 }
 
 .nav__cpanel span:hover {
-    color: #859b7b;
+    color: #7ead68;
 }
 
 .signup {
-    margin: 20vh 35vw;
+    margin: 0 55vw 5vh 5vw;
     font-size: 16pt;
-    text-align: center;
 }
 
 .signup input {
+    background-color: #7ead68;
     width: 100%;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    margin-bottom: 8px;
 }
 
- button {
+button {
     color: #C2C7CB;
     width: 50%;
     background-color: #364F59;
+    font-size: 16pt;
+    margin: 5px 0;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    text-align: center;
 }
 
 a {
@@ -53,6 +60,3 @@ a {
     text-decoration: none;
 }
 
-.hidden {
-    display: none;
-}
