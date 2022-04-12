@@ -121,7 +121,7 @@ router.post('/login',loginValidators, csrfProtection, asyncHandler(async(req, re
     }
   }
   validationErrors.array().map(err => errors.push(err.msg));
-
+  console.log(req.body)
   res.render('user-login',{errors, csrfToken: req.csrfToken()})
 }));
 module.exports = router;
