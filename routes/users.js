@@ -90,11 +90,12 @@ const loginValidators = [
 
 ]
 
-router.get('/', csrfProtection, asyncHandler(async(req, res, next)=> {
-  res.send( { csrfToken: req.csrfToken()})
+router.get('/login', csrfProtection, asyncHandler(async(req, res, next)=> {
+  let user = User.build();
+  res.render('user-login',{user, csrfToken: req.csrfToken()})
 }));
 
-router.post('/',loginValidators, csrfProtection, asyncHandler(async(req, res, next)=>{
+router.post('/login',loginValidators, csrfProtection, asyncHandler(async(req, res, next)=>{
   const { username, password } = req.body;
 
   let errors = [];
@@ -115,13 +116,14 @@ router.post('/',loginValidators, csrfProtection, asyncHandler(async(req, res, ne
       if(isVerified){
         console.log("verified")
         loginUser(req, res, user)
-        res.redirect('/');
+        return;
+        
       }
       errors.push("Username and/or password are incorrect. Try again. ");
     }
   }
   validationErrors.array().map(err => errors.push(err.msg));
 
-  res.send({errors, csrfToken: req.csrfToken()})
+  res.render('user-login',{errors, csrfToken: req.csrfToken()})
 }));
 module.exports = router;

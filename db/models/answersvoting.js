@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const Answers_Voting = sequelize.define('AnswersVoting', {
+  const AnswersVoting = sequelize.define('AnswersVoting', {
     upvote:{
       allowNull: false,
       type: DataTypes.BOOLEAN,

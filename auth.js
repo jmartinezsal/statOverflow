@@ -4,6 +4,9 @@ function loginUser(req, res, user){
   req.session.auth = {
     userId: user.id
   };
+  req.session.save(function () {
+    res.redirect("/");
+  });
   console.log(req.session)
 };
 
@@ -18,6 +21,7 @@ async function restoreUser(req, res, next){
       if(user){
         res.locals.authenticated = true;
         res.locals.user = user;
+        console.log(res.locals)
         next();
       }
     } catch(error){
