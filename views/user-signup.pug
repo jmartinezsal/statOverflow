@@ -3,12 +3,35 @@ include utils.pug
 
 block content
   +errorSummaryList(errors)
+  div(class="signup__splash")
+    h1 Welcome
+    table
+      tr
+        td
+          img(src="/images/swords.png")
+        td.words Fight to survive and get crucial tips from players like you
+      tr
+        td
+          img(src="/images/horse.png")
+        td.words Leave a question, take an answer
+      tr
+        td
+          img(src="/images/shield.png")
+        td.words Discover your inner tarnished
+      tr
+        td
+          img(src="/images/bow.png")
+        td.words Travel these lands seeking your share of adventure
+
+    
   form(class='signup' method='post' action='/signup')
+    h1= title
     input(type="hidden" name="_csrf" value=csrfToken)
-    +field('User Name:', 'username', user.username)
+    +field('Username:', 'username', user.username)
     +field('Email:', 'email', user.email, 'email', 'eldenMaster@gmail.com')
     +field('Password:', 'password', user.password, 'password')
-    +field('Confirmed Password', 'confirmedPassword',confirmedPassword, 'password')
+    +field('Confirm Password:', 'confirmedPassword',confirmedPassword, 'password')
     +field('Avatar Image:', 'avatarImage', user.avatarImage)
     Button Submit
     Button: a(href='/') Cancel
+

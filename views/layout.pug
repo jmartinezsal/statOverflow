@@ -15,10 +15,23 @@ html
           div(class="nav__user-avatar")
       else
         div(class="nav__brand")
-          img(src="")
+          img(src="/images/nav_brand.png")
         div(class="nav__cpanel")
           a(href="/signup")
             span Sign Up
-          a(href="/login")
+          a(href="#open-modal")
             span Login
+            div(id="open-modal" class="modal-window")
+              div
+                a(href="#" title="Close" class="modal-close") Close
+                h1 Login
+                div
+                  form(method="POST" action="/login" class="nav__login")
+                    label(for="username") Username: 
+                    input(type="text" name="username")
+                    label(for="password") Password: 
+                    input(type="password" name="password")
+                    button Submit
+                    button Demo User
     block content
+  footer(class="footer") test
