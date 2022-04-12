@@ -2,7 +2,7 @@ doctype html
 html
   head
       block head
-        title="Express Starter App"
+        title= title
         link(rel='stylesheet' href='/stylesheets/index.css')
   body
     nav(class="nav")
@@ -19,7 +19,7 @@ html
         div(class="nav__cpanel")
           a(href="/signup")
             span Sign Up
-          a(href="#open-modal")
+
             span Login
             div(id="open-modal" class="modal-window")
               div
