@@ -90,11 +90,11 @@ const loginValidators = [
 
 ]
 
-router.get('/login', csrfProtection, asyncHandler(async(req, res, next)=> {
-  res.render('user-login', {title: "Login", csrfToken: req.csrfToken()})
+router.get('/', csrfProtection, asyncHandler(async(req, res, next)=> {
+  res.send( { csrfToken: req.csrfToken()})
 }));
 
-router.post('/login',loginValidators, csrfProtection, asyncHandler(async(req, res, next)=>{
+router.post('/',loginValidators, csrfProtection, asyncHandler(async(req, res, next)=>{
   const { username, password } = req.body;
 
   let errors = [];
@@ -122,6 +122,6 @@ router.post('/login',loginValidators, csrfProtection, asyncHandler(async(req, re
   }
   validationErrors.array().map(err => errors.push(err.msg));
 
-  res.render('user-login',{errors, csrfToken: req.csrfToken()})
+  res.send({errors, csrfToken: req.csrfToken()})
 }));
 module.exports = router;

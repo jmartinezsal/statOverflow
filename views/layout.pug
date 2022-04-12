@@ -1,4 +1,5 @@
 doctype html
+include utils.pug
 html
   head
     block head
@@ -27,7 +28,8 @@ html
                 a(href="#" title="Close" class="modal-close") Close
                 h1 Login
                 div
-                  form(method="post" action="/login" class="nav__login")
+                  +errorSummaryList(errors)
+                  form(method="post" action="/" class="nav__login")
                     input(type="hidden" name="_csrf" value=csrfToken)
                     label(for="username") Username:
                     input(type="text" name="username" id="username")
@@ -40,7 +42,7 @@ html
   footer(class="footer")
     table
       tr
-        td 
+        td
         img(src="/images/profile.jpg" class="profileImg" alt="Profile Image")
         td
         span(class="footer__name") Beau Ferguson
