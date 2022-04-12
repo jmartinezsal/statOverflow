@@ -19,7 +19,7 @@ html
         div(class="nav__cpanel")
           a(href="/signup")
             span Sign Up
-
+          a(href="#open-modal")
             span Login
             div(id="open-modal" class="modal-window")
               div
@@ -27,9 +27,9 @@ html
                 h1 Login
                 div
                   form(method="POST" action="/login" class="nav__login")
-                    label(for="username") Username: 
+                    label(for="username") Username:
                     input(type="text" name="username")
-                    label(for="password") Password: 
+                    label(for="password") Password:
                     input(type="password" name="password")
                     button Submit
                     button Demo User
