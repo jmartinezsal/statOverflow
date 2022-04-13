@@ -56,12 +56,12 @@ router.post('/signup', signupValidators, csrfProtection, asyncHandler(async(req,
     avatarImage
   });
 
-  console.log(user)
+  // console.log(user)
   const validationErrors = validationResult(req);
   console.log(validationErrors)
 
   if(validationErrors.isEmpty()){
-    console.log('here')
+    // console.log('here')
     const hashedPassword = await bcrypt.hash(password, 10);
     user.password = hashedPassword;
 
@@ -110,14 +110,14 @@ router.post('/login',loginValidators, csrfProtection, asyncHandler(async(req, re
     })
 
     if(user){
-      console.log('found user')
+
       let isVerified;
       if(user.id > 15){
         isVerified = await bcrypt.compare(password, user.password.toString())
       } else {
         isVerified = password === user.password.toString();
       }
-     
+
       if(isVerified ){
         console.log("verified")
         loginUser(req, res, user)

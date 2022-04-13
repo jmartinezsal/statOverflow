@@ -1,10 +1,9 @@
 const express = require('express');
-const { user } = require('pg/lib/defaults');
-const { route } = require('.');
-const router = express.Router();
-const {Question, Answer}  = require("../db/models")
-const { asyncHandler, csrfProtection } = require('./utils');
 const { check, validationResult } = require('express-validator');
+
+const router = express.Router();
+const {Question, Answer, User}  = require("../db/models")
+const { asyncHandler, csrfProtection } = require('./utils');
 
 
 const addQuestionValidators = [
@@ -24,20 +23,18 @@ router.get("/new-question", csrfProtection, asyncHandler (async(req,res) => {
 }))
 
 //route to show all the questions on a page
-router.get("/", asyncHandler( async(req,res) => {
-  const questions = await Question.findAll()
-  console.log(questions)
-  res.render("questions_list", {questions})
-}))
+router.get("/", asyncHandler(async(req, res, next) => {
+  const questions = await Question.findAll();
 
+  res.render("index", {questions, title: "Top Questions" })
+}))
 
 //route to render a question by id along with the answers
 router.get('/:id(\\d+)', asyncHandler( async(req,res,next) => {
   const question = await Question.findByPk(req.params.id, {
     include: Answer
   })
-  
-  res.render("questionById", {question})
+
 }))
 
 
@@ -46,8 +43,7 @@ router.get('/:id(\\d+)', asyncHandler( async(req,res,next) => {
 //route as logged in user to submit the new question
 router.post("/new-question", addQuestionValidators, csrfProtection, asyncHandler (async(req,res, next) => {
   const {header, content} = req.body
-  
-  const question = await Question.build({
+
     header,
     content
   })
@@ -81,7 +77,7 @@ router.put('/:id(\\d+)', addQuestionValidators, csrfProtection, asyncHandler(asy
   }
 
   let errors = validationErrors.array().map(err => err.msg);
-  
+
   res.render("question-form", {errors, csrfToken: req.csrfToken(), question})
 }))
 

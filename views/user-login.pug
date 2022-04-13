@@ -2,6 +2,12 @@ extends layout.pug
 include utils.pug
 
 block content
+  +errorSummaryList(errors)
   form(class='login' method='post' action='/login')
-    h1= title
-    input(type="hidden" name="_csrf" value=csrfToken)
+      h1= title
+      input(type="hidden" name="_csrf" value=csrfToken)
+      +field('Username:', 'username', username)
+      +field('Password', 'password', password, 'password')
+      Button Submit
+      Button: a(id='demo__user') Demo User
+      Button: a(href='/') Cancel
