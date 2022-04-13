@@ -43,6 +43,26 @@
     height: 30px;
 }
 
+.nav__user-avatar img {
+    width: 70px;
+    border: 1px solid;
+    float: right;
+    margin-top: -65px;
+    margin-right: 20px;
+    border-radius: 20px;
+}
+
+.nav__user-info {
+    margin-right: 200px;
+    margin-top: 15px;
+    font-size: 16pt;
+}
+
+.nav__user {
+    line-height: 30px;
+    float: right;
+}
+
 .modal-window {
     position: fixed;
     top: 0;

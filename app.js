@@ -35,10 +35,9 @@ app.use(
   })
   );
 
-  // app.use(restoreUser);
-  // create Session table if it doesn't already exist
-  store.sync();
 
+  store.sync();
+  app.use(restoreUser);
 app.use('/', indexRouter);
 app.use(usersRouter);
 app.use('/questions', questionsRouter);

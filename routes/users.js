@@ -91,7 +91,8 @@ const loginValidators = [
 ]
 
 router.get('/login', csrfProtection, asyncHandler(async(req, res, next)=> {
-  res.render('user-login', {title: "Login", csrfToken: req.csrfToken()})
+  let user = User.build();
+  res.render('user-login',{user, csrfToken: req.csrfToken()})
 }));
 
 router.post('/login',loginValidators, csrfProtection, asyncHandler(async(req, res, next)=>{
@@ -115,7 +116,8 @@ router.post('/login',loginValidators, csrfProtection, asyncHandler(async(req, re
       if(isVerified){
         console.log("verified")
         loginUser(req, res, user)
-        res.redirect('/');
+        return;
+        
       }
       errors.push("Username and/or password are incorrect. Try again. ");
     }

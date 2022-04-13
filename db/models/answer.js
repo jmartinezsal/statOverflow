@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     Answer.belongsTo(models.User, {foreignKey: 'userId'});
     Answer.belongsTo(models.Question, {foreignKey:'questionId'});
-    Answer.belongsTo(models.Answers_Voting, {foreignKey:'answerId'})
+    Answer.belongsTo(models.AnswersVoting, {foreignKey:'answerId'})
 
   };
   return Answer;
