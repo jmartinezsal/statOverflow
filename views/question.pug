@@ -6,6 +6,7 @@ block content
             td.username #{question.User.username}
             td
             h1= title
+            
         tr
             td 
                 div
@@ -16,6 +17,11 @@ block content
                 a(href="#" class="button") Delete
                 td.text #{question.content}
             td
+            tr
+                td
+                td
+                td
+                    a(href=`/question/${question.id}/answer/add` class="button") Add an Answer
         each answer in answers
             tr
                 td
@@ -31,4 +37,5 @@ block content
                     a(href="#" class="button") Edit
                     br
                     a(href="#" class="button") Delete
+
         

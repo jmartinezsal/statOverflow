@@ -26,38 +26,46 @@ router.get('/question/:id(\\d+)', asyncHandler(async(req, res) => {
     })
 }));
 
-// router.get('/question/:id(\\d+)/answer/add', csrfProtection, (req, res) => {
-//     res.render('answer-add', {
-//         title: 'Add Answer',
-//         csrfToken: csrfToken()
-//     });
-// });
+router.get('/question/:id(\\d+)/answer/add', asyncHandler(async(req, res) => {
+    const question = await Question.findByPk(req.params.id, {
+        include: User
+    });
+    const answers = await Answer.findAll({ where: { questionId: req.params.id },
+    include: User });
 
-// router.post('/question/:id(\\d+)/answer/add', requireAuth, csrfProtection, answerValidators, asyncHandler(async(req, res) => {
-//     const { answer } = req.body;
+    res.render('answer-add', {
+        title: question.header,
+        question,
+        answers,
+        csrfToken: req.csrfToken()
+    });
+}));
 
-//     const newAnswer = Answer.build({
-//         userId: res.locals.user.id,
-//         questionId: parseInt(req.params.id, 10),
-//         answer
-//     });
+router.post('/question/:id(\\d+)/answer/add', requireAuth, csrfProtection, answerValidators, asyncHandler(async(req, res) => {
+    const { answer } = req.body;
 
-//     const validatorErrors = validationResult(req);
+    const newAnswer = Answer.build({
+        userId: res.locals.user.id,
+        questionId: req.params.id,
+        answer
+    });
 
-//     if (validatorErrors.isEmpty()) {
-//         await newAnswer.save();
-//         res.redirect(`/question/${parseInt(req.params.id, 10)}`)
-//     } else {
-//         const errors = validatorErrors(req);
-//         res.render('answer-add', {
-//             title: 'Add Answer',
-//             answer,
-//             errors,
-//             csrfToken: req.csrfToken()
-//         });
-//     }
+    const validatorErrors = validationResult(req);
 
-// }));
+    if (validatorErrors.isEmpty()) {
+        await newAnswer.save();
+        res.redirect(`/question/${parseInt(req.params.id, 10)}`)
+    } else {
+        const errors = validatorErrors(req);
+        res.render('answer-add', {
+            title: 'Add Answer',
+            answer,
+            errors,
+            csrfToken: req.csrfToken()
+        });
+    }
+
+}));
 
 // router.get('/question/:id(\\d+)/answer/edit/:id(\\d+)', requireAuth, csrfProtection, asyncHandler(async(req, res) => {
 //     const answerId = parseInt(req.params.id, 10);

@@ -1,0 +1,56 @@
+extends question.pug
+
+block content
+    table.question
+        tr
+            td.username #{question.User.username}
+            td
+            h1= title
+            
+        tr
+            td 
+                div
+                img(src=question.User.avatarImage class='image')
+            td
+                a(href="#" class="button") Edit
+                br
+                a(href="#" class="button") Delete
+                td.text #{question.content}
+            td
+            tr
+                td
+                td
+                td
+                    a(href=`/question/${question.id}/answer/add` class="button") Add an Answer
+        each answer in answers
+            tr
+                td
+                td.username= answer.User.username
+                
+            tr
+                td todo: votes
+                td
+                    div
+                    img(src=answer.User.avatarImage class="image")
+                td.text= answer.answer
+                td 
+                    a(href="#" class="button") Edit
+                    br
+                    a(href="#" class="button") Delete
+            tr
+                td
+                td
+
+            tr
+                td
+                td
+                    div
+                    img(src=answer.User.avatarImage class="image")
+                td
+                    form(method="post" action="/answer/add")
+                        input(type="hidden" name="_csrf" value=csrfToken)
+                        textarea(name="answer" id="answer")
+                    td
+                        a(href="#" class="button") Accept
+                        br
+                        a(href=`/question/${question.id}` class="button") Cancel

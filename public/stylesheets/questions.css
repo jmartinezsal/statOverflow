@@ -22,3 +22,10 @@
     font-size: 16pt;
     padding: 20px
 }
+
+#answer {
+    width: 80%;
+    margin-left: 10%;
+    height: 80px;
+    background-color:  #7ead68;
+}
