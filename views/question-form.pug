@@ -5,6 +5,7 @@ block content
   +errorSummaryList(errors)
   form(method='post' action='/new-question')
     input(type="hidden" name="_csrf" value=csrfToken)
+    input(type='hidden' name='userId' value=locals.user.id)
     div(style={margin: "50px"})
       label(for="header") Header
       input(type="text" name="header" id="header" value=question.header)

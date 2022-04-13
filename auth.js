@@ -28,9 +28,10 @@ async function restoreUser(req, res, next){
       res.locals.authenticated = false;
       next(error);
     }
+  } else{
+    res.locals.authenticated = false;
+    next();
   }
-  res.locals.authenticated = false;
-  next();
 }
 
 function logoutUser(req,res){
