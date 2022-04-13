@@ -7,7 +7,7 @@ body {
     margin: 0;
     background: #C2C7CB;
     color: #011826;
-    overflow: hidden;
+    overflow-y: scroll;
 }
 
 button {

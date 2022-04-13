@@ -32,30 +32,35 @@ router.get("/", asyncHandler( async(req,res) => {
 
 
 //route to render a question by id along with the answers
-router.get('/:id(\\d+)', asyncHandler( async(req,res) => {
+router.get('/:id(\\d+)', asyncHandler( async(req,res,next) => {
   const question = await Question.findByPk(req.params.id, {
     include: Answer
   })
   
-  res.render("specific-question", {question})
+  res.render("questionById", {question})
 }))
 
 
 //////////////////////////////// As a logged in user
 
 //route as logged in user to submit the new question
-router.post("/new-question", addQuestionValidators, csrfProtection, asyncHandler (async(req,res) => {
+router.post("/new-question", addQuestionValidators, csrfProtection, asyncHandler (async(req,res, next) => {
   const {header, content} = req.body
   
-  const question = await Question.create({
+  const question = await Question.build({
     header,
     content
   })
+  console.log(question)
   let validating = validationResult(req)
-  if (validating.isEmpty) {
+  console.log("these are the errors", validating)
+  if (validating.isEmpty()) {
+    console.log("question has been validated")
+    await question.save()
     res.redirect(`/questions/${question.id}`)
+    
   }
-  let errors = validationErrors.array().map(err => err.msg);
+  let errors = validating.array().map(err => err.msg);
   res.render("question-form", {errors, csrfToken: req.csrfToken(), question})
 
 }))
