@@ -53,10 +53,11 @@ router.post("/new-question", addQuestionValidators, csrfProtection, asyncHandler
   })
   let validating = validationResult(req)
   if (validating.isEmpty) {
-    res.render("question-form", {csrfToken: req.csrfToken(), question})
-    // res.redirect(`/questions/${question.id}`)
+    res.redirect(`/questions/${question.id}`)
   }
-  //else statement or error handling
+  let errors = validationErrors.array().map(err => err.msg);
+  res.render("question-form", {errors, csrfToken: req.csrfToken(), question})
+
 }))
 
 //route as logged in user to edit a specific question
@@ -66,19 +67,24 @@ router.put('/:id(\\d+)', addQuestionValidators, csrfProtection, asyncHandler(asy
   const question = await Question.findByPk(req.params.id)
 
   if (validating.isEmpty) {
+
   question.header = req.question.header
   question.content = req.question.content
+
   await question.save();
-  }
-  
   res.redirect(`/questions/${question.id}`)
+  }
+
+  let errors = validationErrors.array().map(err => err.msg);
+  
+  res.render("question-form", {errors, csrfToken: req.csrfToken(), question})
 }))
 
 
 //route for a logged in user to delete a question
 router.delete('/:id(\\d+)', csrfProtection, asyncHandler(async(req,res) => {
   const question = await Question.findByPk(req.params.id)
-  question.destroy()
+  await question.destroy()
   res.send("question has been deleted")
 }))
 module.exports = router;
