@@ -111,13 +111,18 @@ router.post('/login',loginValidators, csrfProtection, asyncHandler(async(req, re
 
     if(user){
       console.log('found user')
-      const isVerified = await bcrypt.compare(password, user.password.toString())
-
-      if(isVerified){
+      let isVerified;
+      if(user.id > 15){
+        isVerified = await bcrypt.compare(password, user.password.toString())
+      } else {
+        isVerified = password === user.password.toString();
+      }
+     
+      if(isVerified ){
         console.log("verified")
         loginUser(req, res, user)
         return;
-        
+
       }
       errors.push("Username and/or password are incorrect. Try again. ");
     }
