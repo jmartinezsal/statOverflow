@@ -1,11 +1,18 @@
 extends layout
 
-append head
+block head
   //- add page specific styles by appending to the head
   link(rel="stylesheet" href="/stylesheets/index.css")
   //- add page specific js
   script(src="/javascripts/index.js" type="module" defer)
-
+  title= title
 block content
   img(src="/images/title.png" class="title__image")
-  p Welcome to your Project Skeleton
+  h1 Top Questions
+  if questions
+    each question in questions
+      div(class="question__container")
+        h3= question.header
+          p= question.content
+          a(href='/questions/#{questions.id}') Delete
+          a(href='/questions/#{questions.id}') Edit
