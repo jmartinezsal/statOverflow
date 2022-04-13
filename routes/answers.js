@@ -13,13 +13,12 @@ const answerValidators = [
 ];
 
 router.get('/question/:id(\\d+)', asyncHandler(async(req, res) => {
-    
     const question = await Question.findByPk(req.params.id, {
         include: User
     });
     const answers = await Answer.findAll({ where: { questionId: req.params.id },
     include: User });
-
+        
     res.render('question', {
         title: question.header,
         question,

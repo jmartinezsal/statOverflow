@@ -7,7 +7,7 @@ function loginUser(req, res, user){
   req.session.save(function () {
     res.redirect("/");
   });
-  console.log(req.session)
+  console.log(req.session.auth)
 };
 
 async function restoreUser(req, res, next){
