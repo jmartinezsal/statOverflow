@@ -1,0 +1,8 @@
+extends layout.pug 
+
+block content
+  each question in questions
+    div
+      h2(id=`${question.id}-header`)= question.header
+      p(id=`${question.id}-content`)= question.content
+      
