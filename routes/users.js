@@ -110,7 +110,7 @@ router.post('/login',loginValidators, csrfProtection, asyncHandler(async(req, re
     })
 
     if(user){
-      // console.log('found user')
+
       let isVerified;
       if(user.id > 15){
         isVerified = await bcrypt.compare(password, user.password.toString())
