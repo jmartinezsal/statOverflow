@@ -1,11 +1,13 @@
-extends layout
-
-  form
+extends layout.pug
+block content
+  form(class='' method='post' action='/questions')
+    input(type="hidden" name="_csrf" value=csrfToken)
     div 
       label Header 
-      input(type="text" name="header")
+      input(type="text" name="header" id="header")
     div 
       label Content
-      input(type="textarea" name="content")
+      textarea(type="textarea" rows="20" cols="20" name="content" id="content")
     div 
       button(type="submit") Submit
+      
