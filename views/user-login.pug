@@ -5,7 +5,3 @@ block content
   form(class='login' method='post' action='/login')
     h1= title
     input(type="hidden" name="_csrf" value=csrfToken)
-    +field('Username:', 'username', username)
-    +field('Password', 'password', password, 'password')
-    Button Submit
-    Button: a(href='/') Cancel
