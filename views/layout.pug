@@ -5,6 +5,7 @@ html
     block head
       title= title
       link(rel='stylesheet' href='/stylesheets/index.css')
+      script(src="/javascripts/index.js" type="module" defer)
   body
     nav(class="nav")
       div(class="nav__brand")
@@ -28,20 +29,20 @@ html
             span Sign Up
           a(href="/login")
             span Login
-            div(id="open-modal" class="modal-window")
-              div
-                a(href="#" title="Close" class="modal-close") Close
-                h1 Login
-                div
-                  +errorSummaryList(errors)
-                  form(method="post" action="/get" class="nav__login")
-                    input(type="hidden" name="_csrf" value=csrfToken)
-                    label(for="username") Username:
-                    input(type="text" name="username" id="username")
-                    label(for="password") Password:
-                    input(type="password" name="password" id="password")
-                    button Submit
-                    button Demo User
+            //- div(id="open-modal" class="modal-window")
+            //-   div
+            //-     a(href="#" title="Close" class="modal-close") Close
+            //-     h1 Login
+            //-     div
+            //-       +errorSummaryList(errors)
+            //-       form(method="post" action="/get" class="nav__login")
+            //-         input(type="hidden" name="_csrf" value=csrfToken)
+            //-         label(for="username") Username:
+            //-         input(type="text" name="username" id="username")
+            //-         label(for="password") Password:
+            //-         input(type="password" name="password" id="password")
+            //-         button Submit
+            //-         button Demo User
     block content
   h2(class="align__bottom") Meet the Developers
   footer(class="footer")
