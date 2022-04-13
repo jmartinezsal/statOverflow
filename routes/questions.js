@@ -14,77 +14,75 @@ const addQuestionValidators = [
   .withMessage("your question topic can't be more than 255 characters"),
   check('content')
   .exists({checkFalsy: true})
-  .withMessage("Please provide a question")
+  .withMessage("Please provide content for your question")
 ]
 
-//route to render the new question form page
-router.get("/new-question", csrfProtection, asyncHandler (async(req,res) => {
-  res.render("question-form", {csrfToken: req.csrfToken()})
-}))
 
 //route to show all the questions on a page
 router.get("/", asyncHandler(async(req, res, next) => {
-  const questions = await Question.findAll();
+  const questions = await Question.findAll({
+    include: User
+  });
 
   res.render("index", {questions, title: "Top Questions" })
 }))
 
-//route to render a question by id along with the answers
-router.get('/:id(\\d+)', asyncHandler( async(req,res,next) => {
-  const question = await Question.findByPk(req.params.id, {
-    include: Answer
-  })
 
+//********** As a logged in user ************
+
+//route to render the new question form page
+router.get("/new-question", csrfProtection, asyncHandler (async(req, res, next) => {
+  const question = await Question.build();
+  res.render("question-form", {question, csrfToken: req.csrfToken()})
 }))
-
-
-//////////////////////////////// As a logged in user
 
 //route as logged in user to submit the new question
 router.post("/new-question", addQuestionValidators, csrfProtection, asyncHandler (async(req,res, next) => {
   const {header, content} = req.body
 
+  const question = await Question.build({
     header,
     content
   })
-  console.log(question)
-  let validating = validationResult(req)
-  console.log("these are the errors", validating)
+
+  let validating = validationResult(req);
+
   if (validating.isEmpty()) {
     console.log("question has been validated")
     await question.save()
     res.redirect(`/questions/${question.id}`)
-    
+
   }
   let errors = validating.array().map(err => err.msg);
-  res.render("question-form", {errors, csrfToken: req.csrfToken(), question})
+  res.render("question-form", {errors, question, csrfToken: req.csrfToken()})
 
 }))
 
 //route as logged in user to edit a specific question
-router.put('/:id(\\d+)', addQuestionValidators, csrfProtection, asyncHandler(async(req, res) => {
+router.put('/question/:id(\\d+)', addQuestionValidators, csrfProtection, asyncHandler(async(req, res) => {
   const {header, content} = req.body
-  let validating = validationResult(req)
-  const question = await Question.findByPk(req.params.id)
+  let validating = validationResult(req);
 
-  if (validating.isEmpty) {
+  const question = await Question.findByPk(req.params.id);
 
-  question.header = req.question.header
-  question.content = req.question.content
+  if (validating.isEmpty()) {
+
+  question.header = header
+  question.content = content
 
   await question.save();
   res.redirect(`/questions/${question.id}`)
   }
 
-  let errors = validationErrors.array().map(err => err.msg);
+  let errors = validating.array().map(err => err.msg);
 
-  res.render("question-form", {errors, csrfToken: req.csrfToken(), question})
+  res.render("question-form", {errors, question, csrfToken: req.csrfToken()})
 }))
 
 
 //route for a logged in user to delete a question
-router.delete('/:id(\\d+)', csrfProtection, asyncHandler(async(req,res) => {
-  const question = await Question.findByPk(req.params.id)
+router.delete('/question/:id(\\d+)', csrfProtection, asyncHandler(async(req,res) => {
+  const question = await Question.findByPk(req.params.id);
   await question.destroy()
   res.send("question has been deleted")
 }))

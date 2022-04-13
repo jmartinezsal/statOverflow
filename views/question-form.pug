@@ -1,14 +1,15 @@
 extends layout.pug
 include utils.pug
+
 block content
   +errorSummaryList(errors)
-  form(method='post' action='/questions/new-question')
+  form(method='post' action='/new-question')
     input(type="hidden" name="_csrf" value=csrfToken)
     div(style={margin: "50px"})
-      label(for="header") Header 
-      input(type="text" name="header" id="header")
-    div 
+      label(for="header") Header
+      input(type="text" name="header" id="header" value=question.header)
+    div
       label(for="content") Content
-      textarea(type="textarea" rows="20" cols="20" name="content" id="content")
-    div 
+      textarea(type="textarea" rows="20" cols="20" name="content" id="content" value=question.content)
+    div
       button(type="submit") Submit

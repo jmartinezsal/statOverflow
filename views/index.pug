@@ -1,4 +1,4 @@
-extends layout
+extends layout.pug
 
 block head
   //- add page specific styles by appending to the head
@@ -11,8 +11,11 @@ block content
   h1 Top Questions
   if questions
     each question in questions
+      div(class="user__container")
+        bold= question.User.username
+        img(src=question.User.avatarImage)
       div(class="question__container")
         h3= question.header
-          p= question.content
+        p= question.content
           a(href='/questions/#{questions.id}') Delete
           a(href='/questions/#{questions.id}') Edit

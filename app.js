@@ -36,9 +36,9 @@ app.use(
   );
 
 
-  store.sync();
-  app.use(restoreUser);
-  app.use('/questions',questionsRouter);
+store.sync();
+app.use(restoreUser);
+app.use(questionsRouter);
 app.use('/', indexRouter);
 app.use(usersRouter);
 
