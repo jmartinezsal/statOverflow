@@ -59,7 +59,7 @@ router.post("/new-question", addQuestionValidators, csrfProtection, asyncHandler
 }))
 
 //route as logged in user to edit a specific question
-router.put('/question/:id(\\d+)', addQuestionValidators, csrfProtection, asyncHandler(async(req, res) => {
+router.put('/question/edit/:id(\\d+)', addQuestionValidators, csrfProtection, asyncHandler(async(req, res) => {
   const {header, content} = req.body
   let validating = validationResult(req);
 
@@ -81,7 +81,7 @@ router.put('/question/:id(\\d+)', addQuestionValidators, csrfProtection, asyncHa
 
 
 //route for a logged in user to delete a question
-router.delete('/question/:id(\\d+)', csrfProtection, asyncHandler(async(req,res) => {
+router.delete('/question/delete/:id(\\d+)', csrfProtection, asyncHandler(async(req,res) => {
   const question = await Question.findByPk(req.params.id);
   await question.destroy()
   res.send("question has been deleted")
