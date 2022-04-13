@@ -1,6 +1,7 @@
 @import 'navbar.css';
 @import 'signup.css';
 @import 'footer.css';
+@import 'questions.css';
 
 body {
     font-family: 'Garamond Premier Pro';
@@ -10,14 +11,14 @@ body {
     overflow: hidden;
 }
 
-button {
-    color: #C2C7CB;
-    width: 50%;
+.button {
+    display: block;
     background-color: #364F59;
-    font-size: 16pt;
-    margin: 5px 0;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
     text-align: center;
+    padding: 5px 10px;
+    margin: 0 10px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 a {
