@@ -1,0 +1,34 @@
+extends layout.pug
+
+block content
+    table.question
+        tr
+            td.username #{question.User.username}
+            td
+            h1= title
+        tr
+            td 
+                div
+                img(src=question.User.avatarImage class='image')
+            td
+                a(href="#" class="button") Edit
+                br
+                a(href="#" class="button") Delete
+                td.text #{question.content}
+            td
+        each answer in answers
+            tr
+                td
+                td.username= answer.User.username
+                
+            tr
+                td todo: votes
+                td
+                    div
+                    img(src=answer.User.avatarImage class="image answerImg")
+                td.text= answer.answer
+                td 
+                    a(href="#" class="button") Edit
+                    br
+                    a(href="#" class="button") Delete
+        

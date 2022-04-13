@@ -1,0 +1,24 @@
+.question {
+    display: block;
+    margin: 10px 30px;
+}
+
+.image {
+    width: 100px;
+    border: 1px solid;
+    border-radius: 20px;
+}
+
+.voteColumn {
+    width: 5px;
+}
+
+.username {
+    font-weight: bold;
+    text-align: center;
+}
+
+.text {
+    font-size: 16pt;
+    padding: 20px
+}
