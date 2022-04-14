@@ -106,13 +106,13 @@ router.post('/question/:id(\\d+)/answer/edit/:id(\\d+)', requireAuth, csrfProtec
     }
 }));
 
-router.delete('/question/:id(\\d+)/answer/delete/:id(\\d+)', requireAuth, csrfProtection, asyncHandler(async(req, res) => {
+router.delete('/question/:id(\\d+)/answer/delete/:id(\\d+)', requireAuth,  asyncHandler(async(req, res) => {
     const answer = await Answer.findByPk(req.params.id);
 
     checkPermissions(answer, res.locals.user);
 
     await answer.destroy();
-    res.redirect(`/question/${answer.questionId}`);
+    res.send(`The answer has been deleted`);
 }));
 
 module.exports = router;

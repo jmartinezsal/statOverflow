@@ -19,19 +19,22 @@ block content
                 td
                 td
                     div.center
-                        a(href=`/question/${question.id}/answer/add` class="button") Add Answer
+
         each answer in answers
+            script(src="/javascripts/answers.js")
             tr
+            
                 td
                 td.username= answer.User.username
 
             tr
                 td todo: votes
                 td
-                    div
+                
+                
                     img(src=answer.User.avatarImage class="image answerImg")
                 td.text= answer.answer
-                td
+
 
             if(userId === answer.User.id)
                 a(href="#" class="button") Edit
