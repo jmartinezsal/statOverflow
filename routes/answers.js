@@ -2,7 +2,7 @@ const express = require('express');
 const {Question, Answer, User}  = require("../db/models")
 const { asyncHandler, csrfProtection, checkPermissions } = require('./utils');
 const { requireAuth } = require('../auth');
-const { check } = require('express-validator');
+const { check, validationResult } = require('express-validator');
 
 const router = express.Router();
 
@@ -28,84 +28,91 @@ router.get('/question/:id(\\d+)', asyncHandler(async(req, res) => {
     })
 }));
 
-// router.get('/question/:id(\\d+)/answer/add', csrfProtection, (req, res) => {
-//     res.render('answer-add', {
-//         title: 'Add Answer',
-//         csrfToken: csrfToken()
-//     });
-// });
+router.get('/question/:id(\\d+)/answer/add', csrfProtection, asyncHandler(async(req, res) => {
+    const question = await Question.findByPk(req.params.id, {
+        include: User
+    });
+    const answers = await Answer.findAll({ where: { questionId: req.params.id },
+    include: User });
 
-// router.post('/question/:id(\\d+)/answer/add', requireAuth, csrfProtection, answerValidators, asyncHandler(async(req, res) => {
-//     const { answer } = req.body;
+    res.render('answer-add', {
+        title: question.header,
+        question,
+        answers,
+        csrfToken: req.csrfToken()
+    });
+}));
 
-//     const newAnswer = Answer.build({
-//         userId: res.locals.user.id,
-//         questionId: parseInt(req.params.id, 10),
-//         answer
-//     });
+router.post('/question/:id(\\d+)/answer/add', requireAuth, csrfProtection, answerValidators, asyncHandler(async(req, res) => {
+    const { answer } = req.body;
 
-//     const validatorErrors = validationResult(req);
+    const newAnswer = Answer.build({
+        userId: res.locals.user.id,
+        questionId: req.params.id,
+        answer
+    });
 
-//     if (validatorErrors.isEmpty()) {
-//         await newAnswer.save();
-//         res.redirect(`/question/${parseInt(req.params.id, 10)}`)
-//     } else {
-//         const errors = validatorErrors(req);
-//         res.render('answer-add', {
-//             title: 'Add Answer',
-//             answer,
-//             errors,
-//             csrfToken: req.csrfToken()
-//         });
-//     }
+    const validatorErrors = validationResult(req);
 
-// }));
+    if (validatorErrors.isEmpty()) {
+        await newAnswer.save();
+        res.redirect(`/question/${parseInt(req.params.id, 10)}`)
+    } else {
+        const errors = validatorErrors(req);
+        res.render('answer-add', {
+            title: 'Add Answer',
+            answer,
+            submit,
+            errors,
+            csrfToken: req.csrfToken()            
+        });
+    }
 
-// router.get('/question/:id(\\d+)/answer/edit/:id(\\d+)', requireAuth, csrfProtection, asyncHandler(async(req, res) => {
-//     const answerId = parseInt(req.params.id, 10);
-//     const answer = await Answer.findByPk(answerId);
+}));
 
-//     checkPermissions(answer, res.locals.user);
+router.get('/question/:id(\\d+)/answer/edit/:id(\\d+)', requireAuth, csrfProtection, asyncHandler(async(req, res) => {
+    const answer = await Answer.findByPk(req.params.id);
 
-//     res.render('answer-edit', {
-//         title: 'Edit Answer',
-//         answer,
-//         csrfToken: req.csrfToken()
-//     });
-// }));
+    checkPermissions(answer, res.locals.user);
 
-// router.post('/question/:id(\\d+)/answer/edit/:id(\\d+)', requireAuth, csrfProtection, answerValidators, asyncHandler(async(req, res) => {
-//     const answerId = parseInt(req.params.id, 10);
-//     const answerToUpdate = await Answer.findByPk(answerId);
+    res.render('answer-edit', {
+        title: 'Edit Answer',
+        answer,
+        csrfToken: req.csrfToken()
+    });
+}));
 
-//     checkPermissions(answerToUpdate, res.locals.user);
+router.post('/question/:id(\\d+)/answer/edit/:id(\\d+)', requireAuth, csrfProtection, answerValidators, asyncHandler(async(req, res) => {
+    const answerId = parseInt(req.params.id, 10);
+    const answerToUpdate = await Answer.findByPk(answerId);
 
-//     const answer = req.body.answer;
+    checkPermissions(answerToUpdate, res.locals.user);
 
-//     const validatorErrors = validationResult(req);
+    const answer = req.body.answer;
 
-//     if (validatorErrors.isEmpty()) {
-//         await answerToUpdate.update(answer);
-//         res.redirect(`/question/${answer.questionId}`)
-//     } else {
-//         const errors = validatorErrors.array().map((error) => error.msg);
-//         res.render('answer-edit', {
-//             title: 'Edit Answer',
-//             answer: answer,
-//             errors,
-//             csrfToken: req.csrfToken()
-//         });
-//     }
-// }));
+    const validatorErrors = validationResult(req);
 
-// router.post('/question/:id(\\d+)/answer/delete/:id(\\d+)', requireAuth, csrfProtection, asyncHandler(async(req, res) => {
-//     const answerId = parseInt(req.params.id, 10);
-//     const answer = await Answer.findByPk(answerId);
+    if (validatorErrors.isEmpty()) {
+        await answerToUpdate.update(answer);
+        res.redirect(`/question/${answer.questionId}`)
+    } else {
+        const errors = validatorErrors.array().map((error) => error.msg);
+        res.render('answer-edit', {
+            title: 'Edit Answer',
+            answer: answer,
+            errors,
+            csrfToken: req.csrfToken()
+        });
+    }
+}));
 
-//     checkPermissions(answer, res.locals.user);
+router.delete('/question/:id(\\d+)/answer/delete/:id(\\d+)', requireAuth, csrfProtection, asyncHandler(async(req, res) => {
+    const answer = await Answer.findByPk(req.params.id);
 
-//     await answer.destroy();
-//     res.redirect(`/question/${answer.questionId}`);
-// }));
+    checkPermissions(answer, res.locals.user);
+
+    await answer.destroy();
+    res.redirect(`/question/${answer.questionId}`);
+}));
 
 module.exports = router;

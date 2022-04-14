@@ -6,21 +6,20 @@ block content
             td.username #{question.User.username}
             td
             h1= title
+
         tr
             td
                 div
                 img(src=question.User.avatarImage class='image')
             td
                 td.text #{question.content}
-
-    if(userId === question.User.id)
-        a(href="#" class="button") Edit
-        br
-        a(href="#" class="button") Delete
-        form(class="hidden" id=`edit-form-${question}`)
-            +field('header', 'header', question.header )
-            +field('content', 'content', question.content, 'textarea')
-
+            td
+            tr
+                td
+                td
+                td
+                    div.center
+                        a(href=`/question/${question.id}/answer/add` class="button") Add Answer
         each answer in answers
             tr
                 td

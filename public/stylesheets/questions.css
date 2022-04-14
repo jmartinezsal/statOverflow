@@ -20,5 +20,13 @@
 
 .text {
     font-size: 16pt;
-    padding: 20px
+    padding: 20px;
+    color: #364F59;
+}
+
+#answer {
+    width: 80%;
+    margin-left: 10%;
+    height: 80px;
+    background-color:  #7ead68;
 }
