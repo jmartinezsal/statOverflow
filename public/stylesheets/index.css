@@ -80,6 +80,10 @@ li {
     list-style: none;
 }
 
+.hidden{
+    display: none;
+}
+
 .center {
     display: block;
     margin-left: 35%;

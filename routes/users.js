@@ -119,7 +119,6 @@ router.post('/login',loginValidators, csrfProtection, asyncHandler(async(req, re
       }
 
       if(isVerified ){
-        console.log("verified")
         loginUser(req, res, user)
         return;
 

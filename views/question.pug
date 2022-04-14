@@ -6,15 +6,12 @@ block content
             td.username #{question.User.username}
             td
             h1= title
-            
+
         tr
-            td 
+            td
                 div
                 img(src=question.User.avatarImage class='image')
             td
-                a(href="#" class="button") Edit
-                br
-                a(href="#" class="button") Delete
                 td.text #{question.content}
             td
             tr
@@ -29,7 +26,7 @@ block content
             
                 td
                 td.username= answer.User.username
-                a(href=`/question/${question.id}/answer/add` class="button") Add Answer
+
             tr
                 td todo: votes
                 td
@@ -37,10 +34,9 @@ block content
                 
                     img(src=answer.User.avatarImage class="image answerImg")
                 td.text= answer.answer
-            div(id=`${answer.id}`)
-                div(id=`${question.id}`)
-                    button(id=`answer-${question.id}` class="deleteBtn" type="button") Delete
-                td  
-                    
 
-        
+
+            if(userId === answer.User.id)
+                a(href="#" class="button") Edit
+                br
+                a(href="#" class="button") Delete
