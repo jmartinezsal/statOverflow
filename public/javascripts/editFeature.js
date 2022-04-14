@@ -25,6 +25,15 @@ editBtns.forEach(editBtn =>{
         const header = document.getElementById(`edit-header-${id}`).value
         const content = document.getElementById(`edit-content-${id}`)
 
+        const res = await fetch(`/question/edit/${id}`, {
+          method: 'PUT',
+          headers: {'Content-type': 'application/json'},
+          body: JSON.stringify({
+            header,
+            content
+          })
+        })
+       
       })
     })
   })

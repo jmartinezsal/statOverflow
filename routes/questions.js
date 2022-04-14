@@ -71,8 +71,8 @@ router.put('/question/edit/:id(\\d+)', addQuestionValidators, csrfProtection, as
     let validating = validationResult(req);
     if (validating.isEmpty()) {
 
-      question.header = req.body.header
-      question.content = content
+      question.header = req.body.header;
+      question.content = req.body.content;
 
       await question.save();
       res.redirect(`/questions/${question.id}`)
