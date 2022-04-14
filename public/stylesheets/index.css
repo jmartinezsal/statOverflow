@@ -68,3 +68,7 @@ select:-webkit-autofill:focus {
 li {
     list-style: none;
 }
+
+.hidden{
+    display: none;
+}

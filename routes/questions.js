@@ -3,7 +3,7 @@ const { check, validationResult } = require('express-validator');
 
 const router = express.Router();
 const {Question, Answer, User}  = require("../db/models")
-const { asyncHandler, csrfProtection } = require('./utils');
+const { asyncHandler, csrfProtection, checkPermissions } = require('./utils');
 
 
 const addQuestionValidators = [
@@ -20,11 +20,12 @@ const addQuestionValidators = [
 
 //route to show all the questions on a page
 router.get("/", asyncHandler(async(req, res, next) => {
+  const userId = res.locals.user.id;
+
   const questions = await Question.findAll({
     include: User
   });
-
-  res.render("index", {questions, title: "Top Questions" })
+  res.render("index",  {userId, questions, title: "Top Questions" })
 }))
 
 
@@ -39,7 +40,6 @@ router.get("/new-question", csrfProtection, asyncHandler (async(req, res, next) 
 //route as logged in user to submit the new question
 router.post("/new-question", addQuestionValidators, csrfProtection, asyncHandler (async(req,res, next) => {
   const {header, content, userId} = req.body
-
   const question = await Question.build({
     header,
     content,
@@ -62,18 +62,21 @@ router.post("/new-question", addQuestionValidators, csrfProtection, asyncHandler
 
 //route as logged in user to edit a specific question
 router.put('/question/edit/:id(\\d+)', addQuestionValidators, csrfProtection, asyncHandler(async(req, res) => {
-  const {header, content} = req.body
-  let validating = validationResult(req);
 
-  const question = await Question.findByPk(req.params.id);
+  const question = await Question.findByPk(req.params.id,{
+    include: User
+  });
 
-  if (validating.isEmpty()) {
+  if(question){
+    let validating = validationResult(req);
+    if (validating.isEmpty()) {
 
-  question.header = header
-  question.content = content
+      question.header = req.body.header
+      question.content = content
 
-  await question.save();
-  res.redirect(`/questions/${question.id}`)
+      await question.save();
+      res.redirect(`/questions/${question.id}`)
+    }
   }
 
   let errors = validating.array().map(err => err.msg);

@@ -7,28 +7,34 @@ block content
             td
             h1= title
         tr
-            td 
+            td
                 div
                 img(src=question.User.avatarImage class='image')
             td
-                a(href="#" class="button") Edit
-                br
-                a(href="#" class="button") Delete
                 td.text #{question.content}
-            td
+
+    if(userId === question.User.id)
+        a(href="#" class="button") Edit
+        br
+        a(href="#" class="button") Delete
+        form(class="hidden" id=`edit-form-${question}`)
+            +field('header', 'header', question.header )
+            +field('content', 'content', question.content, 'textarea')
+
         each answer in answers
             tr
                 td
                 td.username= answer.User.username
-                
+
             tr
                 td todo: votes
                 td
                     div
                     img(src=answer.User.avatarImage class="image answerImg")
                 td.text= answer.answer
-                td 
-                    a(href="#" class="button") Edit
-                    br
-                    a(href="#" class="button") Delete
-        
+                td
+
+            if(userId === answer.User.id)
+                a(href="#" class="button") Edit
+                br
+                a(href="#" class="button") Delete

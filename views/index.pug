@@ -1,10 +1,13 @@
 extends layout.pug
+include utils.pug
 
 block head
   //- add page specific styles by appending to the head
   link(rel="stylesheet" href="/stylesheets/index.css")
   //- add page specific js
   script(src="/javascripts/index.js" type="module" defer)
+  script(src="/javascripts/editFeature.js" type="module" defer)
+
   title= title
 block content
   img(src="/images/title.png" class="title__image")
@@ -17,5 +20,11 @@ block content
       div(class="question__container")
         h3= question.header
         p= question.content
-          a(href='/questions/#{questions.id}') Delete
-          a(href='/questions/#{questions.id}') Edit
+      if(userId === question.User.id)
+        a(class="button edit-btn" id=`edit-btn-${question.id}`) Edit
+        a(class="button delete-btn" id=`delete-btn-${question.id}`) Delete
+        form(class="hidden" id=`edit-form-${question.id}`)
+          +field("header", `edit-header-${question.id}`, question.header)
+          +field("content", `edit-content-${question.id}`, question.content, "textarea")
+          Button(type="button" id=`submit-edit-${question.id}`) Submit
+          Button(type="button" id=`cancel-edit-${question.id}`) Cancel
