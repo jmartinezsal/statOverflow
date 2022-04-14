@@ -5,6 +5,7 @@ const editBtns = document.querySelectorAll('.edit-btn');
 
 editBtns.forEach(editBtn =>{
     editBtn.addEventListener('click', e =>{
+
       let id = e.target.id.split('-')[2];
 
       const editForm = document.getElementById(`edit-form-${id}`);
@@ -13,6 +14,7 @@ editBtns.forEach(editBtn =>{
       if(editBtn.innerText ==='Cancel'){
         editBtn.innerText = "Edit";
         editBtn.style.backgroundColor= "#364F59";
+        editBtn.style.color= "#C2C7CB";
 
       } else{
         editBtn.innerText = "Cancel";
@@ -37,13 +39,16 @@ editBtns.forEach(editBtn =>{
         })
 
         const data = await res.json();
-        if(data.message ==='Success'){
-          const headerEle = document.querySelectorAll(`#question-header-${id}`)[0];
-          const contentEle = document.getElementById(`question-content-${id}`);
-          console.log(headerEle)
-          headerEle.innerHTML = data.question.header;
-          contentEle.innerHTML = data.question.content;
-          editForm.classList.toggle('hidden');
+        if(data.message ==='Success' ){
+
+            editForm.classList.toggle('hidden');
+            const headerEle = document.querySelectorAll(`#question-header-${id}`)[0];
+            const contentEle = document.getElementById(`question-content-${id}`);
+            headerEle.innerHTML = data.question.header;
+            contentEle.innerHTML = data.question.content;
+            editBtn.innerText = "Edit";
+            editBtn.style.backgroundColor= "#364F59";
+            editBtn.style.color= "#C2C7CB";
         }
       })
     })

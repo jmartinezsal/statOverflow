@@ -13,9 +13,10 @@ html
       if locals.authenticated
         div(class="nav__user")
           div(class="nav__user-info")
-            span #{user.username}
+            span Welcome, #{user.username}!
             br
-            span Logout
+            a(href='/logout')
+              span Logout
           if (user.avatarImage)
             div(class="nav__user-avatar")
               img(src=user.avatarImage)
