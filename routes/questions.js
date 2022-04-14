@@ -20,7 +20,11 @@ const addQuestionValidators = [
 
 //route to show all the questions on a page
 router.get("/", asyncHandler(async(req, res, next) => {
-  const userId = res.locals.user.id;
+  let userId;
+  if(res.locals.user){
+    userId = res.locals.user.id;
+
+  }
 
   const questions = await Question.findAll({
     include: User

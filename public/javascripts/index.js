@@ -1,5 +1,4 @@
 
-
 const demoUserBtn = document.getElementById('demo__user');
 demoUserBtn.addEventListener('click', event =>{
     event.stopPropagation();
@@ -9,3 +8,4 @@ demoUserBtn.addEventListener('click', event =>{
     password.value = "password123";
 
 })
+
