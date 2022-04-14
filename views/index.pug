@@ -18,13 +18,13 @@ block content
         bold= question.User.username
         img(src=question.User.avatarImage)
       div(class="question__container")
-        h3= question.header
-        p= question.content
+        h3(id=`question-header-${question.id}`)= question.header
+        p(id=`question-content-${question.id}`)= question.content
       if(userId === question.User.id)
         a(class="button edit-btn" id=`edit-btn-${question.id}`) Edit
         a(class="button delete-btn" id=`delete-btn-${question.id}`) Delete
-        form(class="hidden" id=`edit-form-${question.id}`)
+        form(class="hidden" id=`edit-form-${question.id}` action=`/question/edit/${id}` method="put")
           +field("header", `edit-header-${question.id}`, question.header)
           +field("content", `edit-content-${question.id}`, question.content, "textarea")
-          Button(type="button" id=`submit-edit-${question.id}`) Submit
-          Button(type="button" id=`cancel-edit-${question.id}`) Cancel
+          Button( id=`submit-edit-${question.id}`) Submit
+          //- Button(type="button" id=`cancel-edit-${question.id}`) Cancel

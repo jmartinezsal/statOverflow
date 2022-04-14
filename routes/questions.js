@@ -61,27 +61,22 @@ router.post("/new-question", addQuestionValidators, csrfProtection, asyncHandler
 }))
 
 //route as logged in user to edit a specific question
-router.put('/question/edit/:id(\\d+)', addQuestionValidators, csrfProtection, asyncHandler(async(req, res) => {
-
+router.put('/question/edit/:id(\\d+)', asyncHandler(async(req, res) => {
+  console.log(req.body)
   const question = await Question.findByPk(req.params.id,{
     include: User
   });
-
-  if(question){
-    let validating = validationResult(req);
-    if (validating.isEmpty()) {
 
       question.header = req.body.header;
       question.content = req.body.content;
 
       await question.save();
-      res.redirect(`/questions/${question.id}`)
-    }
-  }
 
-  let errors = validating.array().map(err => err.msg);
+      res.json({
+        message: "Success",
+        question
+      })
 
-  res.render("question-form", {errors, question, csrfToken: req.csrfToken()})
 }))
 
 
