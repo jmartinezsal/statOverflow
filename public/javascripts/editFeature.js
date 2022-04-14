@@ -5,20 +5,22 @@ const editBtns = document.querySelectorAll('.edit-btn');
 
 editBtns.forEach(editBtn =>{
     editBtn.addEventListener('click', e =>{
-        let id = e.target.id.split('-')[2];
+      let id = e.target.id.split('-')[2];
 
       const editForm = document.getElementById(`edit-form-${id}`);
       editForm.classList.toggle('hidden');
 
+      if(editBtn.innerText ==='Cancel'){
+        editBtn.innerText = "Edit";
+        editBtn.style.backgroundColor= "#364F59";
+
+      } else{
+        editBtn.innerText = "Cancel";
+        editBtn.style.backgroundColor= "red";
+        editBtn.style.color= "white";
+      }
 
       const submitBtn = document.getElementById(`submit-edit-${id}`);
-      const cancelBtn = document.getElementById(`cancel-edit-${id}`);
-
-      // cancelBtn.addEventListener('click', e=>{
-      //   e.stopPropagation();
-      //   console.log(e.target)
-      //   editForm.classList.toggle('hidden');
-      // })
 
       submitBtn.addEventListener('click', async(submitEvent) => {
         submitEvent.preventDefault();
@@ -42,11 +44,7 @@ editBtns.forEach(editBtn =>{
           headerEle.innerHTML = data.question.header;
           contentEle.innerHTML = data.question.content;
           editForm.classList.toggle('hidden');
-        } else{
-          //Create error message
         }
-
-
       })
     })
   })

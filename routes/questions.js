@@ -62,28 +62,30 @@ router.post("/new-question", addQuestionValidators, csrfProtection, asyncHandler
 
 //route as logged in user to edit a specific question
 router.put('/question/edit/:id(\\d+)', asyncHandler(async(req, res) => {
-  console.log(req.body)
   const question = await Question.findByPk(req.params.id,{
     include: User
   });
 
-      question.header = req.body.header;
-      question.content = req.body.content;
+  question.header = req.body.header;
+  question.content = req.body.content;
 
-      await question.save();
+  await question.save();
 
-      res.json({
-        message: "Success",
-        question
-      })
+  res.json({
+    message: "Success",
+    question
+  })
 
 }))
 
 
 //route for a logged in user to delete a question
-router.delete('/question/delete/:id(\\d+)', csrfProtection, asyncHandler(async(req,res) => {
+router.delete('/question/delete/:id(\\d+)', asyncHandler(async(req,res, next) => {
+  console.log(req.body)
   const question = await Question.findByPk(req.params.id);
+
   await question.destroy()
-  res.send("question has been deleted")
+
+  res.json({message:'Success'})
 }))
 module.exports = router;
