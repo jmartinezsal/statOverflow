@@ -21,7 +21,8 @@ block content
                 td
                 td
                 td
-                    a(href=`/question/${question.id}/answer/add` class="button") Add an Answer
+                    div.center
+                        a(href=`/question/${question.id}/answer/add` class="button") Add Answer
         each answer in answers
             tr
                 td
@@ -36,6 +37,6 @@ block content
                 td 
                     a(href="#" class="button") Edit
                     br
-                    a(href="#" class="button") Delete
+                    a(href=`/question/${answer.questionId}/answer/delete/${answer.id}` class="button") Delete
 
         

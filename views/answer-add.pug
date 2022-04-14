@@ -21,7 +21,6 @@ block content
                 td
                 td
                 td
-                    a(href=`/question/${question.id}/answer/add` class="button") Add an Answer
         each answer in answers
             tr
                 td
@@ -36,21 +35,24 @@ block content
                 td 
                     a(href="#" class="button") Edit
                     br
-                    a(href="#" class="button") Delete
+                    a(href="#" class="button" role="button") Delete
+        block content
             tr
                 td
-                td
-
+                td.username= user.username
             tr
                 td
                 td
                     div
-                    img(src=answer.User.avatarImage class="image")
+                    img(src=user.avatarImage class="image")
                 td
-                    form(method="post" action="/answer/add")
+                    form(method="post" id="answerForm" action=`/question/${question.id}/answer/add`)
                         input(type="hidden" name="_csrf" value=csrfToken)
                         textarea(name="answer" id="answer")
-                    td
-                        a(href="#" class="button") Accept
                         br
-                        a(href=`/question/${question.id}` class="button") Cancel
+                        div.center
+                            a(href="#" class="button" onclick="document.getElementById('answerForm').submit();") Accept
+                            a(href="#" class="button") Cancel                  
+                td
+
+

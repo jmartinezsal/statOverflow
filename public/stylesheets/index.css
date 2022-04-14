@@ -8,17 +8,28 @@ body {
     margin: 0;
     background: #C2C7CB;
     color: #011826;
-    overflow-y: scroll;
+    padding-bottom: 200px;
 }
 
 .button {
+    display: inline-block;
+    background-color: #364F59;
+    text-align: center;
+    width: 80px;
+    padding: 5px 10px;
+    margin: 5px 10px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+button {
     display: block;
     background-color: #364F59;
     text-align: center;
-    padding: 5px 10px;
-    margin: 0 10px;
-    border-radius: 10px;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    padding: 5px 10px;
+    color: #C2C7CB;
+    border-radius: 10px;
 }
 
 a {
@@ -67,4 +78,10 @@ select:-webkit-autofill:focus {
 
 li {
     list-style: none;
+}
+
+.center {
+    display: block;
+    margin-left: 35%;
+
 }
