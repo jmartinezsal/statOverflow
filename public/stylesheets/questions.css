@@ -24,6 +24,10 @@
     color: #364F59;
 }
 
+.grid {
+    display: grid;
+}
+
 #answer {
     width: 80%;
     margin-left: 10%;

@@ -22,21 +22,25 @@ block content
                 td
                 td
                     div.center
-                        a(href=`/question/${question.id}/answer/add` class="button") Add Answer
+
         each answer in answers
+            script(src="/javascripts/answers.js")
             tr
+            
                 td
                 td.username= answer.User.username
-                
+                a(href=`/question/${question.id}/answer/add` class="button") Add Answer
             tr
                 td todo: votes
                 td
-                    div
+                
+                
                     img(src=answer.User.avatarImage class="image answerImg")
                 td.text= answer.answer
-                td 
-                    a(href="#" class="button") Edit
-                    br
-                    a(href=`/question/${answer.questionId}/answer/delete/${answer.id}` class="button") Delete
+            div(id=`${answer.id}`)
+                div(id=`${question.id}`)
+                    button(id=`answer-${question.id}` class="deleteBtn" type="button") Delete
+                td  
+                    
 
         
