@@ -2,7 +2,7 @@ const express = require('express');
 const {Question, Answer, User}  = require("../db/models")
 const { asyncHandler, csrfProtection, checkPermissions } = require('./utils');
 const { requireAuth } = require('../auth');
-const { check } = require('express-validator');
+const { check, validationResult } = require('express-validator');
 
 const router = express.Router();
 
@@ -26,7 +26,7 @@ router.get('/question/:id(\\d+)', asyncHandler(async(req, res) => {
     })
 }));
 
-router.get('/question/:id(\\d+)/answer/add', asyncHandler(async(req, res) => {
+router.get('/question/:id(\\d+)/answer/add', csrfProtection, asyncHandler(async(req, res) => {
     const question = await Question.findByPk(req.params.id, {
         include: User
     });
@@ -60,58 +60,57 @@ router.post('/question/:id(\\d+)/answer/add', requireAuth, csrfProtection, answe
         res.render('answer-add', {
             title: 'Add Answer',
             answer,
+            submit,
             errors,
-            csrfToken: req.csrfToken()
+            csrfToken: req.csrfToken()            
         });
     }
 
 }));
 
-// router.get('/question/:id(\\d+)/answer/edit/:id(\\d+)', requireAuth, csrfProtection, asyncHandler(async(req, res) => {
-//     const answerId = parseInt(req.params.id, 10);
-//     const answer = await Answer.findByPk(answerId);
+router.get('/question/:id(\\d+)/answer/edit/:id(\\d+)', requireAuth, csrfProtection, asyncHandler(async(req, res) => {
+    const answer = await Answer.findByPk(req.params.id);
 
-//     checkPermissions(answer, res.locals.user);
+    checkPermissions(answer, res.locals.user);
 
-//     res.render('answer-edit', {
-//         title: 'Edit Answer',
-//         answer,
-//         csrfToken: req.csrfToken()
-//     });
-// }));
+    res.render('answer-edit', {
+        title: 'Edit Answer',
+        answer,
+        csrfToken: req.csrfToken()
+    });
+}));
 
-// router.post('/question/:id(\\d+)/answer/edit/:id(\\d+)', requireAuth, csrfProtection, answerValidators, asyncHandler(async(req, res) => {
-//     const answerId = parseInt(req.params.id, 10);
-//     const answerToUpdate = await Answer.findByPk(answerId);
+router.post('/question/:id(\\d+)/answer/edit/:id(\\d+)', requireAuth, csrfProtection, answerValidators, asyncHandler(async(req, res) => {
+    const answerId = parseInt(req.params.id, 10);
+    const answerToUpdate = await Answer.findByPk(answerId);
 
-//     checkPermissions(answerToUpdate, res.locals.user);
+    checkPermissions(answerToUpdate, res.locals.user);
 
-//     const answer = req.body.answer;
+    const answer = req.body.answer;
 
-//     const validatorErrors = validationResult(req);
+    const validatorErrors = validationResult(req);
 
-//     if (validatorErrors.isEmpty()) {
-//         await answerToUpdate.update(answer);
-//         res.redirect(`/question/${answer.questionId}`)
-//     } else {
-//         const errors = validatorErrors.array().map((error) => error.msg);
-//         res.render('answer-edit', {
-//             title: 'Edit Answer',
-//             answer: answer,
-//             errors,
-//             csrfToken: req.csrfToken()
-//         });
-//     }
-// }));
+    if (validatorErrors.isEmpty()) {
+        await answerToUpdate.update(answer);
+        res.redirect(`/question/${answer.questionId}`)
+    } else {
+        const errors = validatorErrors.array().map((error) => error.msg);
+        res.render('answer-edit', {
+            title: 'Edit Answer',
+            answer: answer,
+            errors,
+            csrfToken: req.csrfToken()
+        });
+    }
+}));
 
-// router.post('/question/:id(\\d+)/answer/delete/:id(\\d+)', requireAuth, csrfProtection, asyncHandler(async(req, res) => {
-//     const answerId = parseInt(req.params.id, 10);
-//     const answer = await Answer.findByPk(answerId);
+router.delete('/question/:id(\\d+)/answer/delete/:id(\\d+)', requireAuth, csrfProtection, asyncHandler(async(req, res) => {
+    const answer = await Answer.findByPk(req.params.id);
 
-//     checkPermissions(answer, res.locals.user);
+    checkPermissions(answer, res.locals.user);
 
-//     await answer.destroy();
-//     res.redirect(`/question/${answer.questionId}`);
-// }));
+    await answer.destroy();
+    res.redirect(`/question/${answer.questionId}`);
+}));
 
 module.exports = router;

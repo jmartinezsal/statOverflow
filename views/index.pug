@@ -8,14 +8,32 @@ block head
   title= title
 block content
   img(src="/images/title.png" class="title__image")
-  h1 Top Questions
+  
   if questions
-    each question in questions
-      div(class="user__container")
-        bold= question.User.username
-        img(src=question.User.avatarImage)
-      div(class="question__container")
-        h3= question.header
-        p= question.content
-          a(href='/questions/#{questions.id}') Delete
-          a(href='/questions/#{questions.id}') Edit
+  each question in questions
+    table.question
+      tr
+        td
+        td.username= question.User.username
+        
+        td.text 
+          a(href=`/question/${question.id}`).text= question.header
+          tr
+            td 
+            td
+              div
+              img(src=question.User.avatarImage class="image answerImg")
+              td.text= question.content
+              td 
+                a(href="#" class="button") Edit
+                br
+                a(href=`#` class="button") Delete
+      //- each question in questions
+      //-   div(class="user__container")
+      //-     bold= question.User.username
+      //-     img(src=question.User.avatarImage)
+      //-   div(class="question__container")
+      //-     h3= question.header
+      //-     p= question.content
+      //-       a(href='/questions/#{questions.id}') Delete
+      //-       a(href='/questions/#{questions.id}') Edit
