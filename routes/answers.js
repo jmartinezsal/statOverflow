@@ -13,21 +13,50 @@ const answerValidators = [
 ];
 
 router.get('/question/:id(\\d+)', asyncHandler(async(req, res) => {
-    const userId = res.locals.user.id;
+    let userId;
+
+    if(res.locals.user){
+        userId = res.locals.user.id;
+    }
+
     const question = await Question.findByPk(req.params.id, {
         include: User
     });
-    console.log(question.User.username)
-    const answers = await Answer.findAll({ where: { questionId: req.params.id },
-    include: User });
+
+
+    const answers = await Answer.findAll(
+    {
+        where:
+            { questionId: req.params.id },
+        include: User
+    });
 
     res.render('question', {
-        title: question.header,
+        title: `statOverflow - ${question.header}`,
         question,
         answers,
         userId
     })
 }));
+
+//route for a logged in user to delete a question
+// router.delete('/question/:id(\\d)+/delete', asyncHandler(async(req,res, next) => {
+//     const question = await Question.findByPk(req.params.id);
+//     const answers = await Answer.findAll({
+//       where: {
+//         questionId: req.params.id
+//       }
+//     })
+
+//     if(answers){
+//         answers.forEach(async answer => await answer.destroy());
+//     }
+
+//     await question.destroy();
+
+//     res.json({message:'Success in question page', question})
+//     res.redirect('/');
+//   }));
 
 // router.get('/question/:id(\\d+)/answer/add', csrfProtection, asyncHandler(async(req, res) => {
 //     const question = await Question.findByPk(req.params.id, {
@@ -37,7 +66,7 @@ router.get('/question/:id(\\d+)', asyncHandler(async(req, res) => {
 //     include: User });
 
 //     res.json({
-//         message: "Success", 
+//         message: "Success",
 //         title: question.header,
 //         question,
 //         answers,
@@ -64,7 +93,9 @@ router.post('/question/:id(\\d+)/answer/add', requireAuth, answerValidators, asy
         res.render('question', {
             title: 'Add Answer',
             answer,
-            errors,            
+            submit,
+            errors,
+            csrfToken: req.csrfToken()
         });
     }
 

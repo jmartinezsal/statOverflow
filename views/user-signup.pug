@@ -1,9 +1,9 @@
 extends layout.pug
 include utils.pug
 
-block content
-script(src="/javascripts/index.js" type="module" defer)
 
+block content
+  script(src="/javascripts/index.js" type="module" defer)
   +errorSummaryList(errors)
   div(class="signup__splash")
     h1 Welcome

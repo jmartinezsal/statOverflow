@@ -2,8 +2,8 @@
 const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 
-const { User } = require('../db/models');
-const { loginUser } = require('../auth');
+const { User, Question } = require('../db/models');
+const { loginUser, logoutUser} = require('../auth');
 const { asyncHandler, csrfProtection } = require('./utils');
 
 const router = express.Router();
@@ -47,6 +47,7 @@ router.get('/signup', csrfProtection, asyncHandler(async(req, res, next) => {
   res.render('user-signup', {user, title: "Sign up", csrfToken: req.csrfToken()});
 }));
 
+/*POST sigup form and redirect them back to the top-questions page */
 router.post('/signup', signupValidators, csrfProtection, asyncHandler(async(req, res, next) =>{
   const { username, email, avatarImage, password } = req.body;
 
@@ -89,12 +90,13 @@ const loginValidators = [
   .withMessage("Please provide a password"),
 
 ]
-
+/* GET user login form */
 router.get('/login', csrfProtection, asyncHandler(async(req, res, next)=> {
   let user = User.build();
   res.render('user-login',{user, csrfToken: req.csrfToken()})
 }));
 
+// POST user login form and redirect them to top questions if info is correct
 router.post('/login',loginValidators, csrfProtection, asyncHandler(async(req, res, next)=>{
   const { username, password } = req.body;
 
@@ -130,4 +132,20 @@ router.post('/login',loginValidators, csrfProtection, asyncHandler(async(req, re
 
   res.render('user-login',{errors, csrfToken: req.csrfToken()})
 }));
+
+// Logs out user from the website
+router.get('/logout', async(req, res) =>{
+  logoutUser(req, res);
+});
+
+router.get('/users', asyncHandler(async(req,res,next) =>{
+  let users = await User.findAll({
+    include: Question,
+    order: [
+      ['username',  'ASC']
+    ]
+  })
+
+  res.render('users-page', {users});
+}))
 module.exports = router;

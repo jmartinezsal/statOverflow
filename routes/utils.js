@@ -13,6 +13,7 @@ const checkPermissions = (answer, currentUser) => {
   }
 };
 
+
 module.exports = {
   csrfProtection,
   checkPermissions,

@@ -2,9 +2,9 @@ doctype html
 include utils.pug
 html
   head
-    block head
-      title= title
-      link(rel='stylesheet' href='/stylesheets/index.css')
+  block head
+    title= title
+    link(rel='stylesheet' href='/stylesheets/index.css')
   body
     nav(class="nav")
       div(class="nav__brand")
@@ -13,9 +13,10 @@ html
       if locals.authenticated
         div(class="nav__user")
           div(class="nav__user-info")
-            span #{user.username}
+            span Welcome, #{user.username}!
             br
-            span Logout
+            a(href='/logout')
+              span Logout
           if (user.avatarImage)
             div(class="nav__user-avatar")
               img(src=user.avatarImage)
@@ -42,40 +43,4 @@ html
             //-         input(type="password" name="password" id="password")
             //-         button Submit
             //-         button Demo User
-    block content
-  footer(class="footer")
-    table
-      tr
-        td
-        img(src="/images/profile.jpg" class="profileImg" alt="Profile Image")
-        td
-        span(class="footer__name") Beau Ferguson
-          ul
-            a(href="http://www.linkedin.com/" target="_blank")
-              li LinkedIn
-            a(href="http://www.linkedin.com/" target="_blank")
-              li Github
-            a(href="http://www.linkedin.com/" target="_blank")
-              li Facebook
-        td
-        img(src="/images/jose.png" class="profileImg" alt="Profile Image")
-        td
-        span(class="footer__name") Jose Martinez
-          ul
-            a(href="http://www.linkedin.com/" target="_blank")
-              li LinkedIn
-            a(href="http://www.linkedin.com/" target="_blank")
-              li Github
-            a(href="http://www.linkedin.com/" target="_blank")
-              li Facebook
-        td
-        img(src="/images/badri.png" class="profileImg" alt="Profile Image")
-        td
-        span(class="footer__name") Ahmed Badri
-          ul
-            a(href="http://www.linkedin.com/" target="_blank")
-              li LinkedIn
-            a(href="http://www.linkedin.com/" target="_blank")
-              li Github
-            a(href="http://www.linkedin.com/" target="_blank")
-              li Facebook
+
