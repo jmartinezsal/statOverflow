@@ -3,7 +3,7 @@ const { check, validationResult } = require('express-validator');
 
 const router = express.Router();
 const {Question, Answer, User}  = require("../db/models")
-const { asyncHandler, csrfProtection, checkPermissions } = require('./utils');
+const { asyncHandler, csrfProtection, checkPermissions, getPath } = require('./utils');
 
 
 const addQuestionValidators = [
@@ -21,14 +21,15 @@ const addQuestionValidators = [
 //route to show all the questions on a page
 router.get("/", asyncHandler(async(req, res, next) => {
   let userId;
+  const path = req.path;
+
   if(res.locals.user){
     userId = res.locals.user.id
   }
-
   const questions = await Question.findAll({
     include: User
   });
-  res.render("index",  {userId, questions, title: "Top Questions" })
+  res.render("index",  { path, userId, questions, title: "Top Questions" })
 }))
 
 
@@ -36,8 +37,10 @@ router.get("/", asyncHandler(async(req, res, next) => {
 
 //route to render the new question form page
 router.get("/new-question", csrfProtection, asyncHandler (async(req, res, next) => {
+  let path = req.path;
   const question = await Question.build();
-  res.render("question-form", {question, csrfToken: req.csrfToken()})
+
+  res.render("question-form", {path, question, csrfToken: req.csrfToken()})
 }))
 
 //route as logged in user to submit the new question
@@ -64,7 +67,7 @@ router.post("/new-question", addQuestionValidators, csrfProtection, asyncHandler
 }))
 
 //route as logged in user to edit a specific question
-router.put('/question/edit/:id(\\d+)', asyncHandler(async(req, res) => {
+router.put('/question/:id(\\d+)/edit', asyncHandler(async(req, res) => {
   const question = await Question.findByPk(req.params.id,{
     include: User
   });
@@ -83,7 +86,8 @@ router.put('/question/edit/:id(\\d+)', asyncHandler(async(req, res) => {
 
 
 //route for a logged in user to delete a question
-router.delete('/question/delete/:id(\\d+)', asyncHandler(async(req,res, next) => {
+router.delete('/question/:id(\\d+)/delete', asyncHandler(async(req,res, next) => {
+  let path = req.body;
   const question = await Question.findByPk(req.params.id);
   const answers = await Answer.findAll({
     where: {
@@ -94,8 +98,8 @@ router.delete('/question/delete/:id(\\d+)', asyncHandler(async(req,res, next) =>
   answers.forEach(async answer => await answer.destroy());
 
   await question.destroy();
-
-  res.json({message:'Success'})
+  console.log(path)
+  res.json({message:'Success', path});
 }));
 
 module.exports = router;

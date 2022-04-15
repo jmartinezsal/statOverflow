@@ -4,8 +4,8 @@ include utils.pug
 block head
   //- add page specific styles by appending to the head
   link(rel="stylesheet" href="/stylesheets/index.css")
-  script(src="/javascripts/editFeature.js" type="module" defer)
-  script(src="/javascripts/deleteFeature.js" type="module" defer)
+  script(src="/javascripts/questionFeatures.js" type="module" defer)
+
 
   title= title
 block content
@@ -21,9 +21,9 @@ block content
           h3(id=`question-header-${question.id}`)= question.header
           p(id=`question-content-${question.id}`)= question.content
         if(userId === question.User.id)
-          a(class="button edit-btn" id=`edit-btn-${question.id}`) Edit
-          a(class="button delete-btn" id=`delete-btn-${question.id}`) Delete
-          form(class="hidden" id=`edit-form-${question.id}` action=`/question/edit/${id}` method="put")
+          a(class="button question-edit-btn" id=`edit-btn-${question.id}`) Edit
+          a(class="button question-delete-btn" id=`delete-btn-${question.id}`) Delete
+          form(class="hidden" id=`edit-form-${question.id}` action=`/question/${id}/edit` method="put")
             +field("header", `edit-header-${question.id}`, question.header)
             +field("content", `edit-content-${question.id}`, question.content, "textarea")
             Button( id=`submit-edit-${question.id}`) Submit

@@ -1,9 +1,34 @@
+const questionDeleteBtns = document.querySelectorAll('.question-delete-btn');
+questionDeleteBtns.forEach(deleteBtn =>{
+  deleteBtn.addEventListener('click',async(event) =>{
+    console.log(questionDeleteBtns)
+    const questionId = event.target.id.split('-')[2];
 
 
+    const res = await fetch(`/question/${questionId}/delete`, {
+      method: 'DELETE'
+    })
 
-const editBtns = document.querySelectorAll('.edit-btn');
+    const data = await res.json();
+    console.log(data)
 
-editBtns.forEach(editBtn =>{
+    if(data.message ==='Success'){
+      const questionContainer = document.getElementById(`question-container-${questionId}`);
+      questionContainer.remove();
+
+      if(data.path !== '/'){
+        const answersContainer = document.getElementById('allAnswers');
+        answersContainer.remove();
+        window.location.href = '/';
+      }
+    }
+  })
+})
+
+
+const questionEditBtns = document.querySelectorAll('.question-edit-btn');
+
+questionEditBtns.forEach(editBtn =>{
     editBtn.addEventListener('click', e =>{
 
       let id = e.target.id.split('-')[2];
@@ -29,7 +54,7 @@ editBtns.forEach(editBtn =>{
         const header = document.getElementById(`edit-header-${id}`).value;
         const content = document.getElementById(`edit-content-${id}`).value;
 
-        const res = await fetch(`/question/edit/${id}`, {
+        const res = await fetch(`/question/${id}/edit`, {
           method: 'PUT',
           headers: {'Content-type': 'application/json'},
           body: JSON.stringify({
@@ -39,8 +64,7 @@ editBtns.forEach(editBtn =>{
         })
 
         const data = await res.json();
-        if(data.message ==='Success' ){
-
+        if(data.message === 'Success'){
             editForm.classList.toggle('hidden');
             const headerEle = document.querySelectorAll(`#question-header-${id}`)[0];
             const contentEle = document.getElementById(`question-content-${id}`);
@@ -52,4 +76,4 @@ editBtns.forEach(editBtn =>{
         }
       })
     })
-  })
+  });
