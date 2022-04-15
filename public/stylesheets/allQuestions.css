@@ -1,0 +1,37 @@
+.user__container {
+  margin: auto;
+}
+
+#all__users__container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.user__container img{
+  width: 70px;
+  border: 1px solid;
+  border-radius: 20px
+}
+.question__container{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 10px;
+
+}
+.question__container > *{
+  color: black;
+}
+
+
+#questions__container{
+  width: 80%;
+  margin-left: 20%;
+  border-left: 1px solid #777;
+  border-top: 1px solid #777
+};
+
+.question__container >a:hover {
+  color: rgb(51, 50, 50);
+  clip-path: inset(-5px 0px -5px -5px);
+  box-shadow: 0px 3px 10px 0px grey;
+}

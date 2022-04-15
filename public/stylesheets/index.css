@@ -2,6 +2,7 @@
 @import 'signup.css';
 @import 'footer.css';
 @import 'questions.css';
+@import 'allQuestions.css';
 
 body {
     font-family: 'Garamond Premier Pro';
@@ -29,37 +30,6 @@ a {
     text-decoration: none;
 }
 
-.user__container {
-    margin: auto;
-}
-
-#all__users__container {
-    display: grid;
-    grid-template-columns: repeat(2, .5fr);
-}
-.user__container img{
-    width: 70px;
-    border: 1px solid;
-    border-radius: 20px
-}
-.question__container{
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-    gap: 30px;
-    width: 70%;
-    margin-left: 25%;
-}
-.question__container h3,
-.question__container p,
-.user__container{
-    color: black;
-}
-
-.question__container:hover {
-    background-color: #a0abb4;
-    box-shadow: 0px 3px 10px 0px grey;
-}
 
 a:hover {
     color: #7ead68;
@@ -120,4 +90,20 @@ form textarea {
     margin-top: 3vh;
     height: 5vh;
     background-color: #7ead68;
+}
+#left__sidebar{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100%;
+    width: 20%;
+    z-index: 1;
+    border-right: 1px solid #777;
+
+
+}
+
+#left__sidebar a{
+    padding: 8px 6px 8px 0;
+    color: #777;
 }

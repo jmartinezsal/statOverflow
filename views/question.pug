@@ -12,9 +12,11 @@ block content
             br
             a(href=`#` id=`${question.id}` class="button answerBtn") Add Answer
             div#newAnswer
-            script(src="/javascripts/answers.js")   
+
+            script(src="/javascripts/answers.js")
+
         each answer in answers
-        
+
             div(class=`question-answer-${question.id}` id=`${answer.id}` )
                 div.questionUser
                     div.username= answer.User.username
@@ -24,7 +26,9 @@ block content
                         textarea(name="answer" id=`answer-${answer.id}`)
                         br
                         a(href="#" class="button" id=`submit-${answer.id}`) Accept
-                        a(href="#" class="button" id=`cancel-${answer.id}`) Cancel    
+
+                        a(href="#" class="button" id=`cancel-${answer.id}`) Cancel
+
                     div(class=`answer-${answer.id}`).text= answer.answer
                     if(userId === answer.User.id)
                         a(id=`${question.id}-${answer.id}` class="button editBtn") Edit
@@ -38,5 +42,6 @@ block content
                     br
                     div(class="submit")
                         a(class="button addBtn" id=`${question.id}`) Accept
-                        a(class="button") Cancel   
+
+                        a(class="button") Cancel
 

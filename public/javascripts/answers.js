@@ -107,6 +107,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
       const currQuestion = btn.parentElement;
       const currAnswer = event.target.parentElement.parentElement;
+
       
       currAnswer.remove();
       try {
@@ -125,4 +126,6 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+
 
