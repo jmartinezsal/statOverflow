@@ -17,13 +17,13 @@ body {
     text-align: center;
     width: 80px;
     padding: 5px 10px;
-    margin: 5px 10px;
+    margin: 5px;
     border-radius: 10px;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 button {
-    display: block;
+    display: inline-block;
     background-color: #364F59;
     text-align: center;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);

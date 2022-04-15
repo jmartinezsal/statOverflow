@@ -17,6 +17,7 @@ router.get('/question/:id(\\d+)', asyncHandler(async(req, res) => {
     const question = await Question.findByPk(req.params.id, {
         include: User
     });
+    console.log(question.User.username)
     const answers = await Answer.findAll({ where: { questionId: req.params.id },
     include: User });
 
@@ -28,22 +29,23 @@ router.get('/question/:id(\\d+)', asyncHandler(async(req, res) => {
     })
 }));
 
-router.get('/question/:id(\\d+)/answer/add', csrfProtection, asyncHandler(async(req, res) => {
-    const question = await Question.findByPk(req.params.id, {
-        include: User
-    });
-    const answers = await Answer.findAll({ where: { questionId: req.params.id },
-    include: User });
+// router.get('/question/:id(\\d+)/answer/add', csrfProtection, asyncHandler(async(req, res) => {
+//     const question = await Question.findByPk(req.params.id, {
+//         include: User
+//     });
+//     const answers = await Answer.findAll({ where: { questionId: req.params.id },
+//     include: User });
 
-    res.render('answer-add', {
-        title: question.header,
-        question,
-        answers,
-        csrfToken: req.csrfToken()
-    });
-}));
+//     res.json({
+//         message: "Success", 
+//         title: question.header,
+//         question,
+//         answers,
+//         csrfToken: req.csrfToken()
+//     });
+// }));
 
-router.post('/question/:id(\\d+)/answer/add', requireAuth, csrfProtection, answerValidators, asyncHandler(async(req, res) => {
+router.post('/question/:id(\\d+)/answer/add', requireAuth, answerValidators, asyncHandler(async(req, res) => {
     const { answer } = req.body;
 
     const newAnswer = Answer.build({
@@ -56,52 +58,47 @@ router.post('/question/:id(\\d+)/answer/add', requireAuth, csrfProtection, answe
 
     if (validatorErrors.isEmpty()) {
         await newAnswer.save();
-        res.redirect(`/question/${parseInt(req.params.id, 10)}`)
+        res.json({message: "Success", newAnswer})
     } else {
-        const errors = validatorErrors(req);
-        res.render('answer-add', {
+        const errors = validatorErrors.array().map(error => error.msg);
+        res.render('question', {
             title: 'Add Answer',
             answer,
-            submit,
-            errors,
-            csrfToken: req.csrfToken()            
+            errors,            
         });
     }
 
 }));
 
-router.get('/question/:id(\\d+)/answer/edit/:id(\\d+)', requireAuth, csrfProtection, asyncHandler(async(req, res) => {
-    const answer = await Answer.findByPk(req.params.id);
+// router.get('/question/:id(\\d+)/answer/edit/:id(\\d+)', requireAuth, csrfProtection, asyncHandler(async(req, res) => {
+//     const answer = await Answer.findByPk(req.params.id);
 
-    checkPermissions(answer, res.locals.user);
+//     checkPermissions(answer, res.locals.user);
 
-    res.render('answer-edit', {
-        title: 'Edit Answer',
-        answer,
-        csrfToken: req.csrfToken()
-    });
-}));
+//     res.render('answer-edit', {
+//         title: 'Edit Answer',
+//         answer,
+//         csrfToken: req.csrfToken()
+//     });
+// }));
 
-router.post('/question/:id(\\d+)/answer/edit/:id(\\d+)', requireAuth, csrfProtection, answerValidators, asyncHandler(async(req, res) => {
-    const answerId = parseInt(req.params.id, 10);
-    const answerToUpdate = await Answer.findByPk(answerId);
+router.put('/question/:id(\\d+)/answer/edit/:id(\\d+)', requireAuth, answerValidators, asyncHandler(async(req, res) => {
+    const answerToUpdate = await Answer.findByPk(req.params.id);
 
     checkPermissions(answerToUpdate, res.locals.user);
 
     const answer = req.body.answer;
 
     const validatorErrors = validationResult(req);
-
+    console.log()
     if (validatorErrors.isEmpty()) {
         await answerToUpdate.update(answer);
-        res.redirect(`/question/${answer.questionId}`)
     } else {
         const errors = validatorErrors.array().map((error) => error.msg);
         res.render('answer-edit', {
             title: 'Edit Answer',
             answer: answer,
             errors,
-            csrfToken: req.csrfToken()
         });
     }
 }));
