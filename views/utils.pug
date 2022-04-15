@@ -10,6 +10,6 @@ mixin field(labelText, fieldName, fieldValue, fieldType="text", placeholder = nu
   div(class='signup__group')
     label(for=fieldName) #{labelText}
     if fieldType === 'textarea'
-      textarea(id=fieldName name=fieldName rows='20' cols='50') #{fieldValue}
+      textarea(id=fieldName name=fieldName) #{fieldValue}
     else
       input(type=fieldType id=fieldName name=fieldName value=fieldValue placeholder=placeholder)

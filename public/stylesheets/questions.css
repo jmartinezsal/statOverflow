@@ -39,7 +39,7 @@
 }
 
 .questionUser {
-    margin-left: 20px; 
+    margin-left: 20px;
     display: flex;
     justify-content: center;
     width: 15vw;
@@ -68,5 +68,3 @@
 .submit {
     margin-left: 38vw;
 }
-
-
