@@ -65,7 +65,7 @@ questionEditBtns.forEach(editBtn =>{
 
         const data = await res.json();
         if(data.message === 'Success'){
-            editForm.classList.toggle('hidden');
+            editForm.classList.add('hidden');
             const headerEle = document.querySelectorAll(`#question-header-${id}`)[0];
             const contentEle = document.getElementById(`question-content-${id}`);
             headerEle.innerHTML = data.question.header;
