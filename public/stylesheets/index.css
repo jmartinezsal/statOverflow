@@ -9,7 +9,7 @@ body {
     margin: 0;
     background: #C2C7CB;
     color: #011826;
-    padding-bottom: 200px;
+    padding-bottom: 400px;
 }
 
 .button {
@@ -98,12 +98,15 @@ form textarea {
     height: 100%;
     width: 20%;
     z-index: 1;
-    border-right: 1px solid #777;
-
-
+    padding-left: 1vw;
 }
 
 #left__sidebar a{
     padding: 8px 6px 8px 0;
     color: #777;
+    font-size: 16pt;
+}
+#left__sidebar .button {
+    padding: 8px 6px 8px 0;
+    color: #6f8187;
 }

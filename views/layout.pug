@@ -43,14 +43,15 @@ html
             //-         input(type="password" name="password" id="password")
             //-         button Submit
             //-         button Demo User
-  if locals.authenticated && path !== '/new-question'
-    button: a(href='/new-question' ) Post Question
+  
+         
   #left__sidebar
         a(href='/') Home
         a(href='/questions') Questions
-        a(href='/users') USers
+        a(href='/users') Users
+        if locals.authenticated && path !== '/new-question'  
+          a(href='/new-question' class="button") Post Question
   block content
-h2(class="align__bottom") Meet the Developers
 footer(class="footer")
   table
     tr

@@ -14,10 +14,10 @@ block content
     each question in questions
       div(class="question__container" id=`question-container-${question.id}`)
         div(class="user__container")
-          bold= question.User.username
+          p= question.User.username
           img(src=question.User.avatarImage)
-        a(href=`/question/${question.id}`)
-          h3(id=`question-header-${question.id}`)= question.header
+          a(href=`/question/${question.id}`)
+            h3(id=`question-header-${question.id}`).qHeader= question.header
           p(id=`question-content-${question.id}`)= question.content
         if(userId === question.User.id)
           a(class="button question-edit-btn" id=`edit-btn-${question.id}`) Edit
