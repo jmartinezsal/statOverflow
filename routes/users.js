@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 
 const { User, Question } = require('../db/models');
 const { loginUser, logoutUser} = require('../auth');
-const { asyncHandler, csrfProtection } = require('./utils');
+const { asyncHandler, csrfProtection, getRandomInt } = require('./utils');
 
 const router = express.Router();
 
@@ -43,13 +43,25 @@ const signupValidators = [
 
 /* GET user form sign up. */
 router.get('/signup', csrfProtection, asyncHandler(async(req, res, next) => {
+  const path = req.path;
   const user = await User.build();
-  res.render('user-signup', {user, title: "Sign up", csrfToken: req.csrfToken()});
+  res.render('user-signup', {path, user, title: "Sign up", csrfToken: req.csrfToken()});
 }));
 
 /*POST sigup form and redirect them back to the top-questions page */
 router.post('/signup', signupValidators, csrfProtection, asyncHandler(async(req, res, next) =>{
-  const { username, email, avatarImage, password } = req.body;
+  let { username, email, avatarImage, password } = req.body;
+
+  let avatarImageArray = [
+    "https://www.theloadout.com/wp-content/uploads/2022/02/elden-ring-tips-900x506.jpeg",
+    "https://static.wikia.nocookie.net/eldenring/images/7/75/ER_Class_Warrior.png/revision/latest?cb=20220211054631",
+    "https://preview.redd.it/3e2afpjsi4f61.png?auto=webp&s=873c71479848a3164d1804a0736ea721ca78aad1",
+    "https://mario.wiki.gallery/images/3/3e/MPSS_Mario.png"
+  ]
+  if(avatarImage === ''){
+    let random = getRandomInt(0, avatarImageArray.length);
+    avatarImage= avatarImageArray[random]
+  }
 
   const user = await User.build({
     username,
@@ -59,7 +71,6 @@ router.post('/signup', signupValidators, csrfProtection, asyncHandler(async(req,
 
   // console.log(user)
   const validationErrors = validationResult(req);
-  console.log(validationErrors)
 
   if(validationErrors.isEmpty()){
     // console.log('here')
@@ -67,7 +78,7 @@ router.post('/signup', signupValidators, csrfProtection, asyncHandler(async(req,
     user.password = hashedPassword;
 
     await user.save();
-    loginUser(req, res, user)
+    loginUser(req, res, user);
     res.redirect('/');
   }
   let errors = validationErrors.array().map(err => err.msg);
@@ -88,17 +99,20 @@ const loginValidators = [
   check('password')
   .exists({checkFalsy:true})
   .withMessage("Please provide a password"),
+];
 
-]
 /* GET user login form */
 router.get('/login', csrfProtection, asyncHandler(async(req, res, next)=> {
+  const path = req.path;
+
   let user = User.build();
-  res.render('user-login',{user, csrfToken: req.csrfToken()})
+  res.render('user-login',{path,title: "Login", user, csrfToken: req.csrfToken()})
 }));
 
 // POST user login form and redirect them to top questions if info is correct
 router.post('/login',loginValidators, csrfProtection, asyncHandler(async(req, res, next)=>{
   const { username, password } = req.body;
+  const path = req.path;
 
   let errors = [];
   const validationErrors = validationResult(req);
@@ -121,7 +135,7 @@ router.post('/login',loginValidators, csrfProtection, asyncHandler(async(req, re
       }
 
       if(isVerified ){
-        loginUser(req, res, user)
+        loginUser(req, res, user);
         return;
 
       }
@@ -130,7 +144,7 @@ router.post('/login',loginValidators, csrfProtection, asyncHandler(async(req, re
   }
   validationErrors.array().map(err => errors.push(err.msg));
 
-  res.render('user-login',{errors, csrfToken: req.csrfToken()})
+  res.render('user-login',{path, errors, csrfToken: req.csrfToken()})
 }));
 
 // Logs out user from the website

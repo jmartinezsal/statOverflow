@@ -98,7 +98,6 @@ router.delete('/question/:id(\\d+)/delete', asyncHandler(async(req,res, next) =>
   answers.forEach(async answer => await answer.destroy());
 
   await question.destroy();
-  console.log(path)
   res.json({message:'Success', path});
 }));
 
