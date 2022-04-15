@@ -1,6 +1,10 @@
 .question {
     display: block;
-    margin: 10px 30px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: -125px;
+    width: 60vw;
+    text-align: center;
 }
 
 .image {
@@ -9,13 +13,10 @@
     border-radius: 20px;
 }
 
-.voteColumn {
-    width: 5px;
-}
-
 .username {
+    position: fixed;
     font-weight: bold;
-    text-align: center;
+    margin-top: 50px;
 }
 
 .text {
@@ -24,13 +25,39 @@
     color: #364F59;
 }
 
-.grid {
+.wrapper {
     display: grid;
 }
 
 #answer {
     width: 80%;
-    margin-left: 10%;
+    margin-top: 10px;
     height: 80px;
     background-color:  #7ead68;
+}
+
+.questionUser {
+    margin-left: 20px; 
+    display: flex;
+    justify-content: center;
+    width: 15vw;
+}
+
+.questionUser img {
+    margin-top: 75px;
+    width: 100px;
+    border: 1px solid;
+    border-radius: 20px;
+}
+
+.answer-success {
+    display: block;
+    position: absolute;
+    width: 50vw;
+    font-size: 16pt;
+    padding: 20px;
+    margin-top: 60px;
+    color: #364F59;
+    text-align: center;
+    left: 22%;
 }
