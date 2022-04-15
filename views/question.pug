@@ -1,18 +1,33 @@
 extends layout.pug
 
+block head
+    link(rel="stylesheet" href="/stylesheets/index.css")
+    script(src="/javascripts/answers.js")
+    script(src="/javascripts/questionFeatures.js" type="module" defer)
+
+    title= title
 block content
-    div.wrapper 
+    div.wrapper(id=`question-container-${question.id}`)
         div.questionUser
             div.username= question.User.username
             br
             img(src=question.User.avatarImage)
         div.question
-            h1= title
-            div.text #{question.content}
+            h1(id=`question-header-${question.id}`)= question.header
+            p(id=`question-content-${question.id}`)= question.content
+            if(userId === question.User.id)
+                a(class="button question-edit-btn" id=`edit-btn-${question.id}`) Edit
+                a(class="button question-delete-btn" id=`delete-btn-${question.id}`) Delete
+                form(class="hidden" id=`edit-form-${question.id}` action=`/question/edit/${id}` method="put")
+                    +field("header", `edit-header-${question.id}`, question.header)
+                    +field("content", `edit-content-${question.id}`, question.content, "textarea")
+                    Button( id=`submit-edit-${question.id}`) Submit
+                    //- Button(type="button" id=`cancel-edit-${question.id}`) Cancel
+
             br
             a(href=`#` id=`${question.id}` class="button answerBtn") Add Answer
             div#newAnswer
-            script(src="/javascripts/answers.js")
+    div#allAnswers
         each answer in answers
             div(class=`question-answer-${question.id}` id=`${answer.id}` )
                 div.questionUser
@@ -23,7 +38,7 @@ block content
                         textarea(name="answer" id=`answer-${answer.id}`)
                         br
                         a(href="#" class="button addBtn" id=`submit-${answer.id}`) Accept
-                        a(href="#" class="button") Cancel    
+                        a(href="#" class="button") Cancel
                     div(class=`answer-${answer.id}`).text= answer.answer
                     if(userId === answer.User.id)
                         a(href="#" id=`${question.id}-${answer.id}` class="button editBtn") Edit
@@ -38,7 +53,7 @@ block content
                     br
                     a(href="#" class="button addBtn" id=`${question.id}`) Accept
                     a(href="#" class="button") Cancel
-                    div(class="hidden" id="toggle")    
+                    div(class="hidden" id="toggle")
                         a(href="#" class="button editBtn" id="toggle") Edit
                         br
                     div(class="hidden" id="toggleAgain")

@@ -3,7 +3,7 @@ include utils.pug
 
 block content
   +errorSummaryList(errors)
-  form(method='post' action='/new-question')
+  form(method='post' action=path)
     input(type="hidden" name="_csrf" value=csrfToken)
     input(type='hidden' name='userId' value=locals.user.id)
     div(style={margin: "50px"})

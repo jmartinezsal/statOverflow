@@ -22,17 +22,41 @@ router.get('/question/:id(\\d+)', asyncHandler(async(req, res) => {
     const question = await Question.findByPk(req.params.id, {
         include: User
     });
-    console.log(question.User.username)
-    const answers = await Answer.findAll({ where: { questionId: req.params.id },
-    include: User });
+
+
+    const answers = await Answer.findAll(
+    {
+        where:
+            { questionId: req.params.id },
+        include: User
+    });
 
     res.render('question', {
-        title: question.header,
+        title: `statOverflow - ${question.header}`,
         question,
         answers,
         userId
     })
 }));
+
+//route for a logged in user to delete a question
+// router.delete('/question/:id(\\d)+/delete', asyncHandler(async(req,res, next) => {
+//     const question = await Question.findByPk(req.params.id);
+//     const answers = await Answer.findAll({
+//       where: {
+//         questionId: req.params.id
+//       }
+//     })
+
+//     if(answers){
+//         answers.forEach(async answer => await answer.destroy());
+//     }
+
+//     await question.destroy();
+
+//     res.json({message:'Success in question page', question})
+//     res.redirect('/');
+//   }));
 
 // router.get('/question/:id(\\d+)/answer/add', csrfProtection, asyncHandler(async(req, res) => {
 //     const question = await Question.findByPk(req.params.id, {

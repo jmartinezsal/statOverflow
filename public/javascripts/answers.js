@@ -1,6 +1,6 @@
 window.addEventListener("DOMContentLoaded", () => {
     const addAnswer = document.querySelector(".answerBtn");
-    
+
 
     addAnswer.addEventListener("click", e => {
         let id = e.target.id
@@ -8,7 +8,7 @@ window.addEventListener("DOMContentLoaded", () => {
         const userImg = document.getElementById(`userImg`);
         const toggle = document.getElementById('toggle')
         const toggleAgain = document.getElementById('toggleAgain')
-        
+
         answerForm.classList.toggle('hidden');
         userImg.classList.toggle('hidden');
 
@@ -19,7 +19,7 @@ window.addEventListener("DOMContentLoaded", () => {
         addBtn.addEventListener('click', async(event) => {
             event.preventDefault();
             const answer = document.getElementById(`answer`).value;
-            
+
             const res = await fetch(`/question/${id}/answer/add`, {
               method: 'POST',
               headers: {'Content-Type': 'application/json'},
@@ -39,7 +39,7 @@ window.addEventListener("DOMContentLoaded", () => {
                 toggle.classList.toggle('hidden');
 
             }
-                   
+
     })
 })
 
@@ -70,8 +70,8 @@ editBtns.forEach(editBtn =>{
         const answer = document.getElementById(`answer-${answerId}`).value;
 
         const res = await fetch(`/question/${questionId}/answer/edit/${answerId}`, {
-          method: 'PUT', 
-          
+          method: 'PUT',
+
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({
             answer
@@ -81,7 +81,7 @@ editBtns.forEach(editBtn =>{
         const data = await res.json();
         if(data.message === 'Success'){
           const answer = document.querySelectorAll(`#answer-${answerId}`)[0];
-          
+
           answer.innerHTML = data.answer.answer;
           editForm.classList.toggle('hidden');
         } else{
@@ -93,12 +93,12 @@ editBtns.forEach(editBtn =>{
   })
 
     const deleteBtn = document.querySelectorAll(".deleteBtn");
-    
+
     deleteBtn.forEach((btn) => {
         btn.addEventListener("click", async (event) => {
           event.preventDefault();
           event.stopPropagation();
-            
+
           const currQuestion = btn.parentElement;
           const currAnswer = btn.parentElement.parentElement
           console.log(currAnswer)
@@ -114,3 +114,5 @@ editBtns.forEach(editBtn =>{
               console.error(error);
             }
         })})})
+
+
