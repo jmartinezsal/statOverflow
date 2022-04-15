@@ -39,14 +39,17 @@ html
             //-         label(for="password") Password:
             //-         input(type="password" name="password" id="password")
             //-         button Submit
-            //-         button Demo User
+            //-         button Demo User         
   if locals.authenticated && path !== '/new-question'
     button: a(href='/new-question' ) Post Question
   if path !=='/signup' && path !=='/login' && path !== '/new-question'
     #left__sidebar
-      a(href='/') Home
-      a(href='/questions') Questions
-      a(href='/users') Users
+        a(href='/') Home
+        a(href='/questions') Questions
+        a(href='/users') Users
+        if locals.authenticated && path !== '/new-question'  
+          a(href='/new-question' class="button") Post Question
+
   block content
 footer(class="footer")
   h2(class="align__bottom") Meet the Developers

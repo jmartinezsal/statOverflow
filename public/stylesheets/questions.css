@@ -3,7 +3,7 @@
     margin-right: auto;
     margin-left: auto;
     margin-top: -125px;
-    width: 60vw;
+    width: 50vw;
     text-align: center;
 }
 
@@ -27,11 +27,12 @@
 
 .wrapper {
     display: grid;
+    margin-left: 15vw;
 }
 
 #answer {
     float: right;
-    width: 60vw;
+    width: 45vw;
     height: 80px;
     background-color:  #7ead68;
     margin-top: -8vh;
@@ -66,5 +67,5 @@
 }
 
 .submit {
-    margin-left: 38vw;
+    margin-left: 30vw;
 }
