@@ -39,40 +39,7 @@ router.get('/question/:id(\\d+)', asyncHandler(async(req, res) => {
     })
 }));
 
-//route for a logged in user to delete a question
-// router.delete('/question/:id(\\d)+/delete', asyncHandler(async(req,res, next) => {
-//     const question = await Question.findByPk(req.params.id);
-//     const answers = await Answer.findAll({
-//       where: {
-//         questionId: req.params.id
-//       }
-//     })
 
-//     if(answers){
-//         answers.forEach(async answer => await answer.destroy());
-//     }
-
-//     await question.destroy();
-
-//     res.json({message:'Success in question page', question})
-//     res.redirect('/');
-//   }));
-
-// router.get('/question/:id(\\d+)/answer/add', csrfProtection, asyncHandler(async(req, res) => {
-//     const question = await Question.findByPk(req.params.id, {
-//         include: User
-//     });
-//     const answers = await Answer.findAll({ where: { questionId: req.params.id },
-//     include: User });
-
-//     res.json({
-//         message: "Success",
-//         title: question.header,
-//         question,
-//         answers,
-//         csrfToken: req.csrfToken()
-//     });
-// }));
 
 router.post('/question/:id(\\d+)/answer/add', requireAuth, answerValidators, asyncHandler(async(req, res) => {
     const { answer } = req.body;
@@ -93,9 +60,7 @@ router.post('/question/:id(\\d+)/answer/add', requireAuth, answerValidators, asy
         res.render('question', {
             title: 'Add Answer',
             answer,
-            submit,
             errors,
-            csrfToken: req.csrfToken()
         });
     }
 

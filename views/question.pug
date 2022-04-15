@@ -1,11 +1,5 @@
 extends layout.pug
 
-block head
-    link(rel="stylesheet" href="/stylesheets/index.css")
-    script(src="/javascripts/answers.js")
-    script(src="/javascripts/questionFeatures.js" type="module" defer)
-
-    title= title
 block content
     div.wrapper(id=`question-container-${question.id}`)
         div.questionUser
@@ -13,23 +7,14 @@ block content
             br
             img(src=question.User.avatarImage)
         div.question
-            h1(id=`question-header-${question.id}`)= question.header
-            p(id=`question-content-${question.id}`)= question.content
-            if(userId === question.User.id)
-                a(class="button question-edit-btn" id=`edit-btn-${question.id}`) Edit
-                a(class="button question-delete-btn" id=`delete-btn-${question.id}`) Delete
-                form(class="hidden" id=`edit-form-${question.id}` action=`/question/edit/${id}` method="put")
-                    +field("header", `edit-header-${question.id}`, question.header)
-                    +field("content", `edit-content-${question.id}`, question.content, "textarea")
-                    Button( id=`submit-edit-${question.id}`) Submit
-                    //- Button(type="button" id=`cancel-edit-${question.id}`) Cancel
-
+            h1= title
+            div.text #{question.content}
             br
             a(href=`#` id=`${question.id}` class="button answerBtn") Add Answer
             div#newAnswer
-
+            script(src="/javascripts/answers.js")
         each answer in answers
-        
+
             div(class=`question-answer-${question.id}` id=`${answer.id}` )
                 div.questionUser
                     div.username= answer.User.username
@@ -38,7 +23,8 @@ block content
                     form(class="hidden" id=`edit-form-${answer.id}` action=`/question/${question.id}/answer/edit/${answer.id}` method="put")
                         textarea(name="answer" id=`answer-${answer.id}`)
                         br
-
+                        a(href="#" class="button" id=`submit-${answer.id}`) Accept
+                        a(href="#" class="button" id=`cancel-${answer.id}`) Cancel
                     div(class=`answer-${answer.id}`).text= answer.answer
                     if(userId === answer.User.id)
                         a(id=`${question.id}-${answer.id}` class="button editBtn") Edit
@@ -50,4 +36,6 @@ block content
                 form(method="post" class="hidden" id="answerForm" action=`/question/${question.id}/answer/add`)
                     textarea(name="answer" id="answer")
                     br
-
+                    div(class="submit")
+                        a(class="button addBtn" id=`${question.id}`) Accept
+                        a(class="button") Cancel
