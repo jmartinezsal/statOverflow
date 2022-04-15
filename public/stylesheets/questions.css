@@ -14,7 +14,7 @@
 }
 
 .username {
-    position: fixed;
+    position: absolute;
     font-weight: bold;
     margin-top: 50px;
 }
@@ -30,10 +30,12 @@
 }
 
 #answer {
-    width: 80%;
-    margin-top: 10px;
+    float: right;
+    width: 60vw;
     height: 80px;
     background-color:  #7ead68;
+    margin-top: -8vh;
+    margin-right: 20vw;
 }
 
 .questionUser {
@@ -41,6 +43,7 @@
     display: flex;
     justify-content: center;
     width: 15vw;
+    padding-top: 20px;
 }
 
 .questionUser img {
@@ -61,3 +64,9 @@
     text-align: center;
     left: 22%;
 }
+
+.submit {
+    margin-left: 38vw;
+}
+
+

@@ -27,8 +27,9 @@ block content
             br
             a(href=`#` id=`${question.id}` class="button answerBtn") Add Answer
             div#newAnswer
-    div#allAnswers
+
         each answer in answers
+        
             div(class=`question-answer-${question.id}` id=`${answer.id}` )
                 div.questionUser
                     div.username= answer.User.username
@@ -37,13 +38,11 @@ block content
                     form(class="hidden" id=`edit-form-${answer.id}` action=`/question/${question.id}/answer/edit/${answer.id}` method="put")
                         textarea(name="answer" id=`answer-${answer.id}`)
                         br
-                        a(href="#" class="button addBtn" id=`submit-${answer.id}`) Accept
-                        a(href="#" class="button") Cancel
+
                     div(class=`answer-${answer.id}`).text= answer.answer
                     if(userId === answer.User.id)
-                        a(href="#" id=`${question.id}-${answer.id}` class="button editBtn") Edit
-                        br
-                        a(href="#" class="button deleteBtn") Delete
+                        a(id=`${question.id}-${answer.id}` class="button editBtn") Edit
+                        a(class="button deleteBtn") Delete
             div(class="questionUser hidden" id="userImg")
                 div.username= user.username
                 img(src=user.avatarImage)
@@ -51,10 +50,4 @@ block content
                 form(method="post" class="hidden" id="answerForm" action=`/question/${question.id}/answer/add`)
                     textarea(name="answer" id="answer")
                     br
-                    a(href="#" class="button addBtn" id=`${question.id}`) Accept
-                    a(href="#" class="button") Cancel
-                    div(class="hidden" id="toggle")
-                        a(href="#" class="button editBtn" id="toggle") Edit
-                        br
-                    div(class="hidden" id="toggleAgain")
-                        a(href="#" class="button deleteBtn") Delete
+

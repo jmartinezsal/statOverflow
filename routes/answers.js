@@ -87,7 +87,7 @@ router.post('/question/:id(\\d+)/answer/add', requireAuth, answerValidators, asy
 
     if (validatorErrors.isEmpty()) {
         await newAnswer.save();
-        res.json({message: "Success", newAnswer})
+        res.json({ message: "Success", newAnswer })
     } else {
         const errors = validatorErrors.array().map(error => error.msg);
         res.render('question', {
@@ -101,29 +101,22 @@ router.post('/question/:id(\\d+)/answer/add', requireAuth, answerValidators, asy
 
 }));
 
-// router.get('/question/:id(\\d+)/answer/edit/:id(\\d+)', requireAuth, csrfProtection, asyncHandler(async(req, res) => {
-//     const answer = await Answer.findByPk(req.params.id);
-
-//     checkPermissions(answer, res.locals.user);
-
-//     res.render('answer-edit', {
-//         title: 'Edit Answer',
-//         answer,
-//         csrfToken: req.csrfToken()
-//     });
-// }));
-
 router.put('/question/:id(\\d+)/answer/edit/:id(\\d+)', requireAuth, answerValidators, asyncHandler(async(req, res) => {
     const answerToUpdate = await Answer.findByPk(req.params.id);
 
     checkPermissions(answerToUpdate, res.locals.user);
 
-    const answer = req.body.answer;
+    const { answer } = req.body;
+
+    const ans = {
+        answer
+    }
 
     const validatorErrors = validationResult(req);
-    console.log()
+
     if (validatorErrors.isEmpty()) {
-        await answerToUpdate.update(answer);
+        await answerToUpdate.update(ans);
+        res.json({message: "Success", answerToUpdate})
     } else {
         const errors = validatorErrors.array().map((error) => error.msg);
         res.render('answer-edit', {
