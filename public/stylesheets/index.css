@@ -98,7 +98,9 @@ form textarea {
     height: 100%;
     width: 20%;
     z-index: 1;
+
     padding-left: 1vw;
+
 }
 
 #left__sidebar a{
