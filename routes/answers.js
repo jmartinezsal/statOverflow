@@ -13,7 +13,12 @@ const answerValidators = [
 ];
 
 router.get('/question/:id(\\d+)', asyncHandler(async(req, res) => {
-    const userId = res.locals.user.id;
+    let userId;
+   
+    if(res.locals.user){
+        userId = res.locals.user.id;
+    }
+
     const question = await Question.findByPk(req.params.id, {
         include: User
     });
@@ -64,7 +69,7 @@ router.post('/question/:id(\\d+)/answer/add', requireAuth, csrfProtection, answe
             answer,
             submit,
             errors,
-            csrfToken: req.csrfToken()            
+            csrfToken: req.csrfToken()
         });
     }
 

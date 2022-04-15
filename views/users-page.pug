@@ -1,0 +1,8 @@
+extends layout.pug
+
+block content
+  #all__users__container
+    for user in users
+      .user__container
+        image(src=`${user.avatarImage}`)
+        bold= user.username

@@ -2,15 +2,17 @@ doctype html
 include utils.pug
 html
   head
-    block head
-      title= title
-      link(rel='stylesheet' href='/stylesheets/index.css')
+  block head
+    title= title
+    link(rel='stylesheet' href='/stylesheets/index.css')
   body
     nav(class="nav")
       div(class="nav__brand")
         a(href="/")
           img(src="/images/nav_brand.png")
       if locals.authenticated
+        a(href='#')
+          i.fa.fa-thinfa-bars
         div(class="nav__user")
           div(class="nav__user-info")
             span Welcome, #{user.username}!
