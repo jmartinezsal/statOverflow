@@ -22,8 +22,7 @@ const addQuestionValidators = [
 router.get("/", asyncHandler(async(req, res, next) => {
   let userId;
   if(res.locals.user){
-    userId = res.locals.user.id;
-
+    userId = res.locals.user.id
   }
 
   const questions = await Question.findAll({
@@ -78,18 +77,25 @@ router.put('/question/edit/:id(\\d+)', asyncHandler(async(req, res) => {
   res.json({
     message: "Success",
     question
-  })
+  });
 
-}))
+}));
 
 
 //route for a logged in user to delete a question
 router.delete('/question/delete/:id(\\d+)', asyncHandler(async(req,res, next) => {
-  console.log(req.body)
   const question = await Question.findByPk(req.params.id);
+  const answers = await Answer.findAll({
+    where: {
+      questionId: req.params.id
+    }
+  })
 
-  await question.destroy()
+  answers.forEach(async answer => await answer.destroy());
+
+  await question.destroy();
 
   res.json({message:'Success'})
-}))
+}));
+
 module.exports = router;
