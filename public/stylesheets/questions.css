@@ -56,16 +56,23 @@
 
 .answer-success {
     display: block;
-    position: absolute;
     width: 50vw;
-    font-size: 16pt;
-    padding: 20px;
-    margin-top: 60px;
+    font-size: 16pt;    padding: 20px;
     color: #364F59;
     text-align: center;
     left: 22%;
 }
 
+.answer-success a {
+    font-size: 14pt;
+    margin-top: 2vh;    
+}
+
 .submit {
     margin-left: 30vw;
+}
+
+.answerContainer {
+    margin-top: -10vh;
+    margin-left: 15vw;
 }
