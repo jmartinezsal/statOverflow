@@ -29,7 +29,7 @@ router.get("/", asyncHandler(async(req, res, next) => {
   const questions = await Question.findAll({
     include: User
   });
-  res.render("index",  { path, userId, questions, title: "Top Questions" })
+  res.render("index",  { path, userId, questions, title: "All Questions"})
 }))
 
 

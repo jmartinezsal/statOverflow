@@ -50,6 +50,7 @@ router.get('/signup', csrfProtection, asyncHandler(async(req, res, next) => {
 
 /*POST sigup form and redirect them back to the top-questions page */
 router.post('/signup', signupValidators, csrfProtection, asyncHandler(async(req, res, next) =>{
+  let path = req.path;
   let { username, email, avatarImage, password } = req.body;
 
   let avatarImageArray = [
@@ -58,22 +59,25 @@ router.post('/signup', signupValidators, csrfProtection, asyncHandler(async(req,
     "https://preview.redd.it/3e2afpjsi4f61.png?auto=webp&s=873c71479848a3164d1804a0736ea721ca78aad1",
     "https://mario.wiki.gallery/images/3/3e/MPSS_Mario.png"
   ]
-  if(avatarImage === ''){
-    let random = getRandomInt(0, avatarImageArray.length);
-    avatarImage= avatarImageArray[random]
-  }
 
-  const user = await User.build({
+  let user = await User.build({
     username,
-    email,
-    avatarImage
+    email
   });
 
-  // console.log(user)
+
   const validationErrors = validationResult(req);
 
   if(validationErrors.isEmpty()){
-    // console.log('here')
+    if(avatarImage === ''){
+      let random = getRandomInt(0, avatarImageArray.length);
+      avatarImage= avatarImageArray[random]
+    }
+
+    await user.build({
+      avatarImage
+    })
+
     const hashedPassword = await bcrypt.hash(password, 10);
     user.password = hashedPassword;
 
@@ -84,7 +88,9 @@ router.post('/signup', signupValidators, csrfProtection, asyncHandler(async(req,
   let errors = validationErrors.array().map(err => err.msg);
 
   res.render('user-signup',
-  {user,
+  {
+  path,
+  user,
   errors,
   title:"Sign up",
   csrfToken: req.csrfToken()

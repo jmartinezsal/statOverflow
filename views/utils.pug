@@ -1,10 +1,12 @@
 mixin errorSummaryList(errors)
   if errors
-    div(class="error__container")
+    div(class="error__container login__errors")
       p The following error(s) occurred:
       ul
         each error in errors
-          li= error
+          li
+            |
+            i.fa.fa-shield(aria-hidden='true' class="shield")= error
 
 mixin field(labelText, fieldName, fieldValue, fieldType="text", placeholder = null)
   div(class='signup__group')
