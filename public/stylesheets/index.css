@@ -9,20 +9,20 @@ body {
     margin: 0;
     background: #C2C7CB;
     color: #011826;
-    padding-bottom: 400px;
+    padding-bottom: 300px;
 }
 
 .button {
     display: inline-block;
     background-color: #364F59;
     text-align: center;
-    width: 80px;
+    width: 90px;
     padding: 5px 10px;
     margin: 5px;
     border-radius: 10px;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
     cursor: pointer;
-    font-size: unset;
+    font-size: 14pt;
 }
 
 a {
@@ -55,22 +55,6 @@ table tr {
     height: 75px;
 }
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover,
-textarea:-webkit-autofill:focus,
-select:-webkit-autofill,
-select:-webkit-autofill:hover,
-select:-webkit-autofill:focus {
-    border: 1px solid green;
-    -webkit-text-fill-color: green;
-    -webkit-box-shadow: 0 0 0px 1000px #000 inset;
-    transition: background-color 5000s ease-in-out 0s;
-}
-
-
 li {
     list-style: none;
 }
@@ -89,8 +73,8 @@ form textarea {
     width: 60vw;
     margin-top: 3vh;
     height: 5vh;
-    background-color: #7ead68;
 }
+
 #left__sidebar{
     display: flex;
     flex-direction: column;
@@ -106,6 +90,7 @@ form textarea {
     color: #777;
     font-size: 16pt;
 }
+
 #left__sidebar .button {
     padding: 8px 6px 8px 0;
     color: #6f8187;

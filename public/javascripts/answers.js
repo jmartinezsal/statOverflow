@@ -1,18 +1,24 @@
 window.addEventListener("DOMContentLoaded", () => {
   const addAnswer = document.querySelector(".answerBtn");
   const deleteButton = document.querySelector(".deleteBtn");
+  const answerForm = document.getElementById(`answerForm`);
 
   addAnswer.addEventListener("click", (e) => {
     let id = e.target.id;
 
-    const answerForm = document.getElementById(`answerForm`);
     const userImg = document.getElementById(`userImg`);
 
     answerForm.classList.toggle("hidden");
     userImg.classList.toggle("hidden");
 
     const addBtn = document.querySelector(".addBtn");
-    const answerCont = document.querySelectorAll(`.question-answer-${id}`);
+    const answerContainer = document.querySelector(".answerContainer");
+    const cancelBtn = document.getElementById(`cancelBtn`);
+
+    cancelBtn.addEventListener("click", (e) => {
+      userImg.classList.add("hidden");
+      answerForm.classList.add("hidden");
+    });
 
     addBtn.addEventListener("click", async (event) => {
       const answer = document.getElementById(`answer`).value;
@@ -38,7 +44,7 @@ window.addEventListener("DOMContentLoaded", () => {
         newDiv.innerHTML = `${data.newAnswer.answer} <br>`;
         newDiv.classList.add("answer-success");
 
-        answerCont[0].appendChild(newDiv);
+        answerContainer.appendChild(newDiv);
         newDiv.appendChild(newEditBtn);
         newDiv.appendChild(newDeleteBtn);
 
@@ -56,19 +62,23 @@ window.addEventListener("DOMContentLoaded", () => {
       const answerId = target.split("-")[1];
 
       const editForm = document.getElementById(`edit-form-${answerId}`);
+      const editText = document.getElementById(`answer-${answerId}`);
+      const answerText = document.getElementById(`answer-text-${answerId}`);
+
+      cancel = document.getElementById(`cancel-${answerId}`);
+      answerText.classList.add("hidden");
       editForm.classList.toggle("hidden");
       editBtn.classList.add("hidden");
-      deleteButton.classList.add('hidden')
+      deleteButton.classList.add("hidden");
+      editText.innerText = answerText.textContent;
+
+      cancel.addEventListener("click", (e) => {
+        deleteButton.classList.remove("hidden");
+        editForm.classList.add("hidden");
+        editBtn.classList.remove("hidden");
+      });
 
       const submitBtn = document.getElementById(`submit-${answerId}`);
-      const cancelBtn = document.getElementById(`cancel-${answerId}`);
-
-      cancelBtn.addEventListener("click", (e) => {
-
-        editForm.classList.toggle("hidden");
-        editBtn.classList.remove("hidden");
-        deleteButton.classList.remove("hidden")
-      });
 
       submitBtn.addEventListener("click", async (submitEvent) => {
         submitEvent.preventDefault();
@@ -90,8 +100,9 @@ window.addEventListener("DOMContentLoaded", () => {
         if (data.message === "Success") {
           const answer = document.querySelector(`.answer-${answerId}`);
           answer.innerHTML = data.answerToUpdate.answer;
+          answerText.classList.remove("hidden")
           editBtn.classList.remove("hidden");
-          deleteButton.classList.remove("hidden")
+          deleteButton.classList.remove("hidden");
           editForm.classList.toggle("hidden");
         } else {
           console.log(error.message);
@@ -104,7 +115,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
   deleteBtn.forEach((btn) => {
     btn.addEventListener("click", async (event) => {
-
       const currQuestion = btn.parentElement;
       const currAnswer = event.target.parentElement.parentElement;
 

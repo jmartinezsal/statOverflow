@@ -6,6 +6,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 }
+
 .user__container img{
   width: 70px;
   border: 1px solid;
@@ -17,19 +18,22 @@
   font-weight: bold;
   padding-left: 10px;
 }
-.question__container{
+
+.question__container {
   gap: 10px;
-
+  color: rgb(172, 223, 167);
+  background-color: #364F59;
+  opacity: 0.9;
+  border-radius: 20px;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
 }
-.question__container > *{
-  color: black;
-}
 
 
-#questions__container{
+#questions__container {
   width: 60%;
   margin-left: 20%;
-
 };
 
 .question__container >a:hover {
@@ -39,10 +43,25 @@
 }
 
 .qHeader {
-  color: #364F59;
+float: right;
+font-size: 18pt;
 }
 
 .qHeader:hover {
 
   color: #7ead68;
+}
+
+#all__users__container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 60vw;
+  margin-left: 25vw;
+  margin-top: 10vh;
+  margin-bottom: 20vh;
+  font-weight: bold;
+}
+
+.user__container {
+  padding: 10px;
 }
