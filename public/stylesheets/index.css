@@ -28,6 +28,7 @@ body {
 a {
     color: #C2C7CB;
     text-decoration: none;
+    cursor: pointer;
 }
 
 
@@ -80,21 +81,41 @@ form textarea {
     flex-direction: column;
     position: fixed;
     height: 100%;
-    width: 20%;
+    width: 18%;
     z-index: 1;
-
     padding-left: 1vw;
 
 }
 
 #left__sidebar a{
-    padding: 8px 6px 8px 0;
+    padding: 10px 0px;
     color: #777;
     font-size: 16pt;
+    transition: all .5s linear;
+
 }
 
 #left__sidebar .button {
-    padding: 8px 6px 8px 0;
+    padding: 5px 6px 8px 0;
     color: #6f8187;
 }
 
+#left__sidebar a:hover{
+    color: black;
+    border-right: #777;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
+
+#left__sidebar .button {
+    width: fit-content;
+    padding: 10px;
+    background-color: #245c86;
+    border-radius: 0px;
+    color: rgb(215, 208, 208);
+}
+
+
+#left__sidebar .button:hover{
+    background-color:#336891;
+    color: #7ead68;
+}
