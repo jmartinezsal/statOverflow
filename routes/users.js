@@ -77,7 +77,9 @@ router.post('/signup', signupValidators, csrfProtection, asyncHandler(async(req,
 
     await user.save();
     loginUser(req, res, user);
-    res.redirect('/');
+
+
+    // res.redirect('/');
   }
   let errors = validationErrors.array().map(err => err.msg);
 

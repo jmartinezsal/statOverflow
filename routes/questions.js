@@ -58,9 +58,11 @@ router.post("/new-question", addQuestionValidators, csrfProtection, asyncHandler
     console.log("question has been validated")
     await question.save()
 
-    res.redirect(`/question/${question.id}`)
+   } else {
+      res.redirect(`/question/${question.id}`)
+    }
 
-  }
+  
   let errors = validating.array().map(err => err.msg);
   res.render("question-form", {errors, question, csrfToken: req.csrfToken()})
 
