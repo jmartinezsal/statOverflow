@@ -3,7 +3,7 @@
     margin-right: auto;
     margin-left: auto;
     margin-top: -125px;
-    width: 50vw;
+    width: 60vw;
     text-align: center;
 }
 
@@ -27,12 +27,12 @@
 
 .wrapper {
     display: grid;
-    margin-left: 15vw;
+    margin-left: 12%;
 }
 
 #answer {
     float: right;
-    width: 45vw;
+    width: 60vw;
     height: 80px;
     background-color:  #7ead68;
     margin-top: -8vh;
@@ -56,23 +56,16 @@
 
 .answer-success {
     display: block;
+    position: absolute;
     width: 50vw;
-    font-size: 16pt;    padding: 20px;
+    font-size: 16pt;
+    padding: 20px;
+    margin-top: 60px;
     color: #364F59;
     text-align: center;
     left: 22%;
 }
 
-.answer-success a {
-    font-size: 14pt;
-    margin-top: 2vh;    
-}
-
 .submit {
-    margin-left: 30vw;
-}
-
-.answerContainer {
-    margin-top: -10vh;
-    margin-left: 15vw;
+    margin-left: 38vw;
 }
