@@ -54,15 +54,13 @@ router.post('/signup', signupValidators, csrfProtection, asyncHandler(async(req,
   let { username, email, avatarImage, password } = req.body;
 
   let avatarImageArray = [
-    "https://www.theloadout.com/wp-content/uploads/2022/02/elden-ring-tips-900x506.jpeg",
-    "https://static.wikia.nocookie.net/eldenring/images/7/75/ER_Class_Warrior.png/revision/latest?cb=20220211054631",
-    "https://preview.redd.it/3e2afpjsi4f61.png?auto=webp&s=873c71479848a3164d1804a0736ea721ca78aad1",
     "https://mario.wiki.gallery/images/3/3e/MPSS_Mario.png"
   ]
 
   let user = await User.build({
     username,
-    email
+    email,
+    avatarImage
   });
 
 
@@ -70,13 +68,9 @@ router.post('/signup', signupValidators, csrfProtection, asyncHandler(async(req,
 
   if(validationErrors.isEmpty()){
     if(avatarImage === ''){
-      let random = getRandomInt(0, avatarImageArray.length);
-      avatarImage= avatarImageArray[random]
+      // let random = getRandomInt(0, avatarImageArray.length);
+      user.avatarImage= avatarImageArray[0]
     }
-
-    await user.build({
-      avatarImage
-    })
 
     const hashedPassword = await bcrypt.hash(password, 10);
     user.password = hashedPassword;
