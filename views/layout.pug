@@ -20,9 +20,6 @@ html
           if (user.avatarImage)
             div(class="nav__user-avatar")
               img(src=user.avatarImage)
-          else
-            div(class="nav__user-avatar")
-              img(src="https://brighterwriting.com/wp-content/uploads/icon-user-default-420x420.png")
       else
         div(class="nav__cpanel")
           a(href="/signup")
@@ -42,17 +39,20 @@ html
             //-         label(for="password") Password:
             //-         input(type="password" name="password" id="password")
             //-         button Submit
-            //-         button Demo User
-  
-         
-  #left__sidebar
+            //-         button Demo User         
+  if locals.authenticated && path !== '/new-question'
+    button: a(href='/new-question' ) Post Question
+  if path !=='/signup' && path !=='/login' && path !== '/new-question'
+    #left__sidebar
         a(href='/') Home
         a(href='/questions') Questions
         a(href='/users') Users
         if locals.authenticated && path !== '/new-question'  
           a(href='/new-question' class="button") Post Question
+
   block content
 footer(class="footer")
+
   div
     img(src="/images/profile.jpg" class="profileImg" alt="Profile Image")
     br
@@ -89,3 +89,4 @@ footer(class="footer")
         li Github
       a(href="http://www.linkedin.com/" target="_blank")
         li Facebook
+
