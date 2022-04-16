@@ -39,7 +39,7 @@ html
             //-         label(for="password") Password:
             //-         input(type="password" name="password" id="password")
             //-         button Submit
-            //-         button Demo User         
+            //-         button Demo User
   if locals.authenticated && path !== '/new-question'
     button: a(href='/new-question' ) Post Question
   if path !=='/signup' && path !=='/login' && path !== '/new-question'
@@ -47,7 +47,7 @@ html
         a(href='/') Home
         a(href='/questions') Questions
         a(href='/users') Users
-        if locals.authenticated && path !== '/new-question'  
+        if locals.authenticated && path !== '/new-question'
           a(href='/new-question' class="button") Post Question
 
   block content
@@ -58,7 +58,7 @@ footer(class="footer")
     br
     span(class="footer__name") Beau Ferguson
   div(class="social__media")
-    ul  
+    ul
       a(href="https://www.linkedin.com/in/beau-ferguson-387a40112/" target="_blank")
         li LinkedIn
       a(href="https://github.com/midknightsurfer" target="_blank")
@@ -71,7 +71,8 @@ footer(class="footer")
     span(class="footer__name") Jose Martinez
   div(class="social__media")
     ul
-      a(href="http://www.linkedin.com/" target="_blank")
+    
+      a(href="https://www.linkedin.com/in/jose-martinez-b7a1b3b8/" target="_blank")
         li LinkedIn
       a(href="http://www.linkedin.com/" target="_blank")
         li Github
@@ -89,4 +90,3 @@ footer(class="footer")
         li Github
       a(href="http://www.linkedin.com/" target="_blank")
         li Facebook
-

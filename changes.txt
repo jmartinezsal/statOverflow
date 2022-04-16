@@ -1,5 +1,0 @@
-* Add image to the database if the user doesn't add an image of user when the question is posted
-
-* Fix and edit delete buttons when creating
-
-* Pug page for user profile, 
