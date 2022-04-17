@@ -1,7 +1,7 @@
 extends layout.pug
 
 block content
-    div.wrapper 
+    div.wrapper
         div.questionUser
             div
                 div.username= question.User.username
@@ -21,11 +21,11 @@ block content
             br
             div(id="buttons")
                 a(class="button" id=`submit`) Accept
-                a(class="button" id=`cancel`) Cancel 
+                a(class="button" id=`cancel`) Cancel
         if locals.authenticated
             a(href=`#new` id=`${question.id}` class="button answerBtn") Add Answer
             div#newAnswer
-        each answer in answers        
+        each answer in answers
             div(class=`question-answer-${question.id}` id=`${answer.id}` )
                 div.questionUser
                     div.username= answer.User.username
@@ -35,15 +35,15 @@ block content
                         textarea(class="text" name="answer" id=`answer-${answer.id}`)
                         br
                         a(class="button" id=`submit-${answer.id}`) Accept
-                        a(class="button" id=`cancel-${answer.id}`) Cancel    
+                        a(class="button" id=`cancel-${answer.id}`) Cancel
                     div(class=`text answer-${answer.id}` id=`answer-text-${answer.id}`)= answer.answer
                     if(userId === answer.User.id)
                         a(id=`${question.id}-${answer.id}` class="button editBtn") Edit
                         a(class="button deleteBtn") Delete
-        if locals.authenticated                    
+        if locals.authenticated
             div(class="questionUser hidden" id="userImg")
-                div.username= user.username
-                img(src=user.avatarImage)
+                div.username= locals.currUser.username
+                img(src= locals.currUser.avatarImage)
             div(class="answerForm" id="new")
                 form(method="post" class="hidden" id="answerForm" action=`/question/${question.id}/answer/add`)
                     textarea(id="answer")
@@ -52,5 +52,4 @@ block content
                         a(class="button addBtn" id=`${question.id}`) Accept
                         a(class="button" id="cancelBtn") Cancel
                 div(class="answerContainer" id=`${question.id}`)
-                script(src="/javascripts/answers.js")  
-                    
+                script(src="/javascripts/answers.js")
