@@ -33,5 +33,5 @@ block content
     +field('Password:', 'password', user.password, 'password')
     +field('Confirm Password:', 'confirmedPassword',confirmedPassword, 'password')
     +field('Avatar Image:', 'avatarImage', user.avatarImage)
-    Button Submit
-    Button: a(href='/') Cancel
+    a(class="button" role="button" onclick="document.getElementById('login').submit(); return false;") Submit
+    a(href='/' class="button" role="button") Cancel
