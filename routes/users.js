@@ -1,8 +1,8 @@
- const express = require('express');
+const express = require('express');
 const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 
-const { User, Question } = require('../db/models');
+const { User, Question, Answer, sequelize } = require('../db/models');
 const { loginUser, logoutUser} = require('../auth');
 const { asyncHandler, csrfProtection, getRandomInt } = require('./utils');
 
@@ -15,12 +15,34 @@ const signupValidators = [
   .isLength({max:20})
   .withMessage("User name must not be longer than 20 characters")
   .matches(/^\S*$/)
-  .withMessage("User name must not contain any whitespace"),
+  .withMessage("User name must not contain any whitespace")
+  .custom( async function(username) {
+    const user = await User.findOne({
+      where: {
+        username
+      }
+    })
+    if(user){
+      throw new Error("Username already exists. Choose another one!")
+    }
+    return true
+  }),
   check('email')
   .exists({checkFalsy: true})
   .withMessage("Please provide a value for the Email")
   .isLength({max:30})
-  .withMessage("Email must not be longer than 30 characters"),
+  .withMessage("Email must not be longer than 30 characters")
+  .custom( async function(email) {
+    const user = await User.findOne({
+      where: {
+        email
+      }
+    })
+    if(user){
+      throw new Error("Email already has an account.")
+    }
+    return true
+  }),
   check('password')
   .exists({checkFalsy: true})
   .withMessage("Please provide a value for the Password")
@@ -69,7 +91,7 @@ router.post('/signup', signupValidators, csrfProtection, asyncHandler(async(req,
   if(validationErrors.isEmpty()){
     if(avatarImage === ''){
       // let random = getRandomInt(0, avatarImageArray.length);
-      user.avatarImage= avatarImageArray[0]
+      user.avatarImage= avatarImageArray[0];
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -77,9 +99,8 @@ router.post('/signup', signupValidators, csrfProtection, asyncHandler(async(req,
 
     await user.save();
     loginUser(req, res, user);
+    return;
 
-
-    // res.redirect('/');
   }
   let errors = validationErrors.array().map(err => err.msg);
 
@@ -163,5 +184,43 @@ router.get('/users', asyncHandler(async(req,res,next) =>{
   })
 
   res.render('users-page', {users});
+}));
+
+
+// Users Profile Page
+router.get('/users/:id(\\d+)', asyncHandler(async(req,res,next) =>{
+  let userId = req.params.id;
+
+  const user = await User.findByPk(userId)
+  const questions = await Question.findAll({
+    include: [{
+    model: Answer,
+    attributes: []
+    },
+    {
+      model: User,
+      attributes: [
+        'id',
+        'avatarImage',
+        'username'
+      ]
+    }],
+    attributes:[
+      'id',
+      'content',
+      'header',
+      'updatedAt',
+      [sequelize.fn("COUNT", sequelize.col("Answers.questionId")), "answerCnt"]],
+      where: {
+        userId
+      },
+      group: ["Question.id", "User.id" ],
+      order: [[sequelize.fn("COUNT", sequelize.col("Answers.questionId")), 'DESC']],
+      // limit: 10
+  })
+
+  res.render("profile-page",  { user, userId, questions, title: `Welcome, ${user.username}`})
 }))
+
+
 module.exports = router;
