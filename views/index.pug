@@ -7,7 +7,7 @@ block head
   script(src="/javascripts/questionFeatures.js" type="module" defer)
   title= title
 block content
-  #questions__container
+  .questions__container
     h1= title
     each question in questions
       div(class="question__container" id=`question-container-${question.id}`)

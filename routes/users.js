@@ -177,7 +177,6 @@ router.get('/logout', async(req, res) =>{
 
 router.get('/users', asyncHandler(async(req,res,next) =>{
   let users = await User.findAll({
-    include: Question,
     order: [
       ['username',  'ASC']
     ]
@@ -189,9 +188,15 @@ router.get('/users', asyncHandler(async(req,res,next) =>{
 
 // Users Profile Page
 router.get('/users/:id(\\d+)', asyncHandler(async(req,res,next) =>{
-  let userId = req.params.id;
+  let userId;
+  if(res.locals.currUser){
+    userId= res.locals.currUser.id;
+  }
+  console.log(userId)
+  let profileId = req.params.id;
 
-  const user = await User.findByPk(userId)
+
+  const user = await User.findByPk(profileId)
   const questions = await Question.findAll({
     include: [{
     model: Answer,
@@ -212,14 +217,14 @@ router.get('/users/:id(\\d+)', asyncHandler(async(req,res,next) =>{
       'updatedAt',
       [sequelize.fn("COUNT", sequelize.col("Answers.questionId")), "answerCnt"]],
       where: {
-        userId
+        userId: profileId
       },
       group: ["Question.id", "User.id" ],
       order: [[sequelize.fn("COUNT", sequelize.col("Answers.questionId")), 'DESC']],
       // limit: 10
   })
 
-  res.render("profile-page",  { user, userId, questions, title: `Welcome, ${user.username}`})
+  res.render("profile-page",  { user, profileId, userId, questions, title: `Welcome back, ${user.username}!`})
 }))
 
 

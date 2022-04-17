@@ -15,13 +15,14 @@ html
       if locals.authenticated
         div(class="nav__user")
           div(class="nav__user-info")
-            span Welcome, #{user.username}!
+            span Welcome, #{locals.currUser.username}!
             br
             a(href='/logout')
               span Logout
-          if (user.avatarImage)
+          if (locals.currUser.avatarImage)
             div(class="nav__user-avatar")
-              img(src=user.avatarImage)
+              a(href=`/users/${locals.currUser.id}`)
+                img(src=locals.currUser.avatarImage)
       else
         div(class="nav__cpanel")
           a(href="/signup")
