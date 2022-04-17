@@ -2,17 +2,28 @@ extends layout.pug
 
 block content
     div.wrapper 
-
         div.questionUser
-            div.username= question.User.username
-            br
-            img(src=question.User.avatarImage)
-        div.question
+            div
+                div.username= question.User.username
+                br
+                img(src=question.User.avatarImage)
+            div(class="questionButtons")
+                a(class="button" role="button" id=`editQ`) Edit
+                br
+                a(class="button" role="button" id=`deleteQ`) Delete
+        div(class="question")
             h1= title
-            div.text #{question.content}
+            div(class="text" id="questionText") #{question.content}
             br
-            if locals.authenticated
-                a(href=`#new` id=`${question.id}` class="button answerBtn") Add Answer
+        form(class="hidden" id=`edit-form` action=`/question/${question.id}/edit` method="put")
+            label(for="question" class="labelText") Question:
+            textarea(class="text" name="question" id="inputText")
+            br
+            div(id="buttons")
+                a(class="button" id=`submit`) Accept
+                a(class="button" id=`cancel`) Cancel 
+        if locals.authenticated
+            a(href=`#new` id=`${question.id}` class="button answerBtn") Add Answer
             div#newAnswer
         each answer in answers        
             div(class=`question-answer-${question.id}` id=`${answer.id}` )
@@ -21,7 +32,7 @@ block content
                     img(src=answer.User.avatarImage)
                 div.question(id=`${question.id}`)
                     form(class="hidden" id=`edit-form-${answer.id}` action=`/question/${question.id}/answer/edit/${answer.id}` method="put")
-                        textarea(name="answer" id=`answer-${answer.id}`)
+                        textarea(class="text" name="answer" id=`answer-${answer.id}`)
                         br
                         a(class="button" id=`submit-${answer.id}`) Accept
                         a(class="button" id=`cancel-${answer.id}`) Cancel    
