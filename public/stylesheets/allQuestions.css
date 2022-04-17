@@ -5,6 +5,7 @@
 #all__users__container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .user__container img{
@@ -31,7 +32,7 @@
 }
 
 
-#questions__container {
+.questions__container {
   width: 60%;
   margin-left: 20%;
 };

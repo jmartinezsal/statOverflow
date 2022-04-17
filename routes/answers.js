@@ -15,8 +15,8 @@ const answerValidators = [
 router.get('/question/:id(\\d+)', asyncHandler(async(req, res) => {
     let userId;
 
-    if(res.locals.user){
-        userId = res.locals.user.id;
+    if(res.locals.currUser){
+        userId = res.locals.currUser.id;
     }
 
     const question = await Question.findByPk(req.params.id, {
@@ -45,7 +45,7 @@ router.post('/question/:id(\\d+)/answer/add', requireAuth, answerValidators, asy
     const { answer } = req.body;
 
     const newAnswer = Answer.build({
-        userId: res.locals.user.id,
+        userId: res.locals.currUser.id,
         questionId: req.params.id,
         answer
     });
@@ -69,7 +69,7 @@ router.post('/question/:id(\\d+)/answer/add', requireAuth, answerValidators, asy
 router.put('/question/:id(\\d+)/answer/edit/:id(\\d+)', requireAuth, answerValidators, asyncHandler(async(req, res) => {
     const answerToUpdate = await Answer.findByPk(req.params.id);
 
-    checkPermissions(answerToUpdate, res.locals.user);
+    checkPermissions(answerToUpdate, res.locals.currUser);
 
     const { answer } = req.body;
 
@@ -95,7 +95,7 @@ router.put('/question/:id(\\d+)/answer/edit/:id(\\d+)', requireAuth, answerValid
 router.delete('/question/:id(\\d+)/answer/delete/:id(\\d+)', requireAuth,  asyncHandler(async(req, res) => {
     const answer = await Answer.findByPk(req.params.id);
 
-    checkPermissions(answer, res.locals.user);
+    checkPermissions(answer, res.locals.currUser);
 
     await answer.destroy();
     res.send(`The answer has been deleted`);

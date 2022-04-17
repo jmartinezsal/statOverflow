@@ -7,20 +7,22 @@ block head
   script(src="/javascripts/questionFeatures.js" type="module" defer)
   title= title
 block content
-  if userId === user.id
-    h1= title
-  #questions__container
-  if(questions)
-    each question in questions
-      div(class="question__container" id=`question-container-${question.id}`)
-        div(class="user__container")
-          p= question.User.username
-          img(src=question.User.avatarImage)
-          a(href=`/question/${question.id}`)
-            h3(id=`question-header-${question.id}`).qHeader= question.header
-          p(id=`question-content-${question.id}`)= question.content
-          p(class='numAnswers')= `Answers: ${question.get("answerCnt")}`
-          br
+  .profile__page
+    if user.id === profileId
+      h1= title
+    else
+      h1 Welcome to #{user.username}'s profile page!
+    img(class="profile__page__img" src=user.avatarImage)
+    .questions__container
+    if(questions)
+      each question in questions
+        div(class="question__container" id=`question-container-${question.id}`)
+          div(class="user__container")
+            a(href=`/question/${question.id}`)
+              h3(id=`question-header-${question.id}`).qHeader= question.header
+            p(id=`question-content-${question.id}`)= question.content
+            p(class='numAnswers')= `Answers: ${question.get("answerCnt")}`
+            br
           if userId === user.id
             a(class="button question-edit-btn" id=`edit-btn-${question.id}`) Edit
             a(class="button question-delete-btn" id=`delete-btn-${question.id}`) Delete
@@ -29,7 +31,7 @@ block content
               +field("Content:", `edit-content-${question.id}`, question.content, "textarea")
               a(class="button" id=`submit-edit-${question.id}`) Submit
               //- Button(type="button" id=`cancel-edit-${question.id}`) Cancel
-        i.fa.fa-clock-o(aria-hidden='true')
-          i(class="updatedAt" id=`updatedAt-${question.id}`) Created/Updated on #{question.updatedAt.toString().substring(0,25)}
-  else
-    h3: a(href='/new-question') Ask your first question here
+          i.fa.fa-clock-o(aria-hidden='true')
+            i(class="updatedAt" id=`updatedAt-${question.id}`) Created/Updated on #{question.updatedAt.toString().substring(0,25)}
+      else
+        h3: a(href='/new-question') Ask your first question here

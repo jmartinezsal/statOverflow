@@ -22,8 +22,8 @@ const addQuestionValidators = [
 router.get("/", asyncHandler(async(req, res, next) => {
   let userId;
   const path = req.path;
-  if(res.locals.user){
-    userId = res.locals.user.id
+  if(res.locals.currUser){
+    userId = res.locals.currUser.id
 
     const questions = await Question.findAll({
       include: [{
@@ -60,8 +60,8 @@ router.get("/questions", asyncHandler(async(req, res, next) => {
   let userId;
   const path = req.path;
 
-  if(res.locals.user){
-    userId = res.locals.user.id
+  if(res.locals.currUser){
+    userId = res.locals.currUser.id
   }
   const questions = await Question.findAll({
     include: [{
@@ -88,7 +88,7 @@ router.get("/questions", asyncHandler(async(req, res, next) => {
     ['updatedAt', 'DESC']
   ]
   });
-  
+
   res.render("index",  { path, userId, questions, title: "All Questions"})
 }))
 

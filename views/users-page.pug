@@ -1,9 +1,12 @@
 extends layout.pug
 
 block content
+  img(src="/images/title.png" class="title__image")
+  h1 Users
   #all__users__container
     for user in users
       .user__container
-        image(src=`${user.avatarImage}`)
-        br
-        bold= user.username
+        a(href=`/users/${user.id}`)
+          image(src=`${user.avatarImage}`)
+          br
+          bold= user.username
