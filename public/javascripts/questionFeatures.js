@@ -16,7 +16,7 @@ questionDeleteBtns.forEach(deleteBtn =>{
       const questionContainer = document.getElementById(`question-container-${questionId}`);
       questionContainer.remove();
 
-      if(data.path !== '/'){
+      if(data.path !== '/' || data.path !== '/questions'){
         const answersContainer = document.getElementById('allAnswers');
         answersContainer.remove();
         window.location.href = '/';
@@ -68,8 +68,11 @@ questionEditBtns.forEach(editBtn =>{
             editForm.classList.add('hidden');
             const headerEle = document.querySelectorAll(`#question-header-${id}`)[0];
             const contentEle = document.getElementById(`question-content-${id}`);
+            const updatedAtEle = document.getElementById(`updatedAt-${id}`);
             headerEle.innerHTML = data.question.header;
             contentEle.innerHTML = data.question.content;
+            updatedAtEle.innerHTML = `Created/Updated on ${data.question.updatedAt.toString().substring(11,19)}`;
+
             editBtn.innerText = "Edit";
             editBtn.style.backgroundColor= "#364F59";
             editBtn.style.color= "#C2C7CB";

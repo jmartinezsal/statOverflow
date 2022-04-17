@@ -7,6 +7,7 @@ function loginUser(req, res, user){
   req.session.save(function() {
     res.redirect("/");
   });
+  return;
 
 };
 

@@ -7,8 +7,10 @@ block head
   script(src="/javascripts/questionFeatures.js" type="module" defer)
   title= title
 block content
-  #questions__container
+  if userId === user.id
     h1= title
+  #questions__container
+  if(questions)
     each question in questions
       div(class="question__container" id=`question-container-${question.id}`)
         div(class="user__container")
@@ -19,7 +21,7 @@ block content
           p(id=`question-content-${question.id}`)= question.content
           p(class='numAnswers')= `Answers: ${question.get("answerCnt")}`
           br
-          if userId === question.User.id
+          if userId === user.id
             a(class="button question-edit-btn" id=`edit-btn-${question.id}`) Edit
             a(class="button question-delete-btn" id=`delete-btn-${question.id}`) Delete
             form(class="hidden editForm" id=`edit-form-${question.id}` action=`/question/${id}/edit` method="put")
@@ -29,3 +31,5 @@ block content
               //- Button(type="button" id=`cancel-edit-${question.id}`) Cancel
         i.fa.fa-clock-o(aria-hidden='true')
           i(class="updatedAt" id=`updatedAt-${question.id}`) Created/Updated on #{question.updatedAt.toString().substring(0,25)}
+  else
+    h3: a(href='/new-question') Ask your first question here

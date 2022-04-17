@@ -1,10 +1,10 @@
 const express = require('express');
 const { check, validationResult } = require('express-validator');
+const { user } = require('pg/lib/defaults');
 
 const router = express.Router();
-const {Question, Answer, User}  = require("../db/models")
+const {Question, Answer, User, sequelize}  = require("../db/models")
 const { asyncHandler, csrfProtection, checkPermissions, getPath } = require('./utils');
-
 
 const addQuestionValidators = [
   check('header')
@@ -22,16 +22,75 @@ const addQuestionValidators = [
 router.get("/", asyncHandler(async(req, res, next) => {
   let userId;
   const path = req.path;
+  if(res.locals.user){
+    userId = res.locals.user.id
+
+    const questions = await Question.findAll({
+      include: [{
+      model: Answer,
+      attributes: []
+      },
+      {
+        model: User,
+        attributes: [
+          'id',
+          'avatarImage',
+          'username'
+        ]
+      }],
+      attributes:[
+        'id',
+        'content',
+        'header',
+        'updatedAt',
+        [sequelize.fn("COUNT", sequelize.col("Answers.questionId")), "answerCnt"]],
+        group: ["Question.id", "User.id" ],
+        order: [[sequelize.fn("COUNT", sequelize.col("Answers.questionId")), 'DESC']],
+        // limit: 10
+    })
+
+    res.render("index",  { path, userId, questions, title: "Top Questions"})
+  }
+  else{
+    res.render("welcome-page",  { path, title: "statOverflow"})
+  }
+}))
+
+router.get("/questions", asyncHandler(async(req, res, next) => {
+  let userId;
+  const path = req.path;
 
   if(res.locals.user){
     userId = res.locals.user.id
   }
   const questions = await Question.findAll({
-    include: User
+    include: [{
+    model: Answer,
+    attributes: []
+    },{
+      model: User,
+      attributes: [
+        'avatarImage',
+        'username',
+        'id'
+      ]
+    }
+  ],
+    attributes:[
+      'id',
+      'content',
+      'header',
+      'updatedAt',
+      [sequelize.fn("COUNT", sequelize.col("Answers.questionId")), "answerCnt"]
+          ],
+      group: ["Question.id", "User.id"],
+    order: [
+    ['updatedAt', 'DESC']
+  ]
   });
+  
   res.render("index",  { path, userId, questions, title: "All Questions"})
 }))
-
 
 //********** As a logged in user ************
 
@@ -47,7 +106,7 @@ router.get("/new-question", csrfProtection, asyncHandler (async(req, res, next) 
 router.post("/new-question", addQuestionValidators, csrfProtection, asyncHandler (async(req,res, next) => {
   const {header, content, userId} = req.body
   const path = req.path;
-  
+
   const question = await Question.build({
     header,
     content,
@@ -70,6 +129,7 @@ router.post("/new-question", addQuestionValidators, csrfProtection, asyncHandler
 
 //route as logged in user to edit a specific question
 router.put('/question/:id(\\d+)/edit', asyncHandler(async(req, res) => {
+  let path = req.path;
   const question = await Question.findByPk(req.params.id,{
     include: User
   });
@@ -81,7 +141,8 @@ router.put('/question/:id(\\d+)/edit', asyncHandler(async(req, res) => {
 
   res.json({
     message: "Success",
-    question
+    question,
+    path
   });
 
 }));
