@@ -1,26 +1,36 @@
+const addHidden = (...params) => {
+  params.forEach((ele) => {
+    return ele.classList.add("hidden");
+  });
+};
+
+const removeHidden = (...params) => {
+  params.forEach((ele) => {
+    return ele.classList.remove("hidden");
+  });
+};
+
 window.addEventListener("DOMContentLoaded", () => {
   const addAnswer = document.querySelector(".answerBtn");
   const deleteButton = document.querySelector(".deleteBtn");
   const answerForm = document.getElementById(`answerForm`);
+  const editBtns = document.querySelectorAll(".editBtn");
+  const deleteBtn = document.querySelectorAll(".deleteBtn");
 
   addAnswer.addEventListener("click", (e) => {
     let id = e.target.id;
-
     const userImg = document.getElementById(`userImg`);
-
-    answerForm.classList.toggle("hidden");
-    userImg.classList.toggle("hidden");
-
-    const addBtn = document.querySelector(".addBtn");
+    const acceptBtn = document.querySelector(".addBtn");
     const answerContainer = document.querySelector(".answerContainer");
     const cancelBtn = document.getElementById(`cancelBtn`);
 
+    removeHidden(answerForm, userImg);
+
     cancelBtn.addEventListener("click", (e) => {
-      userImg.classList.add("hidden");
-      answerForm.classList.add("hidden");
+      addHidden(userImg, answerForm);
     });
 
-    addBtn.addEventListener("click", async (event) => {
+    acceptBtn.addEventListener("click", async (event) => {
       const answer = document.getElementById(`answer`).value;
 
       const res = await fetch(`/question/${id}/answer/add`, {
@@ -48,39 +58,40 @@ window.addEventListener("DOMContentLoaded", () => {
         newDiv.appendChild(newEditBtn);
         newDiv.appendChild(newDeleteBtn);
 
-        answerForm.classList.toggle("hidden");
+        addHidden(answerForm);
+
+        newDeleteBtn.addEventListener("click", e => {
+          addHidden(userImg)
+          newDiv.remove()
+        })
       }
     });
   });
-
-  const editBtns = document.querySelectorAll(".editBtn");
 
   editBtns.forEach((editBtn) => {
     editBtn.addEventListener("click", (e) => {
       let target = e.target.id;
       const questionId = target.split("-")[0];
       const answerId = target.split("-")[1];
-
       const editForm = document.getElementById(`edit-form-${answerId}`);
       const editText = document.getElementById(`answer-${answerId}`);
       const answerText = document.getElementById(`answer-text-${answerId}`);
 
       cancel = document.getElementById(`cancel-${answerId}`);
-      answerText.classList.add("hidden");
-      editForm.classList.toggle("hidden");
-      editBtn.classList.add("hidden");
-      deleteButton.classList.add("hidden");
+      addHidden(answerText, editBtn, deleteButton);
+      removeHidden(editForm);
+
       editText.innerText = answerText.textContent;
 
       cancel.addEventListener("click", (e) => {
-        deleteButton.classList.remove("hidden");
-        editForm.classList.add("hidden");
-        editBtn.classList.remove("hidden");
+        addHidden(editForm);
+        removeHidden(deleteButton, editBtn, answerText);
+        editText.value = answerText.textContent;
       });
 
-      const submitBtn = document.getElementById(`submit-${answerId}`);
+      const acceptBtn = document.getElementById(`submit-${answerId}`);
 
-      submitBtn.addEventListener("click", async (submitEvent) => {
+      acceptBtn.addEventListener("click", async (submitEvent) => {
         submitEvent.preventDefault();
         const answer = document.getElementById(`answer-${answerId}`).value;
 
@@ -100,18 +111,14 @@ window.addEventListener("DOMContentLoaded", () => {
         if (data.message === "Success") {
           const answer = document.querySelector(`.answer-${answerId}`);
           answer.innerHTML = data.answerToUpdate.answer;
-          answerText.classList.remove("hidden")
-          editBtn.classList.remove("hidden");
-          deleteButton.classList.remove("hidden");
-          editForm.classList.toggle("hidden");
+          addHidden(editForm);
+          removeHidden(answerText, editBtn, deleteButton);
         } else {
           console.log(error.message);
         }
       });
     });
   });
-
-  const deleteBtn = document.querySelectorAll(".deleteBtn");
 
   deleteBtn.forEach((btn) => {
     btn.addEventListener("click", async (event) => {

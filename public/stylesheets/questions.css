@@ -32,9 +32,8 @@
 
 #answer {
     float: right;
-    width: 60vw;
+    width: 45vw;
     height: 80px;
-    background-color:  #7ead68;
     margin-top: -8vh;
     margin-right: 20vw;
 }
@@ -60,12 +59,16 @@
     width: 50vw;
     font-size: 16pt;
     padding: 20px;
-    margin-top: 60px;
+    margin-top: -10vh;
     color: #364F59;
     text-align: center;
-    left: 22%;
+    margin-left: 15vw;
 }
 
-.submit {
-    margin-left: 38vw;
+.answer-success a {
+    margin-top: 2vh;
+}
+
+.center {
+    margin-left: 33vw;
 }
