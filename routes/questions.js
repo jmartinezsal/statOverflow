@@ -46,6 +46,8 @@ router.get("/new-question", csrfProtection, asyncHandler (async(req, res, next) 
 //route as logged in user to submit the new question
 router.post("/new-question", addQuestionValidators, csrfProtection, asyncHandler (async(req,res, next) => {
   const {header, content, userId} = req.body
+  const path = req.path;
+  
   const question = await Question.build({
     header,
     content,
@@ -57,14 +59,12 @@ router.post("/new-question", addQuestionValidators, csrfProtection, asyncHandler
   if (validating.isEmpty()) {
     console.log("question has been validated")
     await question.save()
+    res.redirect(`/question/${question.id}`)
 
    } else {
-      res.redirect(`/question/${question.id}`)
-    }
-
-  
-  let errors = validating.array().map(err => err.msg);
-  res.render("question-form", {errors, question, csrfToken: req.csrfToken()})
+    let errors = validating.array().map(err => err.msg);
+    res.render("question-form", {path, errors, question, csrfToken: req.csrfToken()})
+   }
 
 }))
 
