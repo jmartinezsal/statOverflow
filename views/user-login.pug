@@ -7,12 +7,12 @@ block content
   script(src="/javascripts/index.js" type="module" defer)
 
   +errorSummaryList(errors)
-  form(class='login' method='post' action='/login')
-      h1= title
+  img(src="/images/title.png" class="titleImg")
+  form(class='login' method='post' action='/login' id="login") 
       input(type="hidden" name="_csrf" value=csrfToken)
-      +field('Username:', 'username', username)
-      +field('Password', 'password', password, 'password')
-      Button Submit
-      Button: a(id='demo__user') Demo User
-      Button: a(href='/') Cancel
+      +field('Username: ', 'username', username)
+      +field('Password:  ', 'password', password, 'password')
+      a(class="button" role="button" onclick="document.getElementById('login').submit(); return false;") Submit
+      a(class="button" role="button" id="demo__user") Demo User
+      a(href="/" class="button" role="button") Cancel
 
