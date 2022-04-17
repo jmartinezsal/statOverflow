@@ -1,8 +1,8 @@
 extends layout.pug
 
 block content
-    +errorSummaryList(errors)
-    div.wrapper
+    div.wrapper 
+
         div.questionUser
             div.username= question.User.username
             br
@@ -11,9 +11,10 @@ block content
             h1= title
             div.text #{question.content}
             br
-            a(href=`#` id=`${question.id}` class="button answerBtn") Add Answer
+            if locals.authenticated
+                a(href=`#new` id=`${question.id}` class="button answerBtn") Add Answer
             div#newAnswer
-        each answer in answers
+        each answer in answers        
             div(class=`question-answer-${question.id}` id=`${answer.id}` )
                 div.questionUser
                     div.username= answer.User.username
@@ -23,20 +24,22 @@ block content
                         textarea(name="answer" id=`answer-${answer.id}`)
                         br
                         a(class="button" id=`submit-${answer.id}`) Accept
-                        a(class="button" id=`cancel-${answer.id}`) Cancel
+                        a(class="button" id=`cancel-${answer.id}`) Cancel    
                     div(class=`text answer-${answer.id}` id=`answer-text-${answer.id}`)= answer.answer
                     if(userId === answer.User.id)
                         a(id=`${question.id}-${answer.id}` class="button editBtn") Edit
                         a(class="button deleteBtn") Delete
-        div(class="questionUser hidden" id="userImg")
-            div.username= question.User.username
-            img(src= question.User.avatarImage)
-        div(class="answerForm")
-            form(method="post" class="hidden" id="answerForm" action=`/question/${question.id}/answer/add`)
-                textarea(id="answer")
-                br
-                div(class="center")
-                    a(class="button addBtn" id=`${question.id}`) Accept
-                    a(class="button" id="cancelBtn") Cancel
-            div(class="answerContainer" id=`${question.id}-${answerId}`)
-            script(src="/javascripts/answers.js")
+        if locals.authenticated                    
+            div(class="questionUser hidden" id="userImg")
+                div.username= user.username
+                img(src=user.avatarImage)
+            div(class="answerForm" id="new")
+                form(method="post" class="hidden" id="answerForm" action=`/question/${question.id}/answer/add`)
+                    textarea(id="answer")
+                    br
+                    div(class="center")
+                        a(class="button addBtn" id=`${question.id}`) Accept
+                        a(class="button" id="cancelBtn") Cancel
+                div(class="answerContainer" id=`${question.id}`)
+                script(src="/javascripts/answers.js")  
+                    

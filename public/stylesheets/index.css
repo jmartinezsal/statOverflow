@@ -60,23 +60,19 @@ li {
     list-style: none;
 }
 
-.hidden{
+.hidden {
     display: none;
 }
 
-.center {
-    display: block;
-    margin-left: 35%;
-
-}
-
 form textarea {
-    width: 60vw;
-    margin-top: 3vh;
-    height: 5vh;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 80px;
+    width: 40vw;
 }
 
-#left__sidebar{
+#left__sidebar {
     display: flex;
     flex-direction: column;
     position: fixed;
@@ -87,12 +83,11 @@ form textarea {
 
 }
 
-#left__sidebar a{
+#left__sidebar a {
     padding: 10px 0px;
     color: #777;
     font-size: 16pt;
     transition: all .5s linear;
-
 }
 
 #left__sidebar .button {
@@ -100,7 +95,7 @@ form textarea {
     color: #6f8187;
 }
 
-#left__sidebar a:hover{
+#left__sidebar a:hover {
     color: black;
     border-right: #777;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
@@ -115,7 +110,27 @@ form textarea {
 }
 
 
-#left__sidebar .button:hover{
-    background-color:#336891;
+#left__sidebar .button:hover {
+    background-color: #336891;
     color: #7ead68;
+}
+
+.login {
+    text-align: center;
+    margin-top: 5vh;
+}
+
+.login input {
+    margin: 5px;
+    width: 20vw;
+    height: 2vh;
+    box-shadow: 2px 2px 4px rgba(48, 47, 47, 0.425);
+}
+
+.titleImg {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30vw;
+    margin-top: 15vh;
 }
