@@ -1,6 +1,7 @@
 extends layout.pug
 
 block content
+    +errorSummaryList(errors)
     div.wrapper
         div.questionUser
             div.username= question.User.username

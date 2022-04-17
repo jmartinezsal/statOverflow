@@ -6,7 +6,7 @@ mixin errorSummaryList(errors)
         each error in errors
           li
             |
-            i.fa.fa-shield(aria-hidden='true' class="shield") &nbsp; #{error}
+            i.fa.fa-shield(aria-hidden='true' class="shield")= ` ${error}`
 
 mixin field(labelText, fieldName, fieldValue, fieldType="text", placeholder = null)
   div(class='signup__group')

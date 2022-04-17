@@ -2,8 +2,7 @@ extends layout.pug
 include utils.pug
 
 block content
-  h2 Create your question here and allow our community to help you on
-      | your conquest!
+  h2 Create your question here and allow our community to help you on your conquest!
   +errorSummaryList(errors)
   form(method='post' action=path)
     input(type="hidden" name="_csrf" value=csrfToken)
