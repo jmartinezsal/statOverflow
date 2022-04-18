@@ -101,11 +101,10 @@
 
 .profile__page__img {
     width: 20vw;
-    float: right;
     border-radius: 20px;
     border: 2px solid rgb(48, 83, 34);
 }
 
-.questions__container {
+/* .profile__page .questions__container{
     margin-top: 20vh;
-}
+} */

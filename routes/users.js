@@ -192,9 +192,7 @@ router.get('/users/:id(\\d+)', asyncHandler(async(req,res,next) =>{
   if(res.locals.currUser){
     userId= res.locals.currUser.id;
   }
-
   let profileId = req.params.id;
-  console.log(userId.toString(), " +++++++++++++ ", profileId)
 
   const user = await User.findByPk(profileId)
   const questions = await Question.findAll({
@@ -224,7 +222,7 @@ router.get('/users/:id(\\d+)', asyncHandler(async(req,res,next) =>{
       // limit: 10
   })
 
-  res.render("profile-page",  { user, profileId, userId, questions, title: `Welcome back, ${user.username}!`})
+  res.render("profile-page",  { user, profileId, userId, questions, title: `Welcome to ${user.username}'s Profile!`})
 }))
 
 
