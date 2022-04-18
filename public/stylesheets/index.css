@@ -10,6 +10,7 @@ body {
     margin: 0;
     background: #C2C7CB;
     color: #011826;
+    padding-bottom: 12vh;
 }
 
 .button {
@@ -135,11 +136,18 @@ form textarea {
     margin-top: 15vh;
 }
 
-
 .welcome {
     height: 80vh;
     background: url("/images/maxresdefault.jpg") no-repeat;
     background-size: cover;
     opacity: 0.8;
 
+}
+
+h2 {
+    margin: 200px;
+    text-align: center;
+    color: #364F59;
+    font-size: 24pt;
+    text-shadow: 2px 2px 2px #fff;
 }

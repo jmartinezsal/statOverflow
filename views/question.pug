@@ -14,7 +14,7 @@ block content
                     if userId === question.User.id
                         a(class="button question-edit-btn" id=`edit-btn-${question.id}`) Edit
                         a(class="button question-delete-btn" id=`delete-btn-${question.id}`) Delete
-                    form(class="hidden editForm" id=`edit-form-${question.id}` action=`/question/${id}/edit` method="put")
+                    form(class="hidden editForm" id=`edit-form-${question.id}` action=`/questions/${id}/edit` method="put")
                         +field("Header:", `edit-header-${question.id}`, question.header)
                         +field("Content:", `edit-content-${question.id}`, question.content, "textarea")
                         a(class="button" id=`submit-edit-${question.id}`) Submit

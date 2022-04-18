@@ -192,7 +192,6 @@ router.get('/users/:id(\\d+)', asyncHandler(async(req,res,next) =>{
   if(res.locals.currUser){
     userId= res.locals.currUser.id;
   }
-
   let profileId = req.params.id;
 
   const user = await User.findByPk(profileId)
@@ -224,6 +223,7 @@ router.get('/users/:id(\\d+)', asyncHandler(async(req,res,next) =>{
   })
 
   res.render("profile-page",  { user, profileId, userId, questions, title: `Welcome to ${user.username}'s profile page!`})
+
 }))
 
 

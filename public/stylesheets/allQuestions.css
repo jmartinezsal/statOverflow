@@ -69,6 +69,34 @@ font-size: 18pt;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
+}
 
+.questionForm {
+  margin: -15vh 15vw;
+}
+
+#header {
+  height: 3vh;
+}
+
+
+.questionForm input, .questionForm textarea {
+  width: 100%;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  margin-bottom: 8px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Open Sans', sans-serif;
+  outline: none;
+  border: none;
+  line-height: 1;
+  width: 100%;
+  padding: 16px;
+  font-size: 14px;
+  color: #666;
 }
 

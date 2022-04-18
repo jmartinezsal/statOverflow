@@ -4,15 +4,12 @@ include utils.pug
 block content
   h2 Create your question here and allow our community to help you on your conquest!
   +errorSummaryList(errors)
-  form(method='post' action=path)
+  form(class="questionForm" method='post' id="questionForm" action=path)
     input(type="hidden" name="_csrf" value=csrfToken)
     input(type='hidden' name='userId' value=locals.currUser.id)
-    div(style={margin: "50px"})
-      label(for="header") Header
-      input(type="text" name="header" id="header" value=question.header)
-    div
-      label(for="content") Content
-      textarea(type="textarea" rows="20" cols="20" name="content" id="content" value=question.content)
-      p Make sure to add as much content to be able to help you
-    div
-      button(type="submit") Submit
+    label(for="header") Header
+    input(type="text" name="header" id="header" value=question.header)
+    label(for="content") Content
+    textarea(type="textarea" rows="20" cols="20" name="content" id="content" value=question.content)
+    p Make sure to add as much content to be able to help you
+    a(class="button" role="button" onclick="document.getElementById('questionForm').submit(); return false;") Submit
