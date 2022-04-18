@@ -5,20 +5,19 @@ block head
   //- add page specific styles by appending to the head
   link(rel="stylesheet" href="/stylesheets/index.css")
   script(src="/javascripts/questionFeatures.js" type="module" defer)
-  title= title
+  title= `${user.username}'s Profile`
 block content
+  if userId.toString() !== profileId
+    - title= `Welcome to ${user.username}'s profile page!`
   .profile__page
-    if user.id === profileId
-      h1= title
-    else
-      h1 Welcome to #{user.username}'s profile page!
+    h1= title
     img(class="profile__page__img" src=user.avatarImage)
     .questions__container
-    if(questions)
+    if questions
       each question in questions
         div(class="question__container" id=`question-container-${question.id}`)
           div(class="user__container")
-            a(href=`/question/${question.id}`)
+            a(href=`/questions/${question.id}`)
               h3(id=`question-header-${question.id}`).qHeader= question.header
             p(id=`question-content-${question.id}`)= question.content
             p(class='numAnswers')= `Answers: ${question.get("answerCnt")}`
@@ -33,5 +32,5 @@ block content
               //- Button(type="button" id=`cancel-edit-${question.id}`) Cancel
           i.fa.fa-clock-o(aria-hidden='true')
             i(class="updatedAt" id=`updatedAt-${question.id}`) Created/Updated on #{question.updatedAt.toString().substring(0,25)}
-      else
-        h3: a(href='/new-question') Ask your first question here
+    else
+      h3: a(href='/new-question') Ask your first question here

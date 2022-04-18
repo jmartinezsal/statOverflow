@@ -118,7 +118,7 @@ router.post("/new-question", addQuestionValidators, csrfProtection, asyncHandler
   if (validating.isEmpty()) {
     console.log("question has been validated")
     await question.save()
-    res.redirect(`/question/${question.id}`)
+    res.redirect(`/questions/${question.id}`)
 
    } else {
     let errors = validating.array().map(err => err.msg);
@@ -128,7 +128,7 @@ router.post("/new-question", addQuestionValidators, csrfProtection, asyncHandler
 }))
 
 //route as logged in user to edit a specific question
-router.put('/question/:id(\\d+)/edit', asyncHandler(async(req, res) => {
+router.put('/questions/:id(\\d+)/edit', asyncHandler(async(req, res) => {
   let path = req.path;
   const question = await Question.findByPk(req.params.id,{
     include: User
@@ -149,7 +149,7 @@ router.put('/question/:id(\\d+)/edit', asyncHandler(async(req, res) => {
 
 
 //route for a logged in user to delete a question
-router.delete('/question/:id(\\d+)/delete', asyncHandler(async(req,res, next) => {
+router.delete('/questions/:id(\\d+)/delete', asyncHandler(async(req,res, next) => {
   let path = req.body;
   const question = await Question.findByPk(req.params.id);
   const answers = await Answer.findAll({

@@ -1,0 +1,28 @@
+.profile__page {
+  margin-left: 20%;
+}
+
+
+
+#all__users__container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+}
+
+
+
+#all__users__container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 60vw;
+  margin-left: 25vw;
+  margin-top: 10vh;
+  margin-bottom: 20vh;
+  font-weight: bold;
+}
+
+#all__users__container p{
+  color:black;
+
+}

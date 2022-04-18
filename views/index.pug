@@ -14,7 +14,7 @@ block content
         div(class="user__container")
           p= question.User.username
           img(src=question.User.avatarImage)
-          a(href=`/question/${question.id}`)
+          a(href=`/questions/${question.id}`)
             h3(id=`question-header-${question.id}`).qHeader= question.header
           p(id=`question-content-${question.id}`)= question.content
           p(class='numAnswers')= `Answers: ${question.get("answerCnt")}`

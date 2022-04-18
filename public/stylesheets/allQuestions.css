@@ -2,11 +2,6 @@
   margin: auto;
 }
 
-#all__users__container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-columns: repeat(3, 1fr);
-}
 
 .user__container img{
   width: 70px;
@@ -53,15 +48,6 @@ font-size: 18pt;
   color: #7ead68;
 }
 
-#all__users__container {
-  display: flex;
-  flex-wrap: wrap;
-  width: 60vw;
-  margin-left: 25vw;
-  margin-top: 10vh;
-  margin-bottom: 20vh;
-  font-weight: bold;
-}
 
 .user__container {
   padding: 10px;
