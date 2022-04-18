@@ -182,7 +182,7 @@ router.get('/users', asyncHandler(async(req,res,next) =>{
     ]
   })
 
-  res.render('users-page', {users});
+  res.render('users-page', {users, title: "Users"});
 }));
 
 
@@ -222,7 +222,8 @@ router.get('/users/:id(\\d+)', asyncHandler(async(req,res,next) =>{
       // limit: 10
   })
 
-  res.render("profile-page",  { user, profileId, userId, questions, title: `Welcome to ${user.username}'s Profile!`})
+  res.render("profile-page",  { user, profileId, userId, questions, title: `Welcome to ${user.username}'s profile page!`})
+
 }))
 
 

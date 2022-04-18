@@ -79,6 +79,7 @@ font-size: 18pt;
   height: 3vh;
 }
 
+
 .questionForm input, .questionForm textarea {
   width: 100%;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
@@ -98,3 +99,4 @@ font-size: 18pt;
   font-size: 14px;
   color: #666;
 }
+

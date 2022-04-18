@@ -2,14 +2,10 @@
   margin-left: 20%;
 }
 
-
-
-#all__users__container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-columns: repeat(3, 1fr);
+.title__image {
+  margin: 0px auto;
+  width: 50%
 }
-
 
 
 #all__users__container {
@@ -24,5 +20,4 @@
 
 #all__users__container p{
   color:black;
-
 }
