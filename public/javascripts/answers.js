@@ -16,72 +16,8 @@ window.addEventListener("DOMContentLoaded", () => {
   const answerForm = document.getElementById(`answerForm`);
   const editBtns = document.querySelectorAll(".editBtn");
   const deleteBtn = document.querySelectorAll(".deleteBtn");
-  // const deleteQ = document.getElementById("deleteQ");
-  // const editQ = document.getElementById("editQ");
   const editForm = document.getElementById("edit-form");
-  // const questionText = document.getElementById("questionText")
-  // const inputText = document.getElementById("inputText")
-
-  // deleteQ.addEventListener("click", async (e) => {
-  //   const questionId = window.location.href.split("/")[4];
-
-  //   try {
-  //     await fetch(`/question/${questionId}/delete/`, {
-  //       method: "DELETE",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-
-  //   window.location.href = "/";
-  // });
-
-//   editQ.addEventListener("click", async (e) => {
-//     const questionId = window.location.href.split("/")[4]
-//     const acceptBtn = document.getElementById("submit")
-//     const cancelBtn = document.getElementById("cancel")
-
-//     removeHidden(editForm);
-//     addHidden(editQ, deleteQ, addAnswer, questionText)
-
-//     cancelBtn.addEventListener('click', () => {
-//       removeHidden(editQ, deleteQ, addAnswer, questionText);
-//       addHidden(editForm)
-//     })
-
-//     inputText.innerText = questionText.textContent;
-
-//     acceptBtn.addEventListener("click", async (submitEvent) => {
-//       submitEvent.preventDefault();
-
-//       const content = inputText.value
-
-//       const res = await fetch(
-//       `/question/${questionId}/edit`,
-//       {
-//         method: "PUT",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify({
-//           content
-//         }),
-//       }
-//     );
-
-//     const data = await res.json();
-
-//     if (data.message === "Success") {
-//       questionText.innerHTML = data.question.content;
-//       addHidden(editForm);
-//       removeHidden(editQ, deleteQ, addAnswer, questionText);
-//     } else {
-//       console.log(error.message);
-//     }
-//   });
-// });
-
+  
   addAnswer.addEventListener("click", (e) => {
     let id = e.target.id;
     const userImg = document.getElementById(`userImg`);
@@ -98,7 +34,7 @@ window.addEventListener("DOMContentLoaded", () => {
     acceptBtn.addEventListener("click", async (event) => {
       const answer = document.getElementById(`answer`).value;
 
-      const res = await fetch(`/question/${id}/answer/add`, {
+      const res = await fetch(`/questions/${id}/answer/add`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -124,7 +60,7 @@ window.addEventListener("DOMContentLoaded", () => {
         newDiv.appendChild(newDeleteBtn);
 
         addHidden(answerForm);
-
+        window.location.href = `/questions/${id}`;
         newDeleteBtn.addEventListener("click", (e) => {
           addHidden(userImg);
           newDiv.remove();

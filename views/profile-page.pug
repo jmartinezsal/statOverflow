@@ -7,8 +7,9 @@ block head
   script(src="/javascripts/questionFeatures.js" type="module" defer)
   title= `${user.username}'s Profile`
 block content
-  if userId.toString() !== profileId
-    - title= `Welcome to ${user.username}'s profile page!`
+  if userId
+    if userId.toString() === profileId
+      - title= `Welcome back ${user.username}!`
   .profile__page
     h1= title
     img(class="profile__page__img" src=user.avatarImage)

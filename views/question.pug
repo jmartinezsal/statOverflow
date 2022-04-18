@@ -9,7 +9,7 @@ block content
                     img(src=question.User.avatarImage)
                     a(href=`/questions/${question.id}`)
                         h3(id=`question-header-${question.id}`).qHeader= question.header
-                    p(id=`question-content-${question.id}`)= question.content
+                    p(id=`question-content-${question.id}`).qContent= question.content
                     br
                     if userId === question.User.id
                         a(class="button question-edit-btn" id=`edit-btn-${question.id}`) Edit

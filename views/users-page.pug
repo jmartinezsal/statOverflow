@@ -1,8 +1,12 @@
 extends layout.pug
-
+block head
+  //- add page specific styles by appending to the head
+  link(rel="stylesheet" href="/stylesheets/index.css")
+  script(src="/javascripts/questionFeatures.js" type="module" defer)
+  title= title
 block content
   img(src="/images/title.png" class="title__image")
-  h1 Users
+  h1= title
   #all__users__container
     for user in users
       .user__container
