@@ -10,7 +10,7 @@ body {
     margin: 0;
     background: #C2C7CB;
     color: #011826;
-    padding-bottom: 12vh;
+    padding-bottom: 300px;
 }
 
 .button {
@@ -141,6 +141,7 @@ form textarea {
     background: url("/images/maxresdefault.jpg") no-repeat;
     background-size: cover;
     opacity: 0.8;
+    padding-bottom: 0px;
 
 }
 

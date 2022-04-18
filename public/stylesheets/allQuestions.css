@@ -39,12 +39,12 @@
 }
 
 .qHeader {
-float: right;
 font-size: 18pt;
+margin-bottom: 2vh;
+
 }
 
 .qHeader:hover {
-
   color: #7ead68;
 }
 
@@ -99,4 +99,3 @@ font-size: 18pt;
   font-size: 14px;
   color: #666;
 }
-
