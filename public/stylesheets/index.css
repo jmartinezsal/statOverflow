@@ -3,6 +3,7 @@
 @import 'footer.css';
 @import 'questions.css';
 @import 'allQuestions.css';
+@import 'profile.css';
 
 body {
     font-family: 'Garamond Premier Pro';
@@ -88,7 +89,7 @@ form textarea {
     color: #777;
     font-size: 16pt;
 
-    transition: all .5s;
+    transition: all 1.5s;
 }
 
 #left__sidebar .button {

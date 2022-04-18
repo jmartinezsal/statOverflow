@@ -192,9 +192,9 @@ router.get('/users/:id(\\d+)', asyncHandler(async(req,res,next) =>{
   if(res.locals.currUser){
     userId= res.locals.currUser.id;
   }
-  console.log(userId)
-  let profileId = req.params.id;
 
+  let profileId = req.params.id;
+  console.log(userId.toString(), " +++++++++++++ ", profileId)
 
   const user = await User.findByPk(profileId)
   const questions = await Question.findAll({
