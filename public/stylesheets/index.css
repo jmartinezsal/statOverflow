@@ -10,7 +10,6 @@ body {
     margin: 0;
     background: #C2C7CB;
     color: #011826;
-    padding-bottom: 300px;
 }
 
 .button {
@@ -134,4 +133,13 @@ form textarea {
     margin-right: auto;
     width: 30vw;
     margin-top: 15vh;
+}
+
+
+.welcome {
+    height: 80vh;
+    background: url("/images/maxresdefault.jpg") no-repeat;
+    background-size: cover;
+    opacity: 0.8;
+
 }
