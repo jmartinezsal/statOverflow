@@ -26,8 +26,7 @@
 }
 
 .wrapper {
-    display: grid;
-    margin-left: 12%;
+    margin-left: 20%;
 }
 
 #answer {
@@ -71,4 +70,27 @@
 
 .center {
     margin-left: 33vw;
+}
+
+.questionButtons {
+    position: absolute;
+    margin-top: 20vh;
+}
+
+#qHeader {
+    margin-left: 5vw;
+    width: 50vw;
+}
+
+#inputText {
+    width: 50vw;
+    margin-left: 18vw;
+}
+
+.labelText {
+    margin-left: 10vw;
+}
+
+#buttons {
+    text-align: center;
 }

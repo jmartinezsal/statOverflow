@@ -5,7 +5,7 @@ questionDeleteBtns.forEach(deleteBtn =>{
     const questionId = event.target.id.split('-')[2];
 
 
-    const res = await fetch(`/question/${questionId}/delete`, {
+    const res = await fetch(`/questions/${questionId}/delete`, {
       method: 'DELETE'
     })
 
@@ -17,7 +17,7 @@ questionDeleteBtns.forEach(deleteBtn =>{
       questionContainer.remove();
 
       if(data.path !== '/' || data.path !== '/questions'){
-        const answersContainer = document.getElementById('allAnswers');
+        const answersContainer = document.querySelector('.allAnswers');
         answersContainer.remove();
         window.location.href = '/';
       }
@@ -30,7 +30,7 @@ const questionEditBtns = document.querySelectorAll('.question-edit-btn');
 
 questionEditBtns.forEach(editBtn =>{
     editBtn.addEventListener('click', e =>{
-
+      console.log(e.target)
       let id = e.target.id.split('-')[2];
 
       const editForm = document.getElementById(`edit-form-${id}`);
@@ -54,7 +54,7 @@ questionEditBtns.forEach(editBtn =>{
         const header = document.getElementById(`edit-header-${id}`).value;
         const content = document.getElementById(`edit-content-${id}`).value;
 
-        const res = await fetch(`/question/${id}/edit`, {
+        const res = await fetch(`/questions/${id}/edit`, {
           method: 'PUT',
           headers: {'Content-type': 'application/json'},
           body: JSON.stringify({

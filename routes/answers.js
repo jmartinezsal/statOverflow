@@ -12,7 +12,7 @@ const answerValidators = [
         .withMessage('Please enter a valid response for answer!')
 ];
 
-router.get('/question/:id(\\d+)', asyncHandler(async(req, res) => {
+router.get('/questions/:id(\\d+)', asyncHandler(async(req, res) => {
     let userId;
 
     if(res.locals.currUser){
@@ -41,7 +41,7 @@ router.get('/question/:id(\\d+)', asyncHandler(async(req, res) => {
 
 
 
-router.post('/question/:id(\\d+)/answer/add', requireAuth, answerValidators, asyncHandler(async(req, res) => {
+router.post('/questions/:id(\\d+)/answer/add', requireAuth, answerValidators, asyncHandler(async(req, res) => {
     const { answer } = req.body;
 
     const newAnswer = Answer.build({
@@ -66,7 +66,7 @@ router.post('/question/:id(\\d+)/answer/add', requireAuth, answerValidators, asy
 
 }));
 
-router.put('/question/:id(\\d+)/answer/edit/:id(\\d+)', requireAuth, answerValidators, asyncHandler(async(req, res) => {
+router.put('/questions/:id(\\d+)/answer/edit/:id(\\d+)', requireAuth, answerValidators, asyncHandler(async(req, res) => {
     const answerToUpdate = await Answer.findByPk(req.params.id);
 
     checkPermissions(answerToUpdate, res.locals.currUser);
@@ -92,7 +92,7 @@ router.put('/question/:id(\\d+)/answer/edit/:id(\\d+)', requireAuth, answerValid
     }
 }));
 
-router.delete('/question/:id(\\d+)/answer/delete/:id(\\d+)', requireAuth,  asyncHandler(async(req, res) => {
+router.delete('/questions/:id(\\d+)/answer/delete/:id(\\d+)', requireAuth,  asyncHandler(async(req, res) => {
     const answer = await Answer.findByPk(req.params.id);
 
     checkPermissions(answer, res.locals.currUser);
