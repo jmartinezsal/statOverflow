@@ -9,8 +9,7 @@ body {
     font-family: 'Garamond Premier Pro';
     margin: 0;
     background: #C2C7CB;
-    color: #011826;
-    padding-bottom: 300px;
+    color: #C2C7CB;
 }
 
 .button {
@@ -132,7 +131,7 @@ form textarea {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 30vw;
+    width: 80vw;
     margin-top: 15vh;
 }
 
@@ -140,15 +139,29 @@ form textarea {
     height: 80vh;
     background: url("/images/maxresdefault.jpg") no-repeat;
     background-size: cover;
-    opacity: 0.8;
     padding-bottom: 0px;
 
 }
 
 h2 {
-    margin: 200px;
+    background-color: #364F59;
+    width: 80%;
     text-align: center;
-    color: #364F59;
     font-size: 24pt;
-    text-shadow: 2px 2px 2px #fff;
+    padding: 40px;
+    margin: 60px auto;
+    opacity: .9;
+    border: 1px solid;
+    border-radius: 10px;
+    box-shadow: 4px 4px 30px rgba(0, 0, 0, 0.4);
+}
+
+@media only screen and (max-width: 500px) {
+    .title__image {
+        width: 100%;
+    }
+
+    h2 {
+        font-size: 18pt;
+    }
 }
