@@ -1,10 +1,9 @@
 footer {
-    padding-left: 100px;
     display:flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-around; 
     width: 100%;
-    height: 12vh;
+    height: 150px;
     position: fixed;
     bottom: 0;
     background-color: #364F59;
@@ -13,6 +12,11 @@ footer {
 footer>div {
     margin-top: -2vh;
     margin-left: -6vw;
+}
+
+footer p {
+    color: #C2C7CB;
+    margin-top: 5vh;
 }
 
 .footer__name {
@@ -32,9 +36,55 @@ footer>div {
 
 .social__media {
     margin-top: 1vh;
-    margin-right: 10vw;
+    margin-left: -260px;
 }
 
 .social__media li {
     margin-bottom: 2px;
+}
+
+@media only screen and (max-width: 1000px) {
+    .social__media {
+        margin-left: -200px;
+    }
+}
+
+@media only screen and (max-width: 750px) {
+    .social__media {
+        margin-left: -150px;
+    }
+
+    footer p {
+        position: absolute;
+        bottom: 0;
+        margin-left: -150px;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+
+    footer {
+        height: 180px;
+    }
+
+    .social__media {
+        margin-left: -100px;
+    }
+    
+    footer p {
+        position: absolute;
+        bottom: 0;
+
+    }
+
+    .footer__name {
+        padding-left: 10px;
+    }
+
+    .profileImg {
+        width: 100px;
+        border-radius: 20px;
+        border: 1px solid;
+        margin-top: 3vh;
+    }
 }
