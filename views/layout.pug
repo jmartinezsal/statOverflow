@@ -43,19 +43,19 @@ html
             //-         input(type="password" name="password" id="password")
             //-         button Submit
             //-         button Demo User
-  if path !=='/signup' && path !=='/login' && path !== '/new-question'
-    #left__sidebar
-        a(href='/')
-          i.fa.fa-home(aria-hidden='true')
-            i Home
-        a(href='/questions')
-          i.fa.fa-question-circle-o(aria-hidden='true')
-            i Questions
-        a(href='/users')
-         i.fa.fa-users(aria-hidden='true')
-          i Users
-        if locals.authenticated && path !== '/new-question'
-          a(href='/new-question' class="button") Ask Question
+  //- if path !=='/signup' && path !=='/login' && path !== '/new-question'
+  //-   #left__sidebar
+  //-       a(href='/')
+  //-         i.fa.fa-home(aria-hidden='true')
+  //-           i Home
+  //-       a(href='/questions')
+  //-         i.fa.fa-question-circle-o(aria-hidden='true')
+  //-           i Questions
+  //-       a(href='/users')
+  //-        i.fa.fa-users(aria-hidden='true')
+  //-         i Users
+  //-       if locals.authenticated && path !== '/new-question'
+  //-         a(href='/new-question' class="button") Ask Question
 
   block content
 footer(class="footer")
