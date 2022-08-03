@@ -1,6 +1,9 @@
 {
   "name": "express-project-starter",
-  "version": "0.0.0",
+  "version": "0.0.2",
+  "engines": {
+    "node": "16.13.2"
+  },
   "private": true,
   "scripts": {
     "start": "per-env",
