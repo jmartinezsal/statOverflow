@@ -3,34 +3,36 @@ include utils.pug
 
 
 block content
-  +errorSummaryList(errors)
-  div(class="signup__splash")
-    h1 Welcome
-    table
-      tr
-        td
-          img(src="/images/swords.png")
-        td.words Fight to survive and get crucial tips from players like you
-      tr
-        td
-          img(src="/images/horse.png")
-        td.words Leave a question, take an answer
-      tr
-        td
-          img(src="/images/shield.png")
-        td.words Discover your inner tarnished
-      tr
-        td
-          img(src="/images/bow.png")
-        td.words Travel these lands seeking your share of adventure
+  div.signup__container
+    +errorSummaryList(errors)
+    div(class="signup__splash")
+      h1 Welcome
+      table
+        tr
+          td
+            img(src="/images/swords.png")
+          td.words Fight to survive and get crucial tips from players like you
+        tr
+          td
+            img(src="/images/horse.png")
+          td.words Leave a question, take an answer
+        tr
+          td
+            img(src="/images/shield.png")
+          td.words Discover your inner tarnished
+        tr
+          td
+            img(src="/images/bow.png")
+          td.words Travel these lands seeking your share of adventure
 
-  form(class='signup' id='signup' method='post' action='/signup')
-    h1= title
-    input(type="hidden" name="_csrf" value=csrfToken)
-    +field('Username:', 'username', user.username)
-    +field('Email:', 'email', user.email, 'email', 'eldenMaster@gmail.com')
-    +field('Password:', 'password', user.password, 'password')
-    +field('Confirm Password:', 'confirmedPassword',confirmedPassword, 'password')
-    +field('Avatar Image:', 'avatarImage', user.avatarImage)
-    a(class="button" role="button" onclick="document.getElementById('signup').submit(); return false;") Submit
-    a(href='/' class="button" role="button") Cancel
+    form(class='signup' id='signup' method='post' action='/signup')
+      h1= title
+      input(type="hidden" name="_csrf" value=csrfToken)
+      +field('Username:', 'username', user.username)
+      +field('Email:', 'email', user.email, 'email', 'eldenMaster@gmail.com')
+      +field('Password:', 'password', user.password, 'password')
+      +field('Confirm Password:', 'confirmedPassword',confirmedPassword, 'password')
+      +field('Avatar Image:', 'avatarImage', user.avatarImage)
+      div(class="button__container")
+        a(class="button" role="button" onclick="document.getElementById('signup').submit(); return false;") Submit
+        a(href='/' class="button" role="button") Cancel

@@ -1,13 +1,18 @@
 .signup {
     margin: 0 55vw 5vh 5vw;
     font-size: 16pt;
+    color: #364F59
+}
+
+.signup h1 {
+    font-size: 32pt;
+    color: #364F59;
 }
 
 .signup input {
     width: 100%;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     margin-bottom: 8px;
-
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -23,13 +28,18 @@
     padding: 0 16px;
     font-size: 14px;
     margin-top: 2px;
-    color: #666;
-}
 
+}
 
 .signup__splash {
     width: 45%;
     float: right;
+    color: #364F59;
+}
+
+.signup__splash h1 {
+    font-size: 32pt;
+    color: #364F59;
 }
 
 .words {
@@ -38,15 +48,56 @@
 }
 
 .error__container {
+    color: #364F59;
     list-style: none;
     text-align: center;
     background: rgba(255, 0, 0, 0.3);
     border: 1px solid;
     margin: 2vh 15vw;
+    padding: 5px;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .error__container li {
     list-style: none;
     text-align: left;
+}
+
+.button__container {
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+}
+
+@media only screen and (max-width: 400px) {
+    .signup__container {
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 200px;
+    }
+
+    .signup__splash {
+        width: 100%;
+        float: none;
+        margin-top: 20px;
+    }
+
+    .signup__splash h1 {
+        font-size: 24pt;
+    }
+
+    .signup {
+        margin: 0;
+        padding-top: 20px;
+    }
+
+    .signup input {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+
+    .signup h1 {
+        font-size: 24pt;
+    }
+
 }

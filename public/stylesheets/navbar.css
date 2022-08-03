@@ -213,7 +213,12 @@
     .searchbar {
         margin-top: 70px;
         margin-right: 70px;
-        width: 100%;        
+        width: 100%;  
+        padding: 1px;      
+    }
+
+    .search-bar {
+        width: 100%;
     }
 
     .ham-menu {
@@ -228,6 +233,15 @@
     .nav__user-info {
         margin-right: 10px;
         margin-top: 80px;
+    }
+
+    .search-btn {
+        top: 23px;
+        right: 6px;
+    }
+
+    .nav__cpanel {
+        display: none
     }
 
 }
