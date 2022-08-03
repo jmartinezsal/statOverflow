@@ -3,10 +3,8 @@ include utils.pug
 
 block head
   //- add page specific styles by appending to the head
-  meta(name="viewport" content="width=device-width, initial-scale=1") 
   link(rel="stylesheet" href="/stylesheets/index.css")
   script(src="/javascripts/questionFeatures.js" type="module" defer)
-  title= title
 block content
   .questions__container
     h1= title

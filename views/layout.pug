@@ -1,12 +1,11 @@
 doctype html
 include utils.pug
 html
-  head
-    link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
-
   block head
-    title= title
+    title statOverflow - #{title}
     link(rel='stylesheet' href='/stylesheets/index.css')
+    link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
+    meta(name="viewport" content="width=device-width, initial-scale=1") 
   body
     nav(class="nav")
       div(class="nav__brand")
@@ -31,6 +30,7 @@ html
             span Sign Up
           a(href="/login")
             span Login
+<<<<<<< HEAD
       input(type="checkbox" name="" id="" class="check")
       ul(class="menu-items")
         li
@@ -46,6 +46,31 @@ html
         span(class="line line1")
         span(class="line line2")
         span(class="line line3")
+=======
+    input(type="checkbox" name="" id="" class="check")
+    if locals.authenticated
+      ul(class="menu-items")
+        li
+          a(href="/") Home
+        li 
+          a(href="/new-question") Ask a Question
+        li 
+          a(href="/users") Users
+        li
+          a(href="/logout") Logout
+    else
+      ul(class="menu-items")
+        li
+          a(href="/") Home
+        li 
+          a(href="/signup") Sign Up
+        li
+          a(href="/login") Login
+    div.ham-menu
+      span(class="line line1")
+      span(class="line line2")
+      span(class="line line3")
+>>>>>>> main
   block content
 footer(class="footer")
   div
