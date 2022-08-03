@@ -79,7 +79,6 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
-      ,
       {
         upvote: true,
         userId: 1,

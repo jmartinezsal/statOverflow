@@ -2,7 +2,9 @@
 module.exports = (sequelize, DataTypes) => {
   const AnswerVoting = sequelize.define('AnswerVoting', {
     upvote:{
+      allowNull: false,
       type: DataTypes.BOOLEAN,
+      defaultValue: false
     },
     answerId:  {
       allowNull: false,

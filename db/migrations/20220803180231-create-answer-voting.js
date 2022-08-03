@@ -9,7 +9,9 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       upvote: {
-        type: Sequelize.BOOLEAN
+        allowNull: false,
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
       },
       answerId: {
         allowNull: false,

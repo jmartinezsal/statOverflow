@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     Answer.belongsTo(models.User, {foreignKey: 'userId'});
     Answer.belongsTo(models.Question, {foreignKey:'questionId'});
-    Answer.hasMany(models.AnswerVoting, {foreignKey:'answerId'})
+    // Answer.hasMany(models.AnswerVoting, {foreignKey:'answerId'})
 
   };
   return Answer;

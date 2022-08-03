@@ -2,26 +2,34 @@ const express = require('express');
 
 
 const router = express.Router();
-const {Question, Answer, AnswerVoting}  = require("../db/models")
+const {User, AnswerVoting}  = require("../db/models")
 const { asyncHandler, csrfProtection, checkPermissions, getPath } = require('./utils');
 const { requireAuth } = require('../auth');
 
 
 //route to show all the questions on a page
-router.get("/questions/:id(\\d+)/vote'", asyncHandler(async (req,res, next) =>{
+router.get("/answers/:id(\\d+)/vote", asyncHandler(async (req,res, next) =>{
+  let userId;
+
+    if(res.locals.currUser){
+        userId = res.locals.currUser.id;
+    }
+
   const voting = await AnswerVoting.findAll({
     where:
-      {questionId: req.params.id},
+      {
+        answerId: req.params.id,
+    },
     include: User
   })
-  res.render('', voting)
+  res.render('question',{ voting })
 }))
 
 router.post("/answer/:id(\\d+)/vote", requireAuth, asyncHandler(async(req, res, next) =>{
 
   const {upvote} = req.body;
 
-  const newVote = answersvoting.build({
+  const newVote = AnswerVoting.build({
     userId: res.locals.currUser.id,
     answerId: req.params.id,
     upvote
@@ -35,7 +43,7 @@ router.put("/answer/:answerId(\\d+)/vote/:voteId", requireAuth, asyncHandler(asy
 
   if(voteToUpdate){
     await voteToUpdate.update(upvote)
-    res.json({messag: "Success", voteToUpdate})
+    res.json({message: "Success", voteToUpdate})
   }
 }))
 
