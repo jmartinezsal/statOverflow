@@ -12,13 +12,15 @@ html
       div(class="nav__brand")
         a(href="/")
           img(src="/images/nav_brand.png")
+      div(class="searchbar")
+        form(action="search")
+          input(type="search" class="search-bar" name="search" style="font-family: 'Helvetica', FontAwesome, sans-serif;" placeholder=' Search...')
+          button(type="submit" class='search-btn button') Go
       if locals.authenticated
         div(class="nav__user")
           div(class="nav__user-info")
-            span Welcome, #{locals.currUser.username}!
-            br
-            a(href='/logout')
-              span Logout
+            span Welcome,
+            p= locals.currUser.username
           if (locals.currUser.avatarImage)
             div(class="nav__user-avatar")
               a(href=`/users/${locals.currUser.id}`)
@@ -29,34 +31,21 @@ html
             span Sign Up
           a(href="/login")
             span Login
-            //- div(id="open-modal" class="modal-window")
-            //-   div
-            //-     a(href="#" title="Close" class="modal-close") Close
-            //-     h1 Login
-            //-     div
-            //-       +errorSummaryList(errors)
-            //-       form(method="post" action="/get" class="nav__login")
-            //-         input(type="hidden" name="_csrf" value=csrfToken)
-            //-         label(for="username") Username:
-            //-         input(type="text" name="username" id="username")
-            //-         label(for="password") Password:
-            //-         input(type="password" name="password" id="password")
-            //-         button Submit
-            //-         button Demo User
-  //- if path !=='/signup' && path !=='/login' && path !== '/new-question'
-  //-   #left__sidebar
-  //-       a(href='/')
-  //-         i.fa.fa-home(aria-hidden='true')
-  //-           i Home
-  //-       a(href='/questions')
-  //-         i.fa.fa-question-circle-o(aria-hidden='true')
-  //-           i Questions
-  //-       a(href='/users')
-  //-        i.fa.fa-users(aria-hidden='true')
-  //-         i Users
-  //-       if locals.authenticated && path !== '/new-question'
-  //-         a(href='/new-question' class="button") Ask Question
-
+    input(type="checkbox" name="" id="" class="check")
+    ul(class="menu-items")
+      li
+        a(href="/") Home
+      li 
+        if locals.authenticated && path !== '/new-question'
+          a(href="/new-question") Ask a Question
+      li 
+        a(href="/users") Users
+      li
+        a(href="/logout") Logout
+    div.ham-menu
+      span(class="line line1")
+      span(class="line line2")
+      span(class="line line3")
   block content
 footer(class="footer")
 
