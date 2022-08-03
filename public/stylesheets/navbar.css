@@ -1,5 +1,7 @@
 .nav {
-    height: 8vh;
+    height: 90px;
+    display: flex;
+    justify-content: space-between;
     position: sticky;
     font-size: 24pt;
     color: #C2C7CB;
@@ -14,7 +16,8 @@
 }
 
 .nav__cpanel {
-    float: right;
+    position: absolute;
+    right: 100px;
     margin-top: 30px;
 }
 
@@ -47,15 +50,19 @@
     width: 70px;
     border: 1px solid;
     float: right;
-    margin-top: -65px;
-    margin-right: 20px;
+    margin-top: -60px;
+    margin-right: 150px;
     border-radius: 20px;
 }
 
 .nav__user-info {
-    margin-right: 200px;
+    margin-right: 250px;
     margin-top: 15px;
     font-size: 16pt;
+}
+
+.nav__user-info p {
+    margin-top: -8px;
 }
 
 .nav__user {
@@ -63,59 +70,164 @@
     float: right;
 }
 
-.modal-window {
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 611px;
-    bottom: 655px;
-    z-index: 999;
-    visibility: hidden;
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.3s;
+.searchbar {
+    display: flex;
+    position: absolute;
+    justify-content: center;
+    width: 80vw;
 }
 
-.modal-window:target {
-    visibility: visible;
-    opacity: 1;
-    pointer-events: auto;
+.search-bar {
+    position: absolute;
+    height: 40px;
+    margin-top: 25px;
+    width: 50%;
+    border-radius: 10px;
+    border: 1px solid;
+    margin-left: -200px;
+    padding: 10px;
+    font-size: 16pt;
 }
 
-.modal-window>div {
-    width: 400px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 0 2em 0.5em 2em;
-    background-color: #364F59;
-    border-radius: 15px;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+.search-btn {
+    height: 35px;
+    position: absolute;
+    top: 22px;
+    right: 200px;
+    color: #C2C7CB;
     border: 1px solid;
 }
 
-.modal-window header {
-    font-weight: bold;
+*,
+*::after,
+*::before {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
 
-.modal-window h1 {
-    color: #C2C7CB;
-    margin: 0 0 15px;
-}
-
-.modal-close {
-    color: #C2C7CB;
-    line-height: 50px;
-    font-size: 80%;
-    position: absolute;
-    right: 0;
+.menu-items {
     text-align: center;
-    top: 0;
-    width: 70px;
+    position: absolute;
+    padding: 5rem;
+    margin-left: -1rem;
+    top: 100px;
+    right: 50px;
+    list-style: none;
+    opacity: 0;
+    font-size: 2rem;
+    border: 4px solid #C2C7CB;
+    background-color: #364F59;
+    border-radius: 0.25em;
+    transform: translatey(-10%);
+    transition: transform 100ms ease-in-out, opacity 200ms;
+    z-index: 1; 
+}
+
+.menu-items li{
+    color: #C2C7CB;
+    padding: 0.5rem;
+}
+
+.menu-items li a{
+    color: #C2C7CB;
     text-decoration: none;
 }
 
-.modal:hover {
-    color: black;
+.menu-items li a:hover{
+    color: rgb(174, 174, 174);
+}
+
+.check {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    height: 3rem;
+    width: 3rem;
+    opacity: 0;
+    z-index: 3;
+}
+
+.check:hover {
+    cursor: pointer;
+}
+
+.check:checked~.menu-items {
+    display: block;
+    transform: translateX(0%);
+    opacity: 1;
+}
+
+.ham-menu {
+    height: 3rem;
+    width: 3rem;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 0.5rem;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: #364F59;
+    border-radius: 10px;
+}
+
+.ham-menu .line {
+    background-color: white;
+    border-radius: 1em;
+    width: 2rem;
+    height: 0.25rem;
+}
+
+.ham-menu .line1 {
+    transform-origin: 0% 0%;
+    transition: transform 100ms ease-in-out;
+}
+
+.ham-menu .line3 {
+    transform-origin: 0% 100%;
+    transition: transform 100ms ease-in-out;
+}
+
+
+.check:checked~.ham-menu .line1 {
+    display: block;
+    transform: rotate(45deg);
+}
+
+.check:checked~.ham-menu .line2 {
+    opacity: 0;
+}
+
+.check:checked~.ham-menu .line3 {
+    display: block;
+    transform: rotate(-45deg);
+}
+
+@media only screen and (max-width: 600px) {
+    .nav {
+        height: 150px;
+    }
+
+    .searchbar {
+        margin-top: 70px;
+        margin-right: 70px;
+        width: 100%;        
+    }
+
+    .ham-menu {
+        top: 15px;
+    }
+
+    .nav__user-avatar img {
+        margin-top: -125px;
+        margin-right: 70px;
+    }
+
+    .nav__user-info {
+        margin-right: 10px;
+        margin-top: 80px;
+    }
+
 }

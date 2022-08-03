@@ -30,6 +30,8 @@
 .questions__container {
   width: 60%;
   margin-left: 20%;
+  padding-bottom: 300px;
+  padding-top: 50px;
 };
 
 .question__container >a:hover {

@@ -5,6 +5,7 @@ const { user } = require('pg/lib/defaults');
 const router = express.Router();
 const {Question, Answer, User, sequelize}  = require("../db/models")
 const { asyncHandler, csrfProtection, checkPermissions, getPath } = require('./utils');
+const { Op } = require('sequelize');
 
 const addQuestionValidators = [
   check('header')
@@ -91,6 +92,39 @@ router.get("/questions", asyncHandler(async(req, res, next) => {
 
   res.render("index",  { path, userId, questions, title: "All Questions"})
 }))
+
+router.get("/search", async (req, res) => {
+  const { search } = req.query;
+  const questions = await Question.findAll({  where: { content: {
+    [Op.like]: '%' + search + '%'
+  }},
+  include: [{
+    model: Answer,
+    attributes: []
+    },{
+      model: User,
+      attributes: [
+        'avatarImage',
+        'username',
+        'id'
+      ]
+    }
+  ],
+    attributes:[
+      'id',
+      'content',
+      'header',
+      'updatedAt',
+      [sequelize.fn("COUNT", sequelize.col("Answers.questionId")), "answerCnt"]
+          ],
+      group: ["Question.id", "User.id"],
+    order: [
+    ['updatedAt', 'DESC']
+  ]
+});
+
+  res.render("index", { questions, title: "Search Results" })
+})
 
 //********** As a logged in user ************
 
