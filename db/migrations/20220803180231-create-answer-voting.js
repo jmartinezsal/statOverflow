@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('AnswersVotings', {
+    return queryInterface.createTable('AnswerVotings', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -9,7 +9,6 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       upvote: {
-        allowNull: false,
         type: Sequelize.BOOLEAN
       },
       answerId: {
@@ -33,6 +32,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('AnswersVotings');
+    return queryInterface.dropTable('AnswerVotings');
   }
 };

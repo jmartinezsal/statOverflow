@@ -28,8 +28,11 @@ block content
             each answer in answers
                 div(class=`question-answer-${question.id}` id=`${answer.id}` )
                     div.questionUser
-                        div.username= answer.User.username
+                        p.username= answer.User.username
                         img(src=answer.User.avatarImage)
+                    div.answer_voting
+                        i.fafa-arrow-turn-up(aria-hidden='true')
+                        i.fa.fa-arrow-turn-down(aria-hidden='true')
                     div.question(id=`${question.id}`)
                         form(class="hidden" id=`edit-form-${answer.id}` action=`/questions/${question.id}/answer/edit/${answer.id}` method="put")
                             textarea(class="text" name="answer" id=`answer-${answer.id}`)

@@ -1,8 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const AnswersVoting = sequelize.define('AnswersVoting', {
+  const AnswerVoting = sequelize.define('AnswerVoting', {
     upvote:{
-      allowNull: false,
       type: DataTypes.BOOLEAN,
     },
     answerId:  {
@@ -14,9 +13,10 @@ module.exports = (sequelize, DataTypes) => {
     type: DataTypes.INTEGER,
     }
   }, {});
-  AnswersVoting.associate = function(models) {
+  AnswerVoting.associate = function(models) {
     // associations can be defined here
-
+    AnswerVoting.belongsTo(models.Answer, {foreignKey:'answerId'});
+    AnswerVoting.belongsTo(models.User, {foreignKey:'userId'});
   };
-  return AnswersVoting;
+  return AnswerVoting;
 };
