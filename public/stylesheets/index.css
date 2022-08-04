@@ -39,7 +39,7 @@ a:hover {
 
 button:hover {
     background-color: #7ead68;
-    text-decoration: none;    
+    text-decoration: none;
 }
 
 h1 {
@@ -167,14 +167,14 @@ input {
     .login .button__container a {
         width: 100%;
         margin-top: 2px;
-    
+
     }
 
     .button__container {
         display: flex;
         flex-direction: column;
     }
-    
+
     .button__container {
         text-align: center;
         width: 75%;
@@ -189,7 +189,7 @@ input {
 
     .title__image {
         width: 100%;
-    }    
+    }
 
     h2 {
         font-size: 18pt;

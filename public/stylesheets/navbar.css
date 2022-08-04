@@ -114,14 +114,14 @@
     top: 100px;
     right: 50px;
     list-style: none;
-    opacity: 0;
+    display: none;
     font-size: 2rem;
     border: 4px solid #C2C7CB;
     background-color: #364F59;
     border-radius: 0.25em;
     transform: translatey(-10%);
     transition: transform 100ms ease-in-out, opacity 200ms;
-    z-index: 1; 
+    z-index: 1;
 }
 
 .menu-items li{
@@ -217,8 +217,8 @@
     .searchbar {
         margin-top: 70px;
         margin-right: 70px;
-        width: 100%;  
-        padding: 1px;      
+        width: 100%;
+        padding: 1px;
     }
 
     .search-bar {
@@ -265,7 +265,7 @@
         border-radius: 20px;
     }
 
-    
+
     .menu__user-info {
         margin-left: 20px;
         margin-top: 35px;
@@ -273,15 +273,15 @@
         font-size: 20pt;
         text-align: left;
     }
-    
+
     .menu__user-info p {
         margin-top: -1px;
     }
-    
+
     .menu__user {
         display: block;
         width: 100%;
-        border-bottom: 1px solid;        
+        border-bottom: 1px solid;
         float: right;
         margin-bottom: 40px;
     }

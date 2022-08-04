@@ -17,7 +17,7 @@ questionDeleteBtns.forEach(deleteBtn =>{
       questionContainer.remove();
 
       if(data.path !== '/' || data.path !== '/questions'){
-        const answersContainer = document.querySelector('.allAnswers');
+        const answersContainer = document.querySelector('.answers-container');
         answersContainer.remove();
         window.location.href = '/';
       }

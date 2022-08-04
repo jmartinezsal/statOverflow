@@ -1,5 +1,5 @@
 const express = require('express');
-const {Question, Answer, User}  = require("../db/models")
+const {Question, Answer, User, AnswerVoting, sequelize}  = require("../db/models")
 const { asyncHandler, csrfProtection, checkPermissions } = require('./utils');
 const { requireAuth } = require('../auth');
 const { check, validationResult } = require('express-validator');
@@ -14,28 +14,77 @@ const answerValidators = [
 
 router.get('/questions/:id(\\d+)', asyncHandler(async(req, res) => {
     let userId;
-
+    //Object to store the votings of each answer
+    let answerVotings = {};
+    let voteStatus = {};
     if(res.locals.currUser){
         userId = res.locals.currUser.id;
     }
 
-    const question = await Question.findByPk(req.params.id, {
-        include: User
-    });
+    const question = await Question.findByPk(req.params.id)
+
+    const questionUser = await User.findByPk(question.userId,{
+        include: [{
+            model: Answer,
+            attributes: []
+        },
+        {
+            model: Question,
+            attributes: []
+
+        }],
+        attributes: [
+            'id',
+            'username',
+            'avatarImage',
+            [sequelize.fn("COUNT", sequelize.col("Questions.userId")), "questionCnt"],
+            [sequelize.fn("COUNT", sequelize.col("Answers.userId")), "answerCnt"]
+        ],
+        group: ["User.id"]
 
 
-    const answers = await Answer.findAll(
-    {
-        where:
-            { questionId: req.params.id },
-        include: User
+    })
+
+        const answers = await Answer.findAll(
+            {
+                where:
+                { questionId: req.params.id },
+                include: [User, AnswerVoting],
+
     });
+
+    answers.forEach((answer, idx) =>(
+        answerVotings[answer.id] = answer.dataValues.AnswerVotings
+        ))
+
+    for (let i=0; i < Object.values(answerVotings).length; i++){
+        let currKey = Object.keys(answerVotings)[i];
+        let currAnswer = Object.values(answerVotings)[i];
+        let counter = 0;
+        let value = 0;
+
+        for( let vote of currAnswer ){
+            let currVote = vote.dataValues
+            if( currVote.upvote){
+                value++;
+            } else{
+                value--;
+            }
+            counter++;
+        }
+
+        voteStatus[currKey] = {counter, value}
+    }
+    console.log(questionUser.dataValues)
+
 
     res.render('question', {
-        title: `statOverflow - ${question.header}`,
+        title: `${question.header}`,
         question,
         answers,
-        userId
+        userId,
+        voteStatus,
+        questionUser: questionUser.dataValues
     })
 }));
 
