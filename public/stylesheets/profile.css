@@ -1,5 +1,15 @@
 .profile__page {
-  margin-left: 20%;
+  display: flex;
+  flex-direction: column;
+  margin: 50px;
+}
+
+.profile__page__img {
+  width: 20vw;
+  border-radius: 20px;
+  border: 2px solid rgb(48, 83, 34);
+  align-self: flex-end;
+  margin: 20px;
 }
 
 .title__image {
@@ -7,17 +17,26 @@
   width: 50%
 }
 
+.users__container {
+  margin-top: 10vh;
+}
+
 
 #all__users__container {
-  display: flex;
-  flex-wrap: wrap;
-  width: 60vw;
-  margin-left: 25vw;
-  margin-top: 10vh;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   margin-bottom: 20vh;
   font-weight: bold;
 }
 
 #all__users__container p{
   color:black;
+}
+
+@media only screen and (max-width: 400px) {
+
+  #all__users__container {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+
 }

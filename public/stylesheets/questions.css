@@ -95,16 +95,6 @@
     text-align: center;
 }
 
-.profile__page {
-    margin: 50px;
-}
-
-.profile__page__img {
-    width: 20vw;
-    border-radius: 20px;
-    border: 2px solid rgb(48, 83, 34);
-}
-
 /* .profile__page .questions__container{
     margin-top: 20vh;
 } */

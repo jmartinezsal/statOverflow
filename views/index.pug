@@ -1,11 +1,8 @@
 extends layout.pug
 include utils.pug
 
-block head
-  title statOverflow - #{title}
-  link(rel="stylesheet" href="/stylesheets/index.css")
-  meta(name="viewport" content="width=device-width, initial-scale=1") 
-  script(src="/javascripts/questionFeatures.js" type="module" defer)
+block append head
+      
 block content
   .questions__container
     h1= title
