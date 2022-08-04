@@ -205,7 +205,11 @@
     transform: rotate(-45deg);
 }
 
-@media only screen and (max-width: 600px) {
+.menu__user {
+    display: none;
+}
+
+@media only screen and (max-width: 400px) {
     .nav {
         height: 150px;
     }
@@ -231,8 +235,7 @@
     }
 
     .nav__user-info {
-        margin-right: 10px;
-        margin-top: 80px;
+        display: none;
     }
 
     .search-btn {
@@ -242,6 +245,45 @@
 
     .nav__cpanel {
         display: none
+    }
+
+    .menu-items {
+        padding: 0;
+        width: 100%;
+        height: 63%;
+        margin-left: 0;
+        top: 135px;
+        right: 0;
+    }
+
+    .menu__user-avatar img {
+        width: 90px;
+        border: 1px solid;
+        float: right;
+        margin-top: -125px;
+        margin-right: 15px;
+        border-radius: 20px;
+    }
+
+
+    .menu__user-info {
+        margin-left: 20px;
+        margin-top: 35px;
+        margin-bottom: 50px;
+        font-size: 20pt;
+        text-align: left;
+    }
+
+    .menu__user-info p {
+        margin-top: -1px;
+    }
+
+    .menu__user {
+        display: block;
+        width: 100%;
+        border-bottom: 1px solid;
+        float: right;
+        margin-bottom: 40px;
     }
 
 }

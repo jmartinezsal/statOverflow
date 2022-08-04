@@ -4,16 +4,11 @@ include utils.pug
     if userId.toString() === profileId
       - var title= `Welcome back ${user.username}!`
 
-block head
-  //- add page specific styles by appending to the head
-  link(rel="stylesheet" href="/stylesheets/index.css")
-  script(src="/javascripts/questionFeatures.js" type="module" defer)
-  title= `${user.username}'s Profile`
+block append head 
 block content
   .profile__page
     h1= title
     img(class="profile__page__img" src=user.avatarImage)
-    .questions__container
     if questions
       each question in questions
         div(class="question__container" id=`question-container-${question.id}`)
