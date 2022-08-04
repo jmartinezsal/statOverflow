@@ -14,7 +14,6 @@
 }
 
 .username {
-    position: absolute;
     font-weight: bold;
     margin-top: 50px;
 }
@@ -37,20 +36,6 @@
     margin-right: 20vw;
 }
 
-.questionUser {
-    margin-left: 20px;
-    display: flex;
-    justify-content: center;
-    width: 15vw;
-    padding-top: 20px;
-}
-
-.questionUser img {
-    margin-top: 75px;
-    width: 100px;
-    border: 1px solid;
-    border-radius: 20px;
-}
 
 .answer-success {
     display: block;
@@ -100,11 +85,73 @@
 }
 
 .profile__page__img {
-    width: 20vw;
     border-radius: 20px;
     border: 2px solid rgb(48, 83, 34);
 }
 
-/* .profile__page .questions__container{
-    margin-top: 20vh;
-} */
+.all-answers-container {
+    margin: 40px 0px 0px 20px;
+
+}
+
+.all-answers-container .total-answers {
+    font-size: 2.5rem;
+}
+
+.answer-container {
+    display: flex;
+    height: fit-content;
+    width: 70%;
+    margin: 40px 20px;
+    gap: 40px;
+}
+
+
+.answer-user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.answer-user p{
+    font-size: 1.5rem;
+    margin-bottom: auto;
+}
+
+.answer-user img {
+    border-radius: 10px;
+    width: 100px;
+}
+
+.answer-voting {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.answer-voting i {
+    color: black;
+    font-size: 2.0rem;
+    cursor: pointer;
+}
+
+.answer-voting p {
+    font-size: 2.5rem;
+}
+
+.answer-voting .positive {
+    color: green;
+}
+
+.answer-voting p .negative {
+    color: red;
+}
+
+.answer-voting .fa-arrow-up:hover {
+    color: green;
+}
+
+.answer-voting .fa-arrow-down:hover {
+    color: red;
+}

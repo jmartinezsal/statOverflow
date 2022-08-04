@@ -7,13 +7,17 @@ const { asyncHandler, csrfProtection, checkPermissions, getPath } = require('./u
 const { requireAuth } = require('../auth');
 
 
-//route to show all the questions on a page
-router.get("/answers/:id(\\d+)/vote", asyncHandler(async (req,res, next) =>{
+//route to show all the votes for answers
+router.get("/questions/:id(\\d+)", asyncHandler(async (req,res, next) =>{
   let userId;
-
+  let
     if(res.locals.currUser){
         userId = res.locals.currUser.id;
     }
+
+    const answers = await AnswerVoting.findAll({
+      where: req.params.id
+    })
 
   const voting = await AnswerVoting.findAll({
     where:
@@ -22,6 +26,7 @@ router.get("/answers/:id(\\d+)/vote", asyncHandler(async (req,res, next) =>{
     },
     include: User
   })
+  console.log(voting)
   res.render('question',{ voting })
 }))
 

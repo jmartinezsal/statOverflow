@@ -1,5 +1,5 @@
 const express = require('express');
-const {Question, Answer, User}  = require("../db/models")
+const {Question, Answer, User, AnswerVoting}  = require("../db/models")
 const { asyncHandler, csrfProtection, checkPermissions } = require('./utils');
 const { requireAuth } = require('../auth');
 const { check, validationResult } = require('express-validator');
@@ -14,7 +14,9 @@ const answerValidators = [
 
 router.get('/questions/:id(\\d+)', asyncHandler(async(req, res) => {
     let userId;
-
+    //Object to store the votings of each answer
+    let answerVotings = {};
+    let voteStatus = {};
     if(res.locals.currUser){
         userId = res.locals.currUser.id;
     }
@@ -28,14 +30,38 @@ router.get('/questions/:id(\\d+)', asyncHandler(async(req, res) => {
     {
         where:
             { questionId: req.params.id },
-        include: User
+        include: [User, AnswerVoting],
+
     });
 
+    answers.forEach((answer, idx) =>(
+        answerVotings[answer.id] = answer.dataValues.AnswerVotings
+        ))
+
+    for (let i=0; i < Object.values(answerVotings).length; i++){
+        let currAnswer = Object.values(answerVotings)[i];
+        let counter = 0;
+        let value = 0;
+
+        for( let vote of currAnswer ){
+            let currVote = vote.dataValues
+            if( currVote.upvote){
+                value++;
+            } else{
+                value--;
+            }
+            counter++;
+        }
+    voteStatus[currAnswer[0].answerId] = {counter, value}
+    }
+
+
     res.render('question', {
-        title: `statOverflow - ${question.header}`,
+        title: `${question.header}`,
         question,
         answers,
-        userId
+        userId,
+        voteStatus
     })
 }));
 

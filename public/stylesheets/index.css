@@ -37,6 +37,10 @@ a:hover {
     text-decoration: none;
 }
 
+p {
+    color: black;
+}
+
 h1 {
     text-align: center;
     text-transform: uppercase;
