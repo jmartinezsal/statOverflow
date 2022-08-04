@@ -2,7 +2,6 @@
   margin: auto;
 }
 
-
 .user__container img{
   width: 70px;
   border: 1px solid;
@@ -50,7 +49,6 @@ margin-bottom: 2vh;
   color: #7ead68;
 }
 
-
 .user__container {
   padding: 10px;
 }
@@ -74,15 +72,22 @@ margin-bottom: 2vh;
 }
 
 .questionForm {
-  margin: -15vh 15vw;
+  width: 60%;
+  margin: 0 auto;
+  padding-bottom: 300px;
+  padding-top: 50px;
+  color: #364F59;
+}
+
+.questionForm a {
+  margin: 0 auto;
 }
 
 #header {
   height: 3vh;
 }
 
-
-.questionForm input, .questionForm textarea {
+.questionForm textarea {
   width: 100%;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   margin-bottom: 8px;
@@ -96,8 +101,22 @@ margin-bottom: 2vh;
   outline: none;
   border: none;
   line-height: 1;
-  width: 100%;
   padding: 16px;
   font-size: 14px;
-  color: #666;
+}
+
+@media only screen and (max-width: 400px) {
+  .questions__container {
+    width: 90%;
+    margin: 0 auto;
+    padding-bottom: 200px;
+    margin-top: 0;
+  };
+
+  .questionForm {
+    width: 100%;
+    margin: 0 auto;
+    padding-bottom: 200px;
+    margin-top: 50px;
+  }
 }

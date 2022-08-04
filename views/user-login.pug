@@ -1,8 +1,7 @@
 extends layout.pug
 include utils.pug
 
-  title= title
-  link(rel="stylesheet" href="/stylesheets/index.css")
+block append head 
 block content
   script(src="/javascripts/index.js" type="module" defer)
 
@@ -10,8 +9,11 @@ block content
   img(src="/images/title.png" class="titleImg")
   form(class='login' method='post' action='/login' id="login")
       input(type="hidden" name="_csrf" value=csrfToken)
-      +field('Username: ', 'username', username)
-      +field('Password:  ', 'password', password, 'password')
-      a(class="button" role="button" id="submit__login" onclick="document.getElementById('login').submit(); return false;") Submit
-      a(class="button" role="button" id="demo__user") Demo User
-      a(href="/" class="button" role="button") Cancel
+      label(for="username") Username:
+      input(type='text' name='username')
+      label(for="password") Password:
+      input(type='password' id='password' name='password')
+      div.button__container
+        a(class="button" role="button" id="submit__login" onclick="document.getElementById('login').submit(); return false;") Submit
+        a(class="button" role="button" id="demo__user") Demo User
+        a(href="/" class="button" role="button") Cancel

@@ -5,7 +5,9 @@ html
     title statOverflow - #{title}
     link(rel='stylesheet' href='/stylesheets/index.css')
     link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
-    meta(name="viewport" content="width=device-width, initial-scale=1") 
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    script(src="/javascripts/answers.js")
+    script(src="/javascripts/questionFeatures.js" defer)
   body
     nav(class="nav")
       div(class="nav__brand")
@@ -33,6 +35,15 @@ html
     input(type="checkbox" name="" id="" class="check")
     if locals.authenticated
       ul(class="menu-items")
+        li
+          div(class="menu__user")
+            div(class="menu__user-info")
+              span Welcome,
+              p= locals.currUser.username
+            if (locals.currUser.avatarImage)
+              div(class="menu__user-avatar")
+                a(href=`/users/${locals.currUser.id}`)
+                  img(src=locals.currUser.avatarImage)
         li
           a(href="/") Home
         li 

@@ -1,10 +1,8 @@
 extends layout.pug
 include utils.pug
 
-block head
-  //- add page specific styles by appending to the head
-  link(rel="stylesheet" href="/stylesheets/index.css")
-  script(src="/javascripts/questionFeatures.js" type="module" defer)
+block append head
+      
 block content
   .questions__container
     h1= title
