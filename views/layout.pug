@@ -34,6 +34,15 @@ html
     if locals.authenticated
       ul(class="menu-items")
         li
+          div(class="menu__user")
+            div(class="menu__user-info")
+              span Welcome,
+              p= locals.currUser.username
+            if (locals.currUser.avatarImage)
+              div(class="menu__user-avatar")
+                a(href=`/users/${locals.currUser.id}`)
+                  img(src=locals.currUser.avatarImage)
+        li
           a(href="/") Home
         li 
           a(href="/new-question") Ask a Question
