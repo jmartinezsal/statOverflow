@@ -2,30 +2,35 @@ extends layout.pug
 
 block content
     if question
-        div.wrapper
-            div(class="question__container" id=`question-container-${question.id}`)
-                div(class="user__container")
-                    p= question.User.username
-                    img(src=question.User.avatarImage)
-                    a(href=`/questions/${question.id}`)
-                        h3(id=`question-header-${question.id}`).qHeader= question.header
-                    p(id=`question-content-${question.id}`).qContent= question.content
-                    br
-                    if userId === question.User.id
+        div.question-wrapper
+            div(class="question-container" id=`question-container-${question.id}`)
+                div(class="header")
+                    div.header-left
+                        h3(class='question-header' id=`question-header-${question.id}`)= question.header
+                        i.fa.fa-clock-o(aria-hidden='true')
+                            i(class="updatedAt" id=`updatedAt-${question.id}`) Created/Updated on #{question.updatedAt.toString().substring(0,25)}
+                    if userId === questionUser.id
                         a(class="button question-edit-btn" id=`edit-btn-${question.id}`) Edit
                         a(class="button question-delete-btn" id=`delete-btn-${question.id}`) Delete
-                    form(class="hidden editForm" id=`edit-form-${question.id}` action=`/questions/${id}/edit` method="put")
-                        +field("Header:", `edit-header-${question.id}`, question.header)
-                        +field("Content:", `edit-content-${question.id}`, question.content, "textarea")
-                        a(class="button" id=`submit-edit-${question.id}`) Submit
-                        //- Button(type="button" id=`cancel-edit-${question.id}`) Cancel
-                i.fa.fa-clock-o(aria-hidden='true')
-                    i(class="updatedAt" id=`updatedAt-${question.id}`) Created/Updated on #{question.updatedAt.toString().substring(0,25)}
+                p(id=`question-content-${question.id}` class='question-content')= question.content
+                div.question-container-btm
+                    if locals.authenticated
+                        a(href=`#new` id=`${question.id}` class="button answerBtn") Add Answer
+                    a.question-user-card(href=`/users/${questionUser.id}`)
+                        div.user-card-left
+                            p.username= questionUser.username
+                            img.question-image(src=questionUser.avatarImage)
+                        div.user-card-right
+                            p.user-data=`${ questionUser.answerCnt} Answers`
+                            p.user-data=`${questionUser.questionCnt} Questions`
+                form(class="hidden editForm" id=`edit-form-${question.id}` action=`/questions/${id}/edit` method="put")
+                    +field("Header:", `edit-header-${question.id}`, question.header)
+                    +field("Content:", `edit-content-${question.id}`, question.content, "textarea")
+                    a(class="button" id=`submit-edit-${question.id}`) Submit
+                    //- Button(type="button" id=`cancel-edit-${question.id}`) Cancel
             div#newAnswer
-            if locals.authenticated
-                a(href=`#new` id=`${question.id}` class="button answerBtn") Add Answer
             div.all-answers-container
-                p.total-answers= `${answers.length} Answer`
+                p.total-answers= `${answers.length} Answers`
             each answer in answers
                 div(class=`answer-container` id=`${answer.id}` )
                     div.answer-user

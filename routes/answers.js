@@ -1,5 +1,5 @@
 const express = require('express');
-const {Question, Answer, User, AnswerVoting}  = require("../db/models")
+const {Question, Answer, User, AnswerVoting, sequelize}  = require("../db/models")
 const { asyncHandler, csrfProtection, checkPermissions } = require('./utils');
 const { requireAuth } = require('../auth');
 const { check, validationResult } = require('express-validator');
@@ -21,16 +21,35 @@ router.get('/questions/:id(\\d+)', asyncHandler(async(req, res) => {
         userId = res.locals.currUser.id;
     }
 
-    const question = await Question.findByPk(req.params.id, {
-        include: User
-    });
+    const question = await Question.findByPk(req.params.id)
+
+    const questionUser = await User.findByPk(question.userId,{
+        include: [{
+            model: Answer,
+            attributes: []
+        },
+        {
+            model: Question,
+            attributes: []
+
+        }],
+        attributes: [
+            'id',
+            'username',
+            'avatarImage',
+            [sequelize.fn("COUNT", sequelize.col("Questions.userId")), "questionCnt"],
+            [sequelize.fn("COUNT", sequelize.col("Answers.userId")), "answerCnt"]
+        ],
+        group: ["User.id"]
 
 
-    const answers = await Answer.findAll(
-    {
-        where:
-            { questionId: req.params.id },
-        include: [User, AnswerVoting],
+    })
+
+        const answers = await Answer.findAll(
+            {
+                where:
+                { questionId: req.params.id },
+                include: [User, AnswerVoting],
 
     });
 
@@ -39,6 +58,7 @@ router.get('/questions/:id(\\d+)', asyncHandler(async(req, res) => {
         ))
 
     for (let i=0; i < Object.values(answerVotings).length; i++){
+        let currKey = Object.keys(answerVotings)[i];
         let currAnswer = Object.values(answerVotings)[i];
         let counter = 0;
         let value = 0;
@@ -52,8 +72,10 @@ router.get('/questions/:id(\\d+)', asyncHandler(async(req, res) => {
             }
             counter++;
         }
-    voteStatus[currAnswer[0].answerId] = {counter, value}
+
+        voteStatus[currKey] = {counter, value}
     }
+    console.log(questionUser.dataValues)
 
 
     res.render('question', {
@@ -61,7 +83,8 @@ router.get('/questions/:id(\\d+)', asyncHandler(async(req, res) => {
         question,
         answers,
         userId,
-        voteStatus
+        voteStatus,
+        questionUser: questionUser.dataValues
     })
 }));
 
