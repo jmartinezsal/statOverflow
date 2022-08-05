@@ -37,13 +37,22 @@ block content
                         img(src=answer.User.avatarImage)
                         p.username= answer.User.username
                     div.answer-voting
-                        i.fa.fa-arrow-up(aria-hidden='true')
+                        if voteStatus[answer.id]["type"]
+                            i.fa.fa-arrow-up.positive(aria-hidden='true' id=`upvote-${question.id}-${answer.id}`)
+                        else
+                            i.fa.fa-arrow-up(aria-hidden='true' id=`upvote-${question.id}-${answer.id}`)
                         if answer.id in voteStatus
                             if voteStatus[answer.id]["value"] > 0
-                                p.positive= voteStatus[answer.id]["value"]
+                                p.positive(id=`vote-${answer.id}`)= voteStatus[answer.id]["value"]
                             else
-                                p.negative= voteStatus[answer.id]["value"]
-                        i.fa.fa-arrow-down.negative(aria-hidden='true')
+                                p.negative(id=`vote-${answer.id}`)= voteStatus[answer.id]["value"]
+                        if !voteStatus[answer.id]["type"]
+                            i.fa.fa-arrow-down.negative(aria-hidden='true' id=`downvote-${question.id}-${answer.id}`)
+                        else
+                            i.fa.fa-arrow-down(aria-hidden='true' id=`downvote-${question.id}-${answer.id}`)
+                        div.totalVotes
+                            p # of votes:
+                            p(id=`totalVotes-${answer.id}`)= `${voteStatus[answer.id]["counter"]}`
                     div.answer(id=`${question.id}`)
                         form(class="hidden" id=`edit-form-${answer.id}` action=`/questions/${question.id}/answer/edit/${answer.id}` method="put")
                             textarea(class="text" name="answer" id=`answer-${answer.id}`)
@@ -66,4 +75,3 @@ block content
                             a(class="button addBtn" id=`${question.id}`) Accept
                             a(class="button" id="cancelBtn") Cancel
                     div(class="answerContainer" id=`${question.id}`)
-

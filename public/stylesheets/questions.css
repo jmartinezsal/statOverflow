@@ -209,7 +209,7 @@
     width: 100%;
     border-bottom: 1px solid #bfbfbf;
     margin: 40px 20px;
-    gap: 40px;
+    gap: 20px;
 }
 
 
@@ -227,7 +227,7 @@
 
 .answer-user img {
     border-radius: 10px;
-    width: 100px;
+    width: 50px;
 }
 
 .answer-voting {
@@ -247,6 +247,7 @@
  text-align: center;
  font-size: 12px;
  opacity: .7;
+ font-weight: 600;
 }
 
 

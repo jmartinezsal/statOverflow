@@ -2,63 +2,56 @@ const express = require('express');
 
 
 const router = express.Router();
-const {User, AnswerVoting}  = require("../db/models")
+const { AnswerVoting } = require("../db/models")
 const { asyncHandler, csrfProtection, checkPermissions, getPath } = require('./utils');
 const { requireAuth } = require('../auth');
 
+router.get("/answers/:id/votes", requireAuth, asyncHandler(async (req, res, next) => {
+const answerId = req.params.id;
+const userId = res.locals.currUser.id;
 
-//route to show all the votes for answers
-router.get("/questions/:id(\\d+)", asyncHandler(async (req,res, next) =>{
-  let userId;
-  let
-    if(res.locals.currUser){
-        userId = res.locals.currUser.id;
-    }
-
-    const answers = await AnswerVoting.findAll({
-      where: req.params.id
-    })
-
-  const voting = await AnswerVoting.findAll({
-    where:
-      {
-        answerId: req.params.id,
-    },
-    include: User
-  })
-  console.log(voting)
-  res.render('question',{ voting })
+let userVote = await AnswerVoting.findOne(
+  {
+  where: {
+    answerId,
+    userId: userId
+  }
+})
+res.json({userVote})
 }))
 
-router.post("/answer/:id(\\d+)/vote", requireAuth, asyncHandler(async(req, res, next) =>{
+router.post("/answer/:id/vote", requireAuth, asyncHandler(async (req, res, next) => {
+  const { upvote } = req.body;
 
-  const {upvote} = req.body;
-
-  const newVote = AnswerVoting.build({
+  const newVote = await AnswerVoting.build({
     userId: res.locals.currUser.id,
     answerId: req.params.id,
     upvote
   })
+  if (newVote) {
+    await newVote.save()
+  }
+  res.json({message:"Success"})
 }))
 
-router.put("/answer/:answerId(\\d+)/vote/:voteId", requireAuth, asyncHandler(async(req, res, next) =>{
+router.put("/answer/:answerId(\\d+)/vote/:voteId", requireAuth, asyncHandler(async (req, res, next) => {
 
-  const {upvote} = req.body;
+  const { upvote } = req.body;
+  console.log(req.body)
   const voteToUpdate = await AnswerVoting.findByPk(req.params.voteId)
 
-  if(voteToUpdate){
-    await voteToUpdate.update(upvote)
-    res.json({message: "Success", voteToUpdate})
+  if (voteToUpdate) {
+   voteToUpdate.upvote = upvote
+    await voteToUpdate.save()
+    res.json({ message: "Success", voteToUpdate })
   }
 }))
 
-router.delete("/answer/:answerId(\\d+)/vote/:voteId", requireAuth, asyncHandler(async(req, res, next) =>{
-  const {upvote} = req.body;
-  const voteToUpdate = await AnswerVoting.findByPk(req.params.voteId)
-  if (voteToUpdate.upvote == upvote){
-    await answer.destroy();
+router.delete("/answer/:answerId(\\d+)/vote/:voteId", requireAuth, asyncHandler(async (req, res, next) => {
+  const voteToDelete = await AnswerVoting.findByPk(req.params.voteId)
+    await voteToDelete.destroy();
     res.send(`The vote has been deleted`);
-  }
+
 }))
 
 module.exports = router;

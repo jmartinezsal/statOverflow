@@ -1,7 +1,6 @@
 const questionDeleteBtns = document.querySelectorAll('.question-delete-btn');
 questionDeleteBtns.forEach(deleteBtn =>{
   deleteBtn.addEventListener('click',async(event) =>{
-    console.log(questionDeleteBtns)
     const questionId = event.target.id.split('-')[2];
 
 
@@ -10,7 +9,6 @@ questionDeleteBtns.forEach(deleteBtn =>{
     })
 
     const data = await res.json();
-    console.log(data)
 
     if(data.message ==='Success'){
       const questionContainer = document.getElementById(`question-container-${questionId}`);
