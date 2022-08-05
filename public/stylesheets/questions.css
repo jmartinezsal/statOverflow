@@ -101,7 +101,7 @@
 }
 
 .question-container .question-user-card:hover {
-    animation-duration: 50s;
+    animation-duration: 5s;
     animation-name: cool-btn-effect;
     animation-iteration-count: infinite;
     animation-direction: alternate;
@@ -217,7 +217,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 150px;
+    min-width: 200px;
 }
 
 .answer-user p {
@@ -235,23 +235,26 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
+    width: 100px;
 }
-
 .answer-voting i {
     color: black;
     font-size: 2.0rem;
     cursor: pointer;
 }
 
-.answer-voting p {
-    font-size: 2.5rem;
+.answer-voting .totalVotes p {
+ text-align: center;
+ font-size: 12px;
+ opacity: .7;
 }
+
 
 .answer-voting .positive {
     color: green;
 }
 
-.answer-voting p .negative {
+.answer-voting .negative {
     color: red;
 }
 
