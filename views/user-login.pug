@@ -1,7 +1,7 @@
 extends layout.pug
 include utils.pug
 
-block append head 
+block append head
 block content
   script(src="/javascripts/index.js" type="module" defer)
 
@@ -10,7 +10,7 @@ block content
   form(class='login' method='post' action='/login' id="login")
       input(type="hidden" name="_csrf" value=csrfToken)
       label(for="username") Username:
-      input(type='text' name='username')
+      input(type='text' name='username' id='username')
       label(for="password") Password:
       input(type='password' id='password' name='password')
       div.button__container

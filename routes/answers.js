@@ -62,22 +62,26 @@ router.get('/questions/:id(\\d+)', asyncHandler(async(req, res) => {
         let currAnswer = Object.values(answerVotings)[i];
         let counter = 0;
         let value = 0;
+        let voted = false;
+        let type = null;
 
         for( let vote of currAnswer ){
             let currVote = vote.dataValues
             if( currVote.upvote){
                 value++;
+
             } else{
                 value--;
+            }
+            if(currVote.userId === userId){
+                voted= true
+                type= currVote.upvote
             }
             counter++;
         }
 
-        voteStatus[currKey] = {counter, value}
+        voteStatus[currKey] = {counter, value, voted, type, id: currKey}
     }
-    console.log(questionUser.dataValues)
-
-
     res.render('question', {
         title: `${question.header}`,
         question,
